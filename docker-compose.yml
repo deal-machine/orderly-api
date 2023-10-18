@@ -17,10 +17,10 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
       PGDATA: /data/postgres
-    env_file:
-      - .env.production
     volumes:
       - postgres:/data/postgres
+    networks:
+      - orderly-net
     restart: unless-stopped
 
   api:
@@ -30,15 +30,19 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/api
+    networks:
+      - orderly-net
     depends_on:
       - redis
       - postgres
-    env_file:
-      - .env.production
     restart: always
     links:
       - postgres
       - redis
+
+networks:
+  orderly-net:
+    driver: bridge
 
 volumes:
   postgres:

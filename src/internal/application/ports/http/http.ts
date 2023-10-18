@@ -1,0 +1,19 @@
+export interface IHttpRequest {
+  body?: any;
+  params?: any;
+  headers?: any;
+  query?: any;
+}
+
+export interface IHttpResponse {
+  status: number;
+  body: Object;
+}
+
+export interface IHttp {
+  post(request: IHttpRequest): Promise<IHttpResponse>;
+  get(request: IHttpRequest): Promise<IHttpResponse>;
+  put(request: IHttpRequest): Promise<IHttpResponse>;
+  patch(request: IHttpRequest): Promise<IHttpResponse>;
+  delete(request: IHttpRequest): Promise<IHttpResponse>;
+}

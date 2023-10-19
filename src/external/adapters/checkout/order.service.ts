@@ -25,7 +25,6 @@ export class OrdersService {
   async create(createOrderDto: CreateOrderDto) {
     const products = createOrderDto.products;
 
-    // se criar order ele decrementa quantidade de produto
     const orderItems = products.map((product) => {
       return new OrderItem({
         id: this.idGenerator.generate(),
@@ -48,6 +47,7 @@ export class OrdersService {
   async prepare(orderId: string) {
     const order = await this.orderRepository.findOne(orderId);
     if (!order) throw new NotFoundException('order not found');
+
     if (order.status !== 'Recebido')
       throw new DomainException('order status is invalid');
 
@@ -56,19 +56,20 @@ export class OrdersService {
       new ChangedOrderStatusEvent({ orderId, status: 'Em preparação' }),
     );
 
+    console.log('Preparing...');
     setTimeout(() => {
-      console.log('Preparing...');
-    }, 60000);
-
-    this.eventEmitter.emit(
-      'order-status.changed',
-      new ChangedOrderStatusEvent({ orderId, status: 'Pronto' }),
-    );
+      this.eventEmitter.emit(
+        'order-status.changed',
+        new ChangedOrderStatusEvent({ orderId, status: 'Pronto' }),
+      );
+      console.log('Finished.');
+    }, 20000);
   }
 
   async withdrawn(orderId: string) {
     const order = await this.orderRepository.findOne(orderId);
     if (!order) throw new NotFoundException('order not found');
+
     if (order.status !== 'Pronto')
       throw new DomainException('order status is invalid');
 

@@ -4,7 +4,7 @@ import { Job } from 'bull';
 import { CreatedOrderEvent } from 'src/internal/domain/checkout/events/order-created.event';
 import { IOrderRepository } from 'src/internal/domain/checkout/repositories/order.repository';
 
-@Processor()
+@Processor('orders')
 export class OrderConsumer {
   constructor(
     @Inject('OrderRepository')

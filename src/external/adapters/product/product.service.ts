@@ -2,17 +2,31 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UpdateProductDto } from 'src/internal/domain/product/dto/update-product.dto';
 import { CreateProductDto } from 'src/internal/domain/product/dto/create-product.dto';
 import { IProductRepository } from 'src/internal/domain/product/repositories/product.repository';
+import { Product } from 'src/internal/domain/product/entities/product.entity';
+import { IIdentifierGenerator } from 'src/internal/application/ports/tokens/id-generator';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @Inject('ProductRepository')
     private productRepository: IProductRepository,
+
+    @Inject('IdGenerator')
+    private idGenerator: IIdentifierGenerator,
   ) {}
 
   async create(createProductDto: CreateProductDto) {
     // se um produto já existe ele adiciona quantidade
-    return this.productRepository.create(createProductDto);
+    const product = new Product({
+      id: this.idGenerator.generate(),
+      name: createProductDto.name,
+      category: createProductDto.category,
+      description: createProductDto.description,
+      price: createProductDto.price,
+      quantity: createProductDto.quantity,
+    });
+    await this.productRepository.create(product);
+    return product;
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {

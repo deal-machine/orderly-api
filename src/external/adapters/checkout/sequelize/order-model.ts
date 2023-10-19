@@ -14,6 +14,7 @@ interface IOrderModel {
   id: string;
   total: number;
   customerId: string;
+  status: string;
   orderItems: OrderItemModel[];
 }
 
@@ -44,6 +45,13 @@ class OrderModel extends Model implements IOrderModel {
 
   @HasMany(() => OrderItemModel)
   declare orderItems: OrderItemModel[];
+
+  @Column({
+    field: 'status',
+    allowNull: false,
+    type: DataType.STRING,
+  })
+  declare status: string;
 
   @Column({
     field: 'total',

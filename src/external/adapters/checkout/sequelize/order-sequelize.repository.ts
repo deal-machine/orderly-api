@@ -4,6 +4,7 @@ import { OrderModel } from './order-model';
 import { Order } from 'src/internal/domain/checkout/entities/order.entity';
 import { OrderItem } from 'src/internal/domain/checkout/entities/order-item.entity';
 import { InjectModel } from '@nestjs/sequelize';
+import { orderStatusDto } from 'src/internal/domain/checkout/dto/order-status.dto';
 
 export class OrderSequelizeRepository implements IOrderRepository {
   constructor(
@@ -22,7 +23,7 @@ export class OrderSequelizeRepository implements IOrderRepository {
       include: [
         {
           model: OrderItemModel,
-          as: 'items',
+          as: 'orderItems',
         },
       ],
     });
@@ -38,19 +39,28 @@ export class OrderSequelizeRepository implements IOrderRepository {
       });
     });
 
-    return new Order({
+    const order = new Order({
       id: orderModel.id,
       customerId: orderModel.customerId,
       orderItems,
     });
+    order.updateStatus(orderModel.status as orderStatusDto);
+
+    return order;
   }
 
-  async findAll(): Promise<Order[]> {
+  async findAll(
+    customerIdQuery?: string,
+    statusQuery?: string,
+  ): Promise<Order[]> {
+    const customerId = customerIdQuery ? { customerId: customerIdQuery } : {};
+    const status = statusQuery ? { status: statusQuery } : {};
     const orderModels = await this.orderM.findAll({
+      where: { ...customerId, ...status },
       include: [
         {
           model: OrderItemModel,
-          as: 'items',
+          as: 'orderItems',
         },
       ],
     });
@@ -66,11 +76,13 @@ export class OrderSequelizeRepository implements IOrderRepository {
           quantity: item.quantity,
         });
       });
-      return new Order({
+      const order = new Order({
         id: om.id,
         customerId: om.customerId,
         orderItems,
       });
+      order.updateStatus(om.status as orderStatusDto);
+      return order;
     });
   }
 
@@ -79,6 +91,7 @@ export class OrderSequelizeRepository implements IOrderRepository {
       id: entity.id,
       customerId: entity.customerId,
       total: entity.total,
+      status: entity.status,
     });
 
     await Promise.all(

@@ -31,13 +31,22 @@ export class CustomersService {
       return customer;
     }
 
-    await this.customerRepository.update(customerExists.id, {
-      name: createCustomerDto.name,
-      cpf: createCustomerDto.cpf,
-      email: createCustomerDto.email,
-    });
+    const emailExists = customerExists.email
+      ? { email: createCustomerDto.email }
+      : null;
+    const cpfExists = customerExists.cpf
+      ? { cpf: createCustomerDto.cpf }
+      : null;
 
-    return customerExists;
+    const customerUpdated = new Customer({
+      id: customerExists.id,
+      name: createCustomerDto.name,
+      ...emailExists,
+      ...cpfExists,
+    });
+    await this.customerRepository.update(customerExists.id, customerUpdated);
+
+    return customerUpdated;
   }
 
   async findById(id: string) {

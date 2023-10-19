@@ -24,7 +24,7 @@ export class OrderController {
   @Get()
   getOrders(
     @Query('customerId') customerId?: string,
-    @Query('customerId') status?: string,
+    @Query('status') status?: string,
   ) {
     return this.ordersService.findAll(customerId, status);
   }

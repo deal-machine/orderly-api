@@ -1,14 +1,16 @@
 import { env } from 'src/internal/application/configs/env';
 
 const conn = {
-  dialect: env.dbDialect,
+  dialect: 'postgres',
   host: env.dbHost,
   database: env.dbName,
   username: env.dbUser,
   password: env.dbPassword,
   port: env.dbPort,
   logging: false,
-  models: [`${__dirname}/models`],
+  sync: { force: true },
+  autoLoadModels: true,
+  // models: [`${__dirname}/models`],
 };
 
 const connTest = {

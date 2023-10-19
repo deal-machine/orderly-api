@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { ICustomerRepository } from 'src/internal/domain/customers/repositories/customer.repository';
 import { CustomerModel } from './customer.model';
 import { Customer } from 'src/internal/domain/customers/entities/customer.entity';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class CustomerSequelizeRepository implements ICustomerRepository {
@@ -24,10 +25,12 @@ export class CustomerSequelizeRepository implements ICustomerRepository {
   }
 
   async findOneByCpfOrEmail(
-    cpf?: string,
-    email?: string,
+    cpf = null,
+    email = null,
   ): Promise<Customer | null> {
-    const customerModel = await this.model.findOne({ where: { cpf, email } });
+    const customerModel = await this.model.findOne({
+      where: { [Op.or]: [{ cpf }, { email }] },
+    });
     if (!customerModel) return null;
 
     return new Customer({
@@ -79,8 +82,8 @@ export class CustomerSequelizeRepository implements ICustomerRepository {
 
   async update(
     id: string,
-    { cpf, email, name }: Partial<Customer>,
+    customerToUpdate: Omit<Customer, 'id'>,
   ): Promise<void> {
-    await this.model.update({ cpf, email, name }, { where: { id } });
+    await this.model.update(customerToUpdate, { where: { id } });
   }
 }

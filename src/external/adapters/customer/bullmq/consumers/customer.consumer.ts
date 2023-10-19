@@ -4,7 +4,7 @@ import { Job } from 'bull';
 import { CustomerCreatedEvent } from '../../../../../internal/domain/customers/events/customer-created.event';
 import { IHttp } from 'src/internal/application/ports/http/http';
 
-@Processor()
+@Processor('customers')
 export class CustomerConsumer {
   constructor(
     @Inject('CustomerHttp')

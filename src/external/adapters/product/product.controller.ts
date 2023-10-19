@@ -30,7 +30,7 @@ export class ProductController {
     return this.productsService.delete(id);
   }
 
-  @Get()
+  @Get('category/:category')
   findByCategory(@Param('category') category: string) {
     return this.productsService.findByCategory(category);
   }

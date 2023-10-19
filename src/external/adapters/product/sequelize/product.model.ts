@@ -50,7 +50,7 @@ export class ProductModel extends Model implements IProductModel {
 
   @Column({
     field: 'quantity',
-    type: DataType.NUMBER,
+    type: DataType.INTEGER,
     allowNull: false,
     unique: false,
   })

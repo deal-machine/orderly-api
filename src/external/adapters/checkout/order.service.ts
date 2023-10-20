@@ -18,7 +18,7 @@ export class OrdersService {
     @Inject('EventEmitter')
     private eventEmitter: EventEmitter,
 
-    @Inject('IdentifierGenerator')
+    @Inject('IdGenerator')
     private idGenerator: IIdentifierGenerator,
   ) {}
 
@@ -30,7 +30,7 @@ export class OrdersService {
         id: this.idGenerator.generate(),
         productId: product.id,
         quantity: product.quantity,
-        value: product.value,
+        value: product.price,
       });
     });
     const order = new Order({

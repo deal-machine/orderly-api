@@ -48,8 +48,4 @@ export class CustomersService {
 
     return customerUpdated;
   }
-
-  async findById(id: string) {
-    return this.customerRepository.findOne(id);
-  }
 }

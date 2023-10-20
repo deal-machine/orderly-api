@@ -1,3 +1,3 @@
 import { IProduct } from '../entities/product.entity';
 
-export interface UpdateProductDto extends Partial<IProduct> {}
+export interface UpdateProductDto extends Omit<IProduct, 'id' | 'quantity'> {}

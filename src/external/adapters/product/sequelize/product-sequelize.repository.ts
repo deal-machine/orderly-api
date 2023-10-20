@@ -29,7 +29,7 @@ export class ProductSequelizeRepository implements IProductRepository {
         category: pm.category,
         description: pm.description,
         name: pm.name,
-        price: pm.price,
+        price: Number(pm.price),
         quantity: pm.quantity,
       });
     });

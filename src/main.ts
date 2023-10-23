@@ -6,11 +6,3 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
-
-/**
- * concluir rotas + testar
- * postman
- * swagger
- * validação de produtos - opção = criar status em orderItem como 'cancelado', 'incluido'
- *
- */

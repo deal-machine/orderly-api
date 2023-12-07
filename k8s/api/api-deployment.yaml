@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api-container
+        image: dealmachine/hexagonal-architecture-api:3
+        workingDir: /api
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        envFrom:
+          - configMapRef:
+              name: api-configmap
+        livenessProbe:
+          httpGet:
+            path: /orders
+            port: 3000
+          periodSeconds: 10
+          failureThreshold: 3
+          initialDelaySeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /orders
+            port: 3000
+          periodSeconds: 10
+          failureThreshold: 5
+          initialDelaySeconds: 3
+        startupProbe:
+          httpGet:
+            path: /orders
+            port: 3000
+          periodSeconds: 30
+          failureThreshold: 5
+          initialDelaySeconds: 120

@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
       - name: api-container
-        image: dealmachine/hexagonal-architecture-api:3
+        image: dealmachine/hexagonal-architecture-api:4
         workingDir: /api
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "500Mi"
+            cpu: 1
         ports:
         - containerPort: 3000
         envFrom:
@@ -30,19 +30,16 @@ spec:
             path: /orders
             port: 3000
           periodSeconds: 10
-          failureThreshold: 3
           initialDelaySeconds: 20
         readinessProbe:
           httpGet:
             path: /orders
             port: 3000
           periodSeconds: 10
-          failureThreshold: 5
-          initialDelaySeconds: 3
+          initialDelaySeconds: 10
         startupProbe:
           httpGet:
             path: /orders
             port: 3000
           periodSeconds: 30
-          failureThreshold: 5
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60

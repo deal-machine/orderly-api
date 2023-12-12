@@ -23,23 +23,24 @@ spec:
         ports:
         - containerPort: 3000
         envFrom:
-          - configMapRef:
-              name: api-configmap
-        livenessProbe:
-          httpGet:
-            path: /orders
-            port: 3000
-          periodSeconds: 10
-          initialDelaySeconds: 20
-        readinessProbe:
-          httpGet:
-            path: /orders
-            port: 3000
-          periodSeconds: 10
-          initialDelaySeconds: 10
+        - configMapRef:
+            name: api-configmap
         startupProbe:
           httpGet:
             path: /orders
             port: 3000
-          periodSeconds: 30
-          initialDelaySeconds: 60
+          periodSeconds: 5
+          failureThreshold: 30
+        readinessProbe:
+          httpGet:
+            path: /orders
+            port: 3000
+          periodSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /orders
+            port: 3000
+          periodSeconds: 10 # perido de tempo para cada requisição
+          timeoutSeconds: 3 # tempo de espera por requisição
+          failureThreshold: 3 # quantidade de falhas para reiniciar

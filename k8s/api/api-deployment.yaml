@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
+  namespace: orderly
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: api
@@ -17,9 +18,12 @@ spec:
         image: dealmachine/hexagonal-architecture-api:4
         workingDir: /api
         resources:
-          limits:
+          requests: # requisita recursos
+            memory: '500Mi'
+            cpu: '1'
+          limits: # limita a utilização dos recursos
             memory: "500Mi"
-            cpu: 1
+            cpu: "1"
         ports:
         - containerPort: 3000
         envFrom:

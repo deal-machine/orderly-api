@@ -2,14 +2,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: api-configmap
+  namespace: orderly
 data:
   PORT: '3000'
   NODE_ENV: 'production'
-  DB_HOST: db-service
+  DB_HOST: db-service # defined from internal kubernetes DNS
   DB_USERNAME: postgres
   DB_PORT: '5432'
   DB_PASSWORD: postgres
   DB_NAME: postgres
   DB_DIALECT: postgres
-  CACHE_HOST: cache-service
+  CACHE_HOST: cache-service # defined from internal kubernetes DNS
   CACHE_PORT: '6379'

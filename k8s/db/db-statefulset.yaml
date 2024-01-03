@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: db-statefulset
+  namespace: orderly
 spec:
   replicas: 1
   selector:
@@ -16,10 +17,6 @@ spec:
       containers:
       - name: db-container
         image: postgres:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 5432
         envFrom:
@@ -27,12 +24,14 @@ spec:
             name: db-configmap
         volumeMounts:
         - name: postgres
-          mountPath: /data/postgres
+          mountPath: /data/postgresql
+          subPath: orderly
         startupProbe:
           tcpSocket:
             port: 5432
           periodSeconds: 5
-          failureThreshold: 30
+          failureThreshold: 10
+          initialDelaySeconds: 10
         readinessProbe:
           tcpSocket:
             port: 5432

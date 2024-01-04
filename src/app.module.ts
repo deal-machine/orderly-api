@@ -6,6 +6,7 @@ import { CustomerModule } from './external/adapters/customer/customer.module';
 import { ProductModule } from './external/adapters/product/product.module';
 import { ConfigModule } from '@nestjs/config';
 import { OrderModule } from './external/adapters/checkout/order.module';
+import { PaymentModule } from './external/adapters/payment/payment.module';
 import database from './external/infra/database';
 import queue from './external/infra/queue';
 @Module({
@@ -13,6 +14,7 @@ import queue from './external/infra/queue';
     OrderModule,
     CustomerModule,
     ProductModule,
+    PaymentModule,
     queue,
     database,
     tokenGenerator,

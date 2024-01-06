@@ -8,6 +8,7 @@ import { Order } from 'src/internal/domain/checkout/entities/order.entity';
 import { CreatedOrderEvent } from 'src/internal/domain/checkout/events/order-created.event';
 import { ChangedOrderStatusEvent } from 'src/internal/domain/checkout/events/order-status-changed.event';
 import { IOrderRepository } from 'src/internal/domain/checkout/repositories/order.repository';
+import { IPayment } from 'src/internal/domain/payment/entities/payment.entity';
 
 @Injectable()
 export class OrdersService {
@@ -44,11 +45,39 @@ export class OrdersService {
     return order;
   }
 
+  async pay(payment: IPayment) {
+    const order = await this.orderRepository.findOne(payment.orderId);
+    if (!order) throw new NotFoundException('order not found');
+
+    if (order.status !== 'Recebido')
+      throw new DomainException('order status is invalid');
+
+    if (payment.status !== 'Pendente')
+      throw new DomainException('payment must be done');
+
+    this.eventEmitter.emit(
+      'order-status.changed',
+      new ChangedOrderStatusEvent({
+        orderId: order.id,
+        status: 'Pendente de pagamento',
+      }),
+    );
+
+    console.log('Paying...');
+    setTimeout(() => {
+      this.eventEmitter.emit(
+        'order-status.changed',
+        new ChangedOrderStatusEvent({ orderId: order.id, status: 'Pago' }),
+      );
+      console.log('Paid.');
+    }, 20000);
+  }
+
   async prepare(orderId: string) {
     const order = await this.orderRepository.findOne(orderId);
     if (!order) throw new NotFoundException('order not found');
 
-    if (order.status !== 'Recebido')
+    if (order.status !== 'Pago')
       throw new DomainException('order status is invalid');
 
     this.eventEmitter.emit(

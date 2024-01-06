@@ -31,7 +31,7 @@ export class Payment implements IPayment {
     this.orderId = payment.orderId;
     this.value = Number(payment.value);
     this.status = 'Criado';
-    this.paymentType = 'PIX';
+    this.paymentType = 'pix';
   }
 
   private validate(payment: IConstructorDto) {

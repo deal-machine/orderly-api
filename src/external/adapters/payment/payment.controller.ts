@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Param } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 
-@Controller('payment')
+@Controller('payments')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
@@ -10,8 +10,8 @@ export class PaymentController {
     return this.paymentService.make(id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.paymentService.findOne(id);
+  @Get(':orderId')
+  findOne(@Param('orderId') orderId: string) {
+    return this.paymentService.findOneByOrderId(orderId);
   }
 }

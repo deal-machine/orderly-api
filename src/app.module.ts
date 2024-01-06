@@ -8,14 +8,14 @@ import { ConfigModule } from '@nestjs/config';
 import { OrderModule } from './external/adapters/checkout/order.module';
 import { PaymentModule } from './external/adapters/payment/payment.module';
 import database from './external/infra/database';
-import queue from './external/infra/queue';
+import QueueModule from './external/infra/queue';
 @Module({
   imports: [
     OrderModule,
     CustomerModule,
     ProductModule,
     PaymentModule,
-    queue,
+    QueueModule,
     database,
     tokenGenerator,
     EventEmitterModule.forRoot(),

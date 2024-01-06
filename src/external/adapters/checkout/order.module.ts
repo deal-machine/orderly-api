@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { BullModule } from '@nestjs/bull';
 import { OrderController } from './order.controller';
 import { OrdersService } from './order.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -14,14 +13,13 @@ import { OrderModel } from './sequelize/order-model';
 import { ProductsService } from '../product/product.service';
 import { ProductSequelizeRepository } from '../product/sequelize/product-sequelize.repository';
 import { ProductModel } from '../product/sequelize/product.model';
+import { OrderConsumePayment } from './bullmq/consumers/payment.consumer';
+import QueueModule from 'src/external/infra/queue';
 
 @Module({
   imports: [
     SequelizeModule.forFeature([OrderModel, OrderItemModel, ProductModel]),
-    BullModule.registerQueue({
-      name: 'orders',
-      defaultJobOptions: { attempts: 2 },
-    }),
+    QueueModule,
   ],
   controllers: [OrderController],
   providers: [
@@ -34,6 +32,7 @@ import { ProductModel } from '../product/sequelize/product.model';
     PublishOrderRequestListener,
     ChangeOrderStatusListener,
     OrderConsumer,
+    OrderConsumePayment,
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
     Uuid,
     { provide: 'IdGenerator', useExisting: Uuid },

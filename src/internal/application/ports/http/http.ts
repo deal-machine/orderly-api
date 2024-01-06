@@ -1,4 +1,5 @@
 export interface IHttpRequest {
+  url?: string;
   body?: any;
   params?: any;
   headers?: any;
@@ -7,7 +8,7 @@ export interface IHttpRequest {
 
 export interface IHttpResponse {
   status: number;
-  body: Object;
+  body: any;
 }
 
 export interface IHttp {

@@ -1,5 +1,11 @@
-export interface IPaymentIntegration<T> {
-  init(): T;
-  payment(instance: T): any;
-  createRequest(params: any): Promise<any>;
+import { IPayment } from 'src/internal/domain/payment/entities/payment.entity';
+
+export interface IPaymentResult {
+  id: string;
+  status: string;
+  qrCode: string;
+}
+
+export interface IPaymentIntegration {
+  createPayment(payment: IPayment): Promise<IPaymentResult>;
 }

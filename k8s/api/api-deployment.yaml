@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: api-container
-        image: dealmachine/hexagonal-architecture-api:4
+        image: dealmachine/hexagonal-architecture-api:5
         workingDir: /api
         resources:
           requests: # requisita recursos

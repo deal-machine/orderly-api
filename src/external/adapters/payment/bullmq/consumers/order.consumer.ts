@@ -14,7 +14,8 @@ export class PaymentConsumeOrder {
 
       await this.paymentService.create(order);
     } catch (err: any) {
-      console.error('\n consumer error: ', err.message);
+      console.log(err);
+      console.error('\n PaymentConsumeOrder: ', err.message);
     }
   }
 }

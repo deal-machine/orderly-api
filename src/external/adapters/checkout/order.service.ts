@@ -63,6 +63,7 @@ export class OrdersService {
       }),
     );
 
+    // transferir esse bloco para webhook
     console.log('Paying...');
     setTimeout(() => {
       this.eventEmitter.emit(

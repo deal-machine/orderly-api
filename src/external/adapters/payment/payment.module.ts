@@ -32,33 +32,14 @@ import QueueModule from 'src/external/infra/queue';
 })
 export class PaymentModule {}
 
-/** modulo payment
-  criar acl de integrador de pagamentos
-  criar webhook
-  criar pagamento
-  + consumir fila criação de ordem 
-  - integração com mercado pago criando pagamento
-  - produzir mensagem na fila de pagamentos gerados
-  realizar pagamento
-  - realizar pagamento
-  - receber pagamento e confirmar com mercado pago
-  - obter dados do pagamento
-  obter dados do pagamento
-  - consumir fila de pagamentos confirmados 
-*/
-
-/** modulo checkout
-  consumir fila de dados de pagamento
-  verificar pagamento ao permitir preparação do pedido
- */
-
 /**
- * verificar alteração de status de payment
- * criar webhook
- * criar endpoint para obter payment by orderId
+  * criar webhook
+  - receber pagamento do mercado pago
+  - publicar dados do pagamento
+  - consumir fila de pagamentos confirmados (payment + order)
+  
  * alterar sistema de mensageria para rabbitMQ
  * investigar modo de realizar pagamento do qrcode
- * criar kubernetes para webhook + rabbitmq
+ * reajustar kubernetes
  * desenhar arquitetura de comunicações
- * criar env + configmap
  */

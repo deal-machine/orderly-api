@@ -52,7 +52,7 @@ export class OrdersService {
     if (order.status !== 'Recebido')
       throw new DomainException('order status is invalid');
 
-    if (payment.status !== 'Pendente')
+    if (payment.status !== 'Pendente de pagamento')
       throw new DomainException('payment must be done');
 
     this.eventEmitter.emit(

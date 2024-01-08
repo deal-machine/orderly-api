@@ -53,8 +53,6 @@ export class PaymentMercadoPago implements IPaymentIntegration {
       status: body?.status,
       qrCode: body?.point_of_interaction?.transaction_data?.qr_code,
     };
-    // atualizar pagamento https://api.mercadopago.com/v1/payments/{id} para aprovado
-    // atualizar pagamento https://api.mercadopago.com/v1/payments/{id} para cancelado
   }
 
   private async refreshToken(): Promise<IRefreshToken> {

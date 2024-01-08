@@ -10,6 +10,7 @@ import {
   NotFoundException,
 } from 'src/internal/application/errors';
 import { ChangedPaymentStatusEvent } from 'src/internal/domain/payment/events/payment-status-changed.event';
+import { ChangedOrderStatusEvent } from 'src/internal/domain/checkout/events/order-status-changed.event';
 
 @Injectable()
 export class PaymentService {
@@ -58,6 +59,13 @@ export class PaymentService {
       new ChangedPaymentStatusEvent({
         paymentId: payment.id,
         status: 'Aprovado',
+      }),
+    );
+    this.eventEmitter.emit(
+      'order-status.changed',
+      new ChangedOrderStatusEvent({
+        orderId,
+        status: 'Pago',
       }),
     );
     console.log('Paid.');

@@ -31,15 +31,3 @@ import QueueModule from 'src/external/infra/queue';
   ],
 })
 export class PaymentModule {}
-
-/**
-  * criar webhook
-  - receber pagamento do mercado pago
-  - publicar dados do pagamento
-  - consumir fila de pagamentos confirmados (payment + order)
-  
- * alterar sistema de mensageria para rabbitMQ
- * investigar modo de realizar pagamento do qrcode
- * reajustar kubernetes
- * desenhar arquitetura de comunicações
- */

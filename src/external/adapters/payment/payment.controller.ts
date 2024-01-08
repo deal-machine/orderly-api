@@ -1,17 +1,22 @@
-import { Controller, Get, Post, Param } from '@nestjs/common';
+import { Controller, Get, Param, Patch } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 
 @Controller('payments')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
-  @Post(':id')
-  make(@Param('id') id: string) {
-    return this.paymentService.make(id);
+  @Patch('order/:id/approve')
+  approve(@Param('id') id: string) {
+    return this.paymentService.approveByOrderId(id);
   }
 
-  @Get(':orderId')
-  findOne(@Param('orderId') orderId: string) {
-    return this.paymentService.findOneByOrderId(orderId);
+  @Patch('order/:id/cancel')
+  cancel(@Param('id') id: string) {
+    return this.paymentService.cancelByOrderId(id);
+  }
+
+  @Get('order/:id')
+  findOne(@Param('id') id: string) {
+    return this.paymentService.findOneByOrderId(id);
   }
 }

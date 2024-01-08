@@ -62,16 +62,6 @@ export class OrdersService {
         status: 'Pendente de pagamento',
       }),
     );
-
-    // transferir esse bloco para webhook
-    console.log('Paying...');
-    setTimeout(() => {
-      this.eventEmitter.emit(
-        'order-status.changed',
-        new ChangedOrderStatusEvent({ orderId: order.id, status: 'Pago' }),
-      );
-      console.log('Paid.');
-    }, 20000);
   }
 
   async prepare(orderId: string) {

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Payment } from 'src/internal/domain/payment/entities/payment.entity';
 import { IPaymentRepository } from 'src/internal/domain/payment/repositories/payment.repository';
 import { PaymentModel } from './payment-model';
+import { paymentStatusDto } from 'src/internal/domain/payment/dto/payment-status.dto';
 
 @Injectable()
 export class PaymentSequelizeRepository implements IPaymentRepository {
@@ -10,6 +11,10 @@ export class PaymentSequelizeRepository implements IPaymentRepository {
     @InjectModel(PaymentModel)
     private paymentModel: typeof PaymentModel,
   ) {}
+
+  async changeStatus(paymentId: string, status: string): Promise<void> {
+    await this.paymentModel.update({ status }, { where: { id: paymentId } });
+  }
 
   async findOneByOrderId(orderId: string): Promise<Payment | null> {
     const payment = await this.paymentModel.findOne({ where: { orderId } });
@@ -20,8 +25,8 @@ export class PaymentSequelizeRepository implements IPaymentRepository {
       orderId: payment.orderId,
       value: payment.value,
     });
-    paymentEntity.updateQrCode(payment.qrCode);
-    paymentEntity.updateStatus(payment.status);
+    paymentEntity.setQrCode(payment.qrCode);
+    paymentEntity.changeStatus(payment.status as paymentStatusDto);
     return paymentEntity;
   }
 

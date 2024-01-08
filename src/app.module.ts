@@ -28,3 +28,31 @@ import QueueModule from './external/infra/queue';
   providers: [Jwt, { provide: 'TokenGenerator', useExisting: Jwt }],
 })
 export class AppModule {}
+
+/** 
+----------------API----------------
+  - (acompanhamento) obter status do pedido e o tempo de espera pelo orderId
+    - tempo de espera = (data atual - data criação) + tempo estimado
+  - (entrega) quando pedido estiver pronto deverá notificar o cliente
+  - (gerenciar clientes) criar relatorio para clientes
+  - (gerenciar produtos e categorias) criar categorias fixas (Lanche, Bebida, Acompanhamento, Sobremesa)
+  
+  - refatoração para clean architecture
+----------------INTEGRAÇÃO----------------
+  * criar webhook
+  - receber pagamento do mercado pago
+  - publicar dados do pagamento
+  - consumir fila de pagamentos confirmados (payment + order)
+  
+ * alterar sistema de mensageria para rabbitMQ
+ * investigar modo de realizar pagamento do qrcode
+----------------DOCUMENTAÇÃO----------------
+  * solução
+    - modulos, comunicações, infraestrutura(k8s), diagrama do banco
+  * api (swagger + postman)
+  * arquitetura (clean architecture)
+    - pastas, classes, entidades...
+
+  sugestão - (c4 model)
+  video apresentando solução
+*/

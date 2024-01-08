@@ -2,6 +2,7 @@ import {
   AttributeException,
   DomainException,
 } from 'src/internal/application/errors';
+import { paymentStatusDto } from '../dto/payment-status.dto';
 
 export interface IPayment {
   id: string;
@@ -20,7 +21,7 @@ export class Payment implements IPayment {
   orderId: string;
   value: number;
   paymentType: string;
-  status: string;
+  status: paymentStatusDto;
   qrCode: string;
 
   constructor(payment: IConstructorDto) {
@@ -46,11 +47,33 @@ export class Payment implements IPayment {
       throw new AttributeException('value must be a positive number.');
   }
 
-  updateStatus(status: string) {
-    this.status = status;
+  changeStatus(status: paymentStatusDto) {
+    if (status === 'Pendente de pagamento') this.pending();
+
+    if (status === 'Aprovado') this.approve();
+
+    if (status === 'Cancelado') this.cancel();
   }
 
-  updateQrCode(qrCode: string) {
+  private pending() {
+    if (this.status !== 'Criado')
+      throw new DomainException('payment was not created');
+    this.status = 'Pendente de pagamento';
+  }
+
+  private approve() {
+    if (this.status === 'Cancelado')
+      throw new DomainException('payment was cancelled');
+    this.status = 'Aprovado';
+  }
+
+  private cancel() {
+    if (this.status === 'Aprovado')
+      throw new DomainException('payment was approved');
+    this.status = 'Cancelado';
+  }
+
+  setQrCode(qrCode: string) {
     this.qrCode = qrCode;
   }
 }

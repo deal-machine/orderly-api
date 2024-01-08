@@ -1,5 +1,8 @@
 import { IPaymentIntegration } from 'src/internal/application/ports/integrations/payment';
-import { Payment } from 'src/internal/domain/payment/entities/payment.entity';
+import {
+  IPayment,
+  Payment,
+} from 'src/internal/domain/payment/entities/payment.entity';
 import { IHttp } from 'src/internal/application/ports/http/http';
 import { Inject, Injectable } from '@nestjs/common';
 import { env } from 'src/internal/application/configs/env';
@@ -26,6 +29,32 @@ export class PaymentMercadoPago implements IPaymentIntegration {
     this.clientSecret = env.paymentIntegrationClientSecret;
     this.grantType = env.paymentIntegrationGrantType;
     this.refreshTokenDefault = env.paymentIntegrationRefreshToken;
+  }
+
+  async updatePayment(payment: IPayment, status: string): Promise<any> {
+    const { accessToken } = await this.refreshToken();
+
+    const { body } = await this.httpClient.put({
+      url: `${this.baseUrl}/v1/payments/${payment.id}`,
+      body: {
+        transaction_amount: payment.value,
+        status,
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'X-Idempotency-Key': `12345`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return {
+      id: body?.id,
+      status: body?.status,
+      qrCode: body?.point_of_interaction?.transaction_data?.qr_code,
+    };
+    // atualizar pagamento https://api.mercadopago.com/v1/payments/{id} para aprovado
+    // atualizar pagamento https://api.mercadopago.com/v1/payments/{id} para cancelado
   }
 
   private async refreshToken(): Promise<IRefreshToken> {

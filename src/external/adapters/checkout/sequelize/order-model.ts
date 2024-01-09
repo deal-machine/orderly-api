@@ -20,7 +20,7 @@ interface IOrderModel {
 
 @Table({
   tableName: 'orders',
-  timestamps: false,
+  timestamps: true,
 })
 class OrderModel extends Model implements IOrderModel {
   @Column({

@@ -19,6 +19,7 @@ import { CustomersService } from '../customer/customer.service';
 import { CustomerSequelizeRepository } from '../customer/sequelize/customer-sequelize.repository';
 import { CustomerModel } from '../customer/sequelize/customer.model';
 import { CategoryModel } from '../product/sequelize/category.model';
+import { MomentDateAdapter } from 'src/external/infra/date/moment';
 
 @Module({
   imports: [
@@ -49,6 +50,8 @@ import { CategoryModel } from '../product/sequelize/category.model';
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
     Uuid,
     { provide: 'IdGenerator', useExisting: Uuid },
+    MomentDateAdapter,
+    { provide: 'DateAdapter', useExisting: MomentDateAdapter },
   ],
 })
 export class OrderModule {}

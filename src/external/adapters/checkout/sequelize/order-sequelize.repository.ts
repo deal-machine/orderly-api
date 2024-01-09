@@ -17,6 +17,13 @@ export class OrderSequelizeRepository implements IOrderRepository {
     private orderItemM: typeof OrderItemModel,
   ) {}
 
+  async getStatus(id: string): Promise<{ status: string }> {
+    const order = await this.orderM.findOne({ where: { id } });
+    return {
+      status: order.status,
+    };
+  }
+
   async getReportByCustomer(customerId: string): Promise<ITotalReport> {
     const purchases = await this.orderM.count({
       where: { customerId },
@@ -61,6 +68,7 @@ export class OrderSequelizeRepository implements IOrderRepository {
       orderItems,
     });
     order.updateStatus(orderModel.status as orderStatusDto);
+    order.setUpdatedAt(orderModel.updatedAt);
 
     return order;
   }
@@ -98,6 +106,8 @@ export class OrderSequelizeRepository implements IOrderRepository {
         orderItems,
       });
       order.updateStatus(om.status as orderStatusDto);
+      order.setUpdatedAt(om.updatedAt);
+
       return order;
     });
   }

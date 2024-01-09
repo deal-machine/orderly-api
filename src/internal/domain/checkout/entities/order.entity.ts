@@ -11,8 +11,13 @@ export interface IOrder {
   total: number;
   status: orderStatusDto;
   orderItems: Array<IOrderItem>;
+  createdAt: Date;
+  updatedAt: Date;
 }
-type IConstructorDto = Omit<IOrder, 'total' | 'status'>;
+type IConstructorDto = Omit<
+  IOrder,
+  'total' | 'status' | 'createdAt' | 'updatedAt'
+>;
 
 export class Order implements IOrder {
   id: string;
@@ -20,6 +25,8 @@ export class Order implements IOrder {
   total: number;
   status: orderStatusDto;
   orderItems: Array<IOrderItem>;
+  createdAt: Date;
+  updatedAt: Date;
 
   constructor(order: IConstructorDto) {
     this.validate(order);
@@ -29,6 +36,8 @@ export class Order implements IOrder {
     this.orderItems = order.orderItems;
     this.status = 'Recebido';
     this.total = this.sumTotal(this.orderItems);
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
   }
 
   private validate(order: IConstructorDto) {
@@ -45,6 +54,11 @@ export class Order implements IOrder {
   }
 
   updateStatus(status: orderStatusDto) {
+    this.updatedAt = new Date();
     this.status = status;
+  }
+
+  setUpdatedAt(date: Date) {
+    this.updatedAt = date;
   }
 }

@@ -53,6 +53,15 @@ export class OrderController {
     }
   }
 
+  @Get(':id/status')
+  getStatus(@Param('id') id: string) {
+    try {
+      return this.ordersService.getStatus(id);
+    } catch (err: any) {
+      responseError(err);
+    }
+  }
+
   @Get('customer/:id')
   async getCustomerReport(@Param('id') id: string) {
     try {

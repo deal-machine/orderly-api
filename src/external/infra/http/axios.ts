@@ -8,11 +8,6 @@ import {
 
 @Injectable()
 export class AxiosHttp implements IHttp {
-  // private readonly axios: Axios;
-  // constructor() {
-  //   this.axios = new Axios({ timeout: 5000 });
-  // }
-
   async post(request: IHttpRequest): Promise<IHttpResponse> {
     const response = await axios({
       method: 'post',

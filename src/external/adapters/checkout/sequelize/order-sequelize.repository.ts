@@ -1,4 +1,7 @@
-import { IOrderRepository } from 'src/internal/domain/checkout/repositories/order.repository';
+import {
+  IOrderRepository,
+  ITotalReport,
+} from 'src/internal/domain/checkout/repositories/order.repository';
 import { OrderItemModel } from './order-item-model';
 import { OrderModel } from './order-model';
 import { Order } from 'src/internal/domain/checkout/entities/order.entity';
@@ -13,6 +16,19 @@ export class OrderSequelizeRepository implements IOrderRepository {
     @InjectModel(OrderItemModel)
     private orderItemM: typeof OrderItemModel,
   ) {}
+
+  async getReportByCustomer(customerId: string): Promise<ITotalReport> {
+    const purchases = await this.orderM.count({
+      where: { customerId },
+      col: 'id',
+    });
+    const total = await this.orderM.sum('total', { where: { customerId } });
+
+    return {
+      purchases: purchases ?? 0,
+      value: total ?? 0,
+    };
+  }
 
   async changeStatus(orderId: string, status: string): Promise<void> {
     await this.orderM.update({ status }, { where: { id: orderId } });

@@ -34,7 +34,7 @@ import { Uuid } from 'src/external/infra/tokens/uuid/uuid';
     PublishCustomerListener,
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
     Uuid,
-    { provide: 'IdentifierGenerator', useExisting: Uuid },
+    { provide: 'IdGenerator', useExisting: Uuid },
   ],
 })
 export class CustomerModule {}

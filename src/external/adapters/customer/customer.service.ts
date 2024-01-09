@@ -3,6 +3,7 @@ import { ICustomerRepository } from 'src/internal/domain/customers/repositories/
 import { CreateCustomerDto } from 'src/internal/domain/customers/dto/create-customer.dto';
 import { Customer } from 'src/internal/domain/customers/entities/customer.entity';
 import { IIdentifierGenerator } from 'src/internal/application/ports/tokens/id-generator';
+import { NotFoundException } from 'src/internal/application/errors';
 
 @Injectable()
 export class CustomersService {
@@ -10,7 +11,7 @@ export class CustomersService {
     @Inject('CustomerRepository')
     private customerRepository: ICustomerRepository,
 
-    @Inject('IdentifierGenerator')
+    @Inject('IdGenerator')
     private idGenerator: IIdentifierGenerator,
   ) {}
 
@@ -47,5 +48,11 @@ export class CustomersService {
     await this.customerRepository.update(customerExists.id, customerUpdated);
 
     return customerUpdated;
+  }
+
+  async findById(customerId: string) {
+    const customer = await this.customerRepository.findOne(customerId);
+    if (!customer) throw new NotFoundException('customer not found');
+    return customer;
   }
 }

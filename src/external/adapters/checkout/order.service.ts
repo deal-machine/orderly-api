@@ -82,7 +82,6 @@ export class OrdersService {
         'order-status.changed',
         new ChangedOrderStatusEvent({ orderId, status: 'Pronto' }),
       );
-      console.log('Finished.');
     }, 20000);
   }
 
@@ -101,5 +100,9 @@ export class OrdersService {
 
   async findAll(customerId?: string, status?: string) {
     return this.orderRepository.findAll(customerId, status);
+  }
+
+  async getCustomerReport(customerId: string) {
+    return await this.orderRepository.getReportByCustomer(customerId);
   }
 }

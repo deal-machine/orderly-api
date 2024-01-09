@@ -12,8 +12,12 @@ export interface IPayment {
   paymentType: string;
   status: string;
   qrCode: string;
+  url: string;
 }
-type IConstructorDto = Omit<IPayment, 'status' | 'qrCode' | 'paymentType'>;
+type IConstructorDto = Omit<
+  IPayment,
+  'status' | 'qrCode' | 'paymentType' | 'url'
+>;
 
 export class Payment implements IPayment {
   id: string;
@@ -23,6 +27,7 @@ export class Payment implements IPayment {
   paymentType: string;
   status: paymentStatusDto;
   qrCode: string;
+  url: string;
 
   constructor(payment: IConstructorDto) {
     this.validate(payment);
@@ -75,5 +80,9 @@ export class Payment implements IPayment {
 
   setQrCode(qrCode: string) {
     this.qrCode = qrCode;
+  }
+
+  setUrl(url: string) {
+    this.url = url;
   }
 }

@@ -11,6 +11,7 @@ import { PaymentModel } from './sequelize/payment-model';
 import { PaymentConsumeOrder } from './bullmq/consumers/order.consumer';
 import { AxiosHttp } from 'src/external/infra/http/axios';
 import QueueModule from 'src/external/infra/queue';
+import { ChangePaymentStatusListener } from './bullmq/listeners/change-payment-status.listener';
 
 @Module({
   imports: [SequelizeModule.forFeature([PaymentModel]), QueueModule],
@@ -27,6 +28,7 @@ import QueueModule from 'src/external/infra/queue';
     { provide: 'PaymentIntegration', useExisting: PaymentMercadoPago },
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
     PublishPaymentIntegrationListener,
+    ChangePaymentStatusListener,
     PaymentConsumeOrder,
   ],
 })

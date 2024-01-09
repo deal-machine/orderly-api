@@ -17,6 +17,7 @@ interface IPaymentModel {
   paymentType: string;
   status: string;
   qrCode: string;
+  url: string;
 }
 
 @Table({
@@ -82,6 +83,13 @@ class PaymentModel extends Model implements IPaymentModel {
     type: DataType.STRING,
   })
   declare qrCode: string;
+
+  @Column({
+    field: 'url',
+    allowNull: true,
+    type: DataType.STRING,
+  })
+  declare url: string;
 }
 
 export { PaymentModel };

@@ -26,6 +26,7 @@ export class PaymentSequelizeRepository implements IPaymentRepository {
       value: payment.value,
     });
     paymentEntity.setQrCode(payment.qrCode);
+    paymentEntity.setUrl(payment.url);
     paymentEntity.changeStatus(payment.status as paymentStatusDto);
     return paymentEntity;
   }
@@ -47,6 +48,7 @@ export class PaymentSequelizeRepository implements IPaymentRepository {
       paymentType: params.paymentType,
       status: params.status,
       qrCode: params.qrCode,
+      url: params.url,
     });
   }
   delete(id: string): Promise<void> {

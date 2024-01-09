@@ -33,19 +33,11 @@ export class AppModule {}
 ----------------API----------------
   - (acompanhamento) obter status do pedido e o tempo de espera pelo orderId
     - tempo de espera = (data atual - data criação) + tempo estimado
-  - (entrega) quando pedido estiver pronto deverá notificar o cliente
-  - (gerenciar clientes) criar relatorio para clientes
   - (gerenciar produtos e categorias) criar categorias fixas (Lanche, Bebida, Acompanhamento, Sobremesa)
+    - criar um seeder de categorias
+    - incrementar modulo junto com product
   
   - refatoração para clean architecture
-----------------INTEGRAÇÃO----------------
-  * criar webhook
-  - receber pagamento do mercado pago
-  - publicar dados do pagamento
-  - consumir fila de pagamentos confirmados (payment + order)
-  
- * alterar sistema de mensageria para rabbitMQ
- * investigar modo de realizar pagamento do qrcode
 ----------------DOCUMENTAÇÃO----------------
   * solução
     - modulos, comunicações, infraestrutura(k8s), diagrama do banco
@@ -55,4 +47,6 @@ export class AppModule {}
 
   sugestão - (c4 model)
   video apresentando solução
+----------------INTEGRAÇÃO----------------
+  criar payment module em orderly
 */

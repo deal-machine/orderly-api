@@ -24,10 +24,11 @@ export class PaymentService {
   ) {}
 
   async create(order: IOrder) {
-    const { id, qrCode, status } = await this.paymentIntegration.createPayment({
-      value: order.total,
-      paymentType: 'pix',
-    });
+    const { id, qrCode, status, url } =
+      await this.paymentIntegration.createPayment({
+        value: order.total,
+        paymentType: 'pix',
+      });
 
     const payment = new Payment({
       id: String(id),
@@ -36,9 +37,10 @@ export class PaymentService {
       value: order.total,
     });
     payment.setQrCode(qrCode);
+    payment.setUrl(url);
 
     if (status !== 'pending')
-      throw new DomainException('transaction was cancelled');
+      throw new DomainException('payment was cancelled');
 
     payment.changeStatus('Pendente de pagamento');
 
@@ -52,23 +54,26 @@ export class PaymentService {
     if (!payment) throw new NotFoundException('payment not found');
 
     console.log('Paying...');
-    await this.paymentIntegration.updatePayment(payment, 'approved');
+    // await this.paymentIntegration.updatePayment(payment, 'approved');
 
-    this.eventEmitter.emit(
-      'payment-status.changed',
-      new ChangedPaymentStatusEvent({
-        paymentId: payment.id,
-        status: 'Aprovado',
-      }),
-    );
-    this.eventEmitter.emit(
-      'order-status.changed',
-      new ChangedOrderStatusEvent({
-        orderId,
-        status: 'Pago',
-      }),
-    );
-    console.log('Paid.');
+    setTimeout(() => {
+      this.eventEmitter.emit(
+        'payment-status.changed',
+        new ChangedPaymentStatusEvent({
+          paymentId: payment.id,
+          status: 'Aprovado',
+        }),
+      );
+      this.eventEmitter.emit(
+        'order-status.changed',
+        new ChangedOrderStatusEvent({
+          orderId,
+          status: 'Pago',
+        }),
+      );
+
+      console.log('Paid.');
+    }, 20000);
   }
 
   async cancelByOrderId(orderId: string) {
@@ -76,15 +81,21 @@ export class PaymentService {
     if (!payment) throw new NotFoundException('payment not found');
 
     console.log('Canceling...');
-    await this.paymentIntegration.updatePayment(payment, 'cancelled');
-    this.eventEmitter.emit(
-      'payment-status.changed',
-      new ChangedPaymentStatusEvent({
-        paymentId: payment.id,
-        status: 'Cancelado',
-      }),
-    );
-    console.log('Cancelled.');
+
+    if (payment.status === 'Aprovado')
+      throw new DomainException('payment was approved');
+    // await this.paymentIntegration.updatePayment(payment, 'cancelled');
+
+    setTimeout(() => {
+      this.eventEmitter.emit(
+        'payment-status.changed',
+        new ChangedPaymentStatusEvent({
+          paymentId: payment.id,
+          status: 'Cancelado',
+        }),
+      );
+      console.log('Cancelled.');
+    }, 20000);
   }
 
   async findOneByOrderId(orderId: string) {

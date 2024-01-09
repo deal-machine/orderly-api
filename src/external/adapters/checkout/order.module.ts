@@ -15,18 +15,29 @@ import { ProductSequelizeRepository } from '../product/sequelize/product-sequeli
 import { ProductModel } from '../product/sequelize/product.model';
 import { OrderConsumePayment } from './bullmq/consumers/payment.consumer';
 import QueueModule from 'src/external/infra/queue';
+import { CustomersService } from '../customer/customer.service';
+import { CustomerSequelizeRepository } from '../customer/sequelize/customer-sequelize.repository';
+import { CustomerModel } from '../customer/sequelize/customer.model';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([OrderModel, OrderItemModel, ProductModel]),
+    SequelizeModule.forFeature([
+      OrderModel,
+      OrderItemModel,
+      ProductModel,
+      CustomerModel,
+    ]),
     QueueModule,
   ],
   controllers: [OrderController],
   providers: [
     OrdersService,
     ProductsService,
+    CustomersService,
     ProductSequelizeRepository,
+    CustomerSequelizeRepository,
     { provide: 'ProductRepository', useExisting: ProductSequelizeRepository },
+    { provide: 'CustomerRepository', useExisting: CustomerSequelizeRepository },
     OrderSequelizeRepository,
     { provide: 'OrderRepository', useExisting: OrderSequelizeRepository },
     PublishOrderRequestListener,

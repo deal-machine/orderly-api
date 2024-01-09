@@ -11,6 +11,7 @@ import {
 } from 'src/internal/application/errors';
 import { ChangedPaymentStatusEvent } from 'src/internal/domain/payment/events/payment-status-changed.event';
 import { ChangedOrderStatusEvent } from 'src/internal/domain/checkout/events/order-status-changed.event';
+import { IIdentifierGenerator } from 'src/internal/application/ports/tokens/id-generator';
 
 @Injectable()
 export class PaymentService {
@@ -21,27 +22,29 @@ export class PaymentService {
     private paymentIntegration: IPaymentIntegration,
     @Inject('EventEmitter')
     private eventEmitter: EventEmitter,
+    @Inject('IdGenerator')
+    private idGenerator: IIdentifierGenerator,
   ) {}
 
   async create(order: IOrder) {
-    const { id, qrCode, status, url } =
-      await this.paymentIntegration.createPayment({
-        value: order.total,
-        paymentType: 'pix',
-      });
-
     const payment = new Payment({
-      id: String(id),
+      id: this.idGenerator.generate(),
       customerId: order.customerId,
       orderId: order.id,
       value: order.total,
     });
-    payment.setQrCode(qrCode);
-    payment.setUrl(url);
 
+    const { qrCode, status, url } = await this.paymentIntegration.createPayment(
+      {
+        value: payment.value,
+        paymentType: 'pix',
+      },
+    );
     if (status !== 'pending')
       throw new DomainException('payment was cancelled');
 
+    payment.setQrCode(qrCode);
+    payment.setUrl(url);
     payment.changeStatus('Pendente de pagamento');
 
     await this.paymentRepository.create(payment);
@@ -91,6 +94,13 @@ export class PaymentService {
         'payment-status.changed',
         new ChangedPaymentStatusEvent({
           paymentId: payment.id,
+          status: 'Cancelado',
+        }),
+      );
+      this.eventEmitter.emit(
+        'order-status.changed',
+        new ChangedOrderStatusEvent({
+          orderId,
           status: 'Cancelado',
         }),
       );

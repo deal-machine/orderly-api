@@ -31,9 +31,6 @@ export class AppModule {}
 
 /** 
 ----------------API----------------
-  - (acompanhamento) obter status do pedido e o tempo de espera pelo orderId
-    - tempo de espera = (data atual - data criação) + tempo estimado
-  
   - refatoração para clean architecture
 ----------------DOCUMENTAÇÃO----------------
   * solução
@@ -44,6 +41,4 @@ export class AppModule {}
 
   sugestão - (c4 model)
   video apresentando solução
-----------------INTEGRAÇÃO----------------
-  criar payment module em orderly
 */

@@ -3,6 +3,7 @@ import { OrderItemModel } from 'src/external/adapters/checkout/sequelize/order-i
 import { OrderModel } from 'src/external/adapters/checkout/sequelize/order-model';
 import { CustomerModel } from 'src/external/adapters/customer/sequelize/customer.model';
 import { ProductModel } from 'src/external/adapters/product/sequelize/product.model';
+import { CategoryModel } from 'src/external/adapters/product/sequelize/category.model';
 import { connection } from './connections';
 
 export const sequelizeModels = [
@@ -10,6 +11,7 @@ export const sequelizeModels = [
   ProductModel,
   OrderModel,
   OrderItemModel,
+  CategoryModel,
 ];
 
 export const sequelizeModule = SequelizeModule.forRoot({

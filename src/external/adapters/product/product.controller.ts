@@ -43,10 +43,19 @@ export class ProductController {
     }
   }
 
-  @Get('category/:category')
-  findByCategory(@Param('category') category: string) {
+  @Get('category/:id')
+  findByCategory(@Param('id') id: number) {
     try {
-      return this.productsService.findByCategory(category);
+      return this.productsService.findByCategory(id);
+    } catch (err: any) {
+      responseError(err);
+    }
+  }
+
+  @Get('category/')
+  getCategories() {
+    try {
+      return this.productsService.getCategories();
     } catch (err: any) {
       responseError(err);
     }

@@ -18,6 +18,7 @@ import QueueModule from 'src/external/infra/queue';
 import { CustomersService } from '../customer/customer.service';
 import { CustomerSequelizeRepository } from '../customer/sequelize/customer-sequelize.repository';
 import { CustomerModel } from '../customer/sequelize/customer.model';
+import { CategoryModel } from '../product/sequelize/category.model';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CustomerModel } from '../customer/sequelize/customer.model';
       OrderItemModel,
       ProductModel,
       CustomerModel,
+      CategoryModel,
     ]),
     QueueModule,
   ],

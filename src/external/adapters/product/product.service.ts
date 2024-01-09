@@ -27,7 +27,7 @@ export class ProductsService {
     const product = new Product({
       id: this.idGenerator.generate(),
       name: createProductDto.name,
-      category: createProductDto.category,
+      categoryId: createProductDto.categoryId,
       description: createProductDto.description,
       price: createProductDto.price,
       quantity: createProductDto.quantity,
@@ -62,7 +62,11 @@ export class ProductsService {
     return this.productRepository.delete(id);
   }
 
-  async findByCategory(category: string) {
-    return this.productRepository.findByCategory(category);
+  async findByCategory(id: number) {
+    return this.productRepository.findByCategory(id);
+  }
+
+  async getCategories() {
+    return this.productRepository.getCategories();
   }
 }

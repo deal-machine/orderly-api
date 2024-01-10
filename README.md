@@ -60,8 +60,32 @@ $ kubectl apply -f k8s/api
 
 ## Use cases
 
+### - Legend
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/legend.jpg" width="1000" alt="Legend" style="border-radius:10px;" /></a>
+</p>
+
 ### - Create order
 
 <p align="center">
   <a target="blank"><img src="./docs/images/create-order-usecase.jpg" width="1000" alt="Create order Usecase" style="border-radius:10px;" /></a>
+</p>
+
+### - Pay order
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/pay-order- usecase.jpg" width="1000" alt="Pay order Usecase" style="border-radius:10px;" /></a>
+</p>
+
+### - Prepare order
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/prepare-order-usecase.jpg" width="1000" alt="Prepare order Usecase" style="border-radius:10px;" /></a>
+</p>
+
+### - Withdrawn order
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/withdrawn-order-usecase.jpg" width="1000" alt="Withdrawn order Usecase" style="border-radius:10px;" /></a>
 </p>

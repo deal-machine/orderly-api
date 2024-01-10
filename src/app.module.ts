@@ -34,8 +34,7 @@ export class AppModule {}
   - refatoração para clean architecture
 ----------------DOCUMENTAÇÃO----------------
   * solução
-    - modulos, comunicações, infraestrutura(k8s), diagrama do banco
-  * api (swagger + postman)
+    - modulos, comunicações
   * arquitetura (clean architecture)
     - pastas, classes, entidades...
 

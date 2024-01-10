@@ -8,6 +8,20 @@
 $ npm install
 ```
 
+
+## Running docker
+
+```bash
+# up with build
+$ docker compose up --build
+
+# up with detached mode 
+$ docker compose up -d
+
+# down the app
+$ docker compose down
+```
+
 ## Running kubernetes
 
 ```bash
@@ -27,15 +41,19 @@ $ kubectl apply -f k8s/db
 $ kubectl apply -f k8s/api
 ```
 
-## Running docker
+<p align="center">
+  <a target="blank"><img src="./docs/images/k8s-cloud.png" width="700" alt="Kubernetes diagram on google cloud platform" style="border-radius:10px;" /></a>
+</p>
 
-```bash
-# up with build
-$ docker compose up --build
 
-# up with detached mode 
-$ docker compose up -d
+## Entity Relationship Diagram - Database
 
-# down the app
-$ docker compose down
-```
+<p align="center">
+  <a target="blank"><img src="./docs/images/er-diagram.png" width="700" alt="Entity Relationship Diagram" style="border-radius:10px;" /></a>
+</p>
+
+## Domain Driven Design - Context Map
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/context-map.png" width="1000" alt="Entity Relationship Diagram" style="border-radius:10px;" /></a>
+</p>

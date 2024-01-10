@@ -55,5 +55,13 @@ $ kubectl apply -f k8s/api
 ## Domain Driven Design - Context Map
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/context-map.png" width="1000" alt="Entity Relationship Diagram" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/context-map.png" width="1000" alt="DDD Context Map" style="border-radius:10px;" /></a>
+</p>
+
+## Use cases
+
+### - Create order
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/create-order-usecase.jpg" width="1000" alt="Create order Usecase" style="border-radius:10px;" /></a>
 </p>

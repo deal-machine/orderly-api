@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
+import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { CreateProductDto } from 'src/domain/checkin/products/dto/create-product.dto';
 import {
   IProduct,

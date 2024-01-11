@@ -31,8 +31,6 @@ import QueueModule from '../../infrastructure/adapters/queue';
 export class AppModule {}
 
 /** 
-  (c4 model)
-  video apresentando solução
   webhook 
   https://webhook.site/#!/17bc7308-87bc-47e6-9074-a75344af88d1/4611a0ca-67d6-4749-9696-4bdd31b14bbd/1
 

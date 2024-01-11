@@ -6,20 +6,26 @@ import {
   Delete,
   Param,
   Get,
+  Inject,
 } from '@nestjs/common';
 import { ProductsService } from './product.service';
 import { CreateProductDto } from 'src/domain/checkin/product/dto/create-product.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
 import { UpdateProductDto } from 'src/domain/checkin/product/dto/update-product.dto';
+import { ICreateProductUseCase } from 'src/domain/checkin/product/usecases/create-product.usecase';
 
 @Controller('products')
 export class ProductController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    @Inject('CreateProductUseCase')
+    private readonly createProductUseCase: ICreateProductUseCase,
+  ) {}
 
   @Post()
   async create(@Body() createProductDto: CreateProductDto) {
     try {
-      return await this.productsService.create(createProductDto);
+      return await this.createProductUseCase.execute(createProductDto);
     } catch (err: any) {
       responseError(err);
     }

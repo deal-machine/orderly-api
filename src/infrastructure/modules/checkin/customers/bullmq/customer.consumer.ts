@@ -1,7 +1,7 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Inject } from '@nestjs/common';
 import { Job } from 'bull';
-import { IHttp } from 'src/data/ports/http/http';
+import { IHttp } from 'src/application/ports/http/http';
 import { CustomerCreatedEvent } from 'src/domain/checkin/customers/events/customer-created.event';
 
 @Processor('customers')

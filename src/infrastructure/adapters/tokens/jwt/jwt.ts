@@ -1,5 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
-import { ITokenGenerator } from 'src/data/ports/tokens/token-generator';
+import { ITokenGenerator } from 'src/application/ports/tokens/token-generator';
 
 export class Jwt implements ITokenGenerator {
   constructor(private jwtService: JwtService) {}

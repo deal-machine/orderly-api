@@ -1,8 +1,8 @@
 import EventEmitter from 'events';
 import { Inject, Injectable } from '@nestjs/common';
-import { IPaymentIntegration } from 'src/data/ports/integrations/payment';
-import { DomainException, NotFoundException } from 'src/data/errors';
-import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
+import { IPaymentIntegration } from 'src/application/ports/integrations/payment';
+import { DomainException, NotFoundException } from 'src/application/errors';
+import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { IPaymentRepository } from 'src/domain/financial/repositories/payment.repository';
 import { IOrder } from 'src/domain/checkout/entities/order.entity';
 import { Payment } from 'src/domain/financial/entities/payment.entity';

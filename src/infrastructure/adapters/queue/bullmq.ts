@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
-import { env } from 'src/data/configs/env';
+import { env } from 'src/application/configs/env';
 
 @Module({
   imports: [

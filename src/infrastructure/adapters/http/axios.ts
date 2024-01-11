@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { IHttp, IHttpRequest, IHttpResponse } from 'src/data/ports/http/http';
+import {
+  IHttp,
+  IHttpRequest,
+  IHttpResponse,
+} from 'src/application/ports/http/http';
 
 @Injectable()
 export class AxiosHttp implements IHttp {

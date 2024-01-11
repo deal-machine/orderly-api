@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
+import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { IProductRepository } from 'src/domain/checkin/products/repositories/product.repository';
 
 @Injectable()

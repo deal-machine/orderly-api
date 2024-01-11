@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
-import { NotFoundException } from 'src/data/errors';
+import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
+import { NotFoundException } from 'src/application/errors';
 import { ICustomerRepository } from 'src/domain/checkin/customers/repositories/customer.repository';
 import { CreateCustomerDto } from 'src/domain/checkin/customers/dto/create-customer.dto';
 import { Customer } from 'src/domain/checkin/customers/entities/customer.entity';

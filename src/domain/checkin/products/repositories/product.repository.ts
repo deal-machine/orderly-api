@@ -1,4 +1,4 @@
-import { IRepository } from 'src/data/ports/repositories/repository';
+import { IRepository } from 'src/application/ports/repositories/repository';
 import { Product } from '../entities/product.entity';
 import { Category } from '../entities/category.entity';
 

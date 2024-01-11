@@ -1,4 +1,4 @@
-import { IRepository } from 'src/data/ports/repositories/repository';
+import { IRepository } from 'src/application/ports/repositories/repository';
 import { Payment } from '../entities/payment.entity';
 
 export interface IPaymentRepository extends IRepository<Payment> {

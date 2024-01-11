@@ -1,4 +1,4 @@
-import { IRepository } from 'src/data/ports/repositories/repository';
+import { IRepository } from 'src/application/ports/repositories/repository';
 import { Customer } from '../entities/customer.entity';
 
 export interface ICustomerRepository extends IRepository<Customer> {

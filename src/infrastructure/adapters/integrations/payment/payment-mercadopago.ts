@@ -1,12 +1,12 @@
 import {
   IPaymentIntegration,
   IPaymentResult,
-} from 'src/data/ports/integrations/payment';
+} from 'src/application/ports/integrations/payment';
 
 import { Inject, Injectable } from '@nestjs/common';
-import { env } from 'src/data/configs/env';
-import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
-import { IHttp } from 'src/data/ports/http/http';
+import { env } from 'src/application/configs/env';
+import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
+import { IHttp } from 'src/application/ports/http/http';
 import { IPayment } from 'src/domain/financial/entities/payment.entity';
 
 interface IRefreshToken {

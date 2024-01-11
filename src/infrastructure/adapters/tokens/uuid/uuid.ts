@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
+import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { v4 } from 'uuid';
 
 @Injectable()

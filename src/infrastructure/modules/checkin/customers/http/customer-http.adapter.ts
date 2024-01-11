@@ -3,7 +3,7 @@ import {
   IHttp,
   IHttpRequest,
   IHttpResponse,
-} from '../../../../../data/ports/http/http';
+} from 'src/application/ports/http/http';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
 

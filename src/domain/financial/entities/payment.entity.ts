@@ -1,4 +1,4 @@
-import { AttributeException, DomainException } from 'src/data/errors';
+import { AttributeException, DomainException } from 'src/application/errors';
 import { paymentStatusDto } from '../dto/payment-status.dto';
 
 export interface IPayment {

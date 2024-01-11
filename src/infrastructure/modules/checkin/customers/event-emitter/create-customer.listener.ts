@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { IHttp } from 'src/data/ports/http/http';
+import { IHttp } from 'src/application/ports/http/http';
 import { CustomerCreatedEvent } from 'src/domain/checkin/customers/events/customer-created.event';
 
 @Injectable()

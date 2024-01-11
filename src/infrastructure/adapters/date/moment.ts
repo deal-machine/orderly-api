@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import moment from 'moment';
-import { IDateAdapter } from 'src/data/ports/date/date-adapter';
+import { IDateAdapter } from 'src/application/ports/date/date-adapter';
 
 @Injectable()
 export class MomentDateAdapter implements IDateAdapter {

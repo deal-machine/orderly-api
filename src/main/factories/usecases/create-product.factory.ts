@@ -1,4 +1,4 @@
-import { CreateProductUseCase } from 'src/data/usecases/checkin/products/create-product.usecase';
+import { CreateProductUseCase } from 'src/application/usecases/checkin/products/create-product.usecase';
 import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
 import { CategoryModel } from 'src/infrastructure/modules/checkin/products/sequelize/category.model';
 import { ProductSequelizeRepository } from 'src/infrastructure/modules/checkin/products/sequelize/product-sequelize.repository';

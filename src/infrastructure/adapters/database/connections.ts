@@ -1,4 +1,4 @@
-import { env } from 'src/data/configs/env';
+import { env } from 'src/application/configs/env';
 
 const conn = {
   dialect: 'postgres',

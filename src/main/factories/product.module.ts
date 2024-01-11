@@ -9,7 +9,7 @@ import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
 import { DecrementProductListener } from '../../infrastructure/modules/checkin/products/event-emitter/decrement-product.listener';
 import { CategoryModel } from '../../infrastructure/modules/checkin/products/sequelize/category.model';
 import { CategorySeeder } from '../../infrastructure/modules/checkin/products/sequelize/seeders/category-seeder';
-import { CreateProductUseCase } from 'src/data/usecases/checkin/products/create-product.usecase';
+import { CreateProductUseCase } from 'src/application/usecases/checkin/products/create-product.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([ProductModel, CategoryModel])],

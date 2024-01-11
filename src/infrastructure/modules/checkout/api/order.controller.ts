@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Get, Param, Query } from '@nestjs/common';
 import { OrdersService } from './order.service';
 
-import { ProductsService } from '../../checkin/product/api/product.service';
-import { CustomersService } from '../../checkin/customer/api/customer.service';
+import { ProductsService } from '../../checkin/products/api/product.service';
+import { CustomersService } from '../../checkin/customers/api/customer.service';
 import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
 

@@ -7,7 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { OrderModel } from './order-model';
-import { ProductModel } from '../../checkin/product/sequelize/product.model';
+import { ProductModel } from '../../checkin/products/sequelize/product.model';
 
 interface IOrderItemModel {
   id: string;

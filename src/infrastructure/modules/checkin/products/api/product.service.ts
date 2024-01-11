@@ -2,12 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
 import { DomainException } from 'src/data/errors';
 import EventEmitter from 'events';
-import { IProductRepository } from 'src/domain/checkin/product/repositories/product.repository';
-import { CreateProductDto } from 'src/domain/checkin/product/dto/create-product.dto';
-import { Product } from 'src/domain/checkin/product/entities/product.entity';
-import { UpdateProductDto } from 'src/domain/checkin/product/dto/update-product.dto';
-import { VerifyProductDto } from 'src/domain/checkin/product/dto/verify-product.dto';
-import { ProductDecreasedEvent } from 'src/domain/checkin/product/events/product-decreased.event';
+import { IProductRepository } from 'src/domain/checkin/products/repositories/product.repository';
+import { CreateProductDto } from 'src/domain/checkin/products/dto/create-product.dto';
+import { Product } from 'src/domain/checkin/products/entities/product.entity';
+import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product.dto';
+import { VerifyProductDto } from 'src/domain/checkin/products/dto/verify-product.dto';
+import { ProductDecreasedEvent } from 'src/domain/checkin/products/events/product-decreased.event';
 
 @Injectable()
 export class ProductsService {

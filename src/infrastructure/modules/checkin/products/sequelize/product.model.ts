@@ -7,7 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { CategoryModel } from './category.model';
-import { IProduct } from 'src/domain/checkin/product/entities/product.entity';
+import { IProduct } from 'src/domain/checkin/products/entities/product.entity';
 
 export interface IProductModel extends IProduct {}
 

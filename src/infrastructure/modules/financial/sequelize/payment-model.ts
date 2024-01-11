@@ -6,7 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { CustomerModel } from '../../checkin/customer/sequelize/customer.model';
+import { CustomerModel } from '../../checkin/customers/sequelize/customer.model';
 import { OrderModel } from '../../checkout/sequelize/order-model';
 
 interface IPaymentModel {

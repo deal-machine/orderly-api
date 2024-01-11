@@ -6,9 +6,9 @@ import { CategoryModel } from './category.model';
 import {
   IProductRepository,
   categoriesToCreate,
-} from 'src/domain/checkin/product/repositories/product.repository';
-import { Category } from 'src/domain/checkin/product/entities/category.entity';
-import { Product } from 'src/domain/checkin/product/entities/product.entity';
+} from 'src/domain/checkin/products/repositories/product.repository';
+import { Category } from 'src/domain/checkin/products/entities/category.entity';
+import { Product } from 'src/domain/checkin/products/entities/product.entity';
 
 export class ProductSequelizeRepository implements IProductRepository {
   constructor(

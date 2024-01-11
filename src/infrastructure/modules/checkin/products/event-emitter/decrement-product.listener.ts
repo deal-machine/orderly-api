@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { ProductDecreasedEvent } from 'src/domain/checkin/product/events/product-decreased.event';
-import { IProductRepository } from 'src/domain/checkin/product/repositories/product.repository';
+import { ProductDecreasedEvent } from 'src/domain/checkin/products/events/product-decreased.event';
+import { IProductRepository } from 'src/domain/checkin/products/repositories/product.repository';
 
 @Injectable()
 export class DecrementProductListener {

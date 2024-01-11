@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { IIdentifierGenerator } from 'src/data/ports/tokens/id-generator';
-import { IProductRepository } from 'src/domain/checkin/product/repositories/product.repository';
+import { IProductRepository } from 'src/domain/checkin/products/repositories/product.repository';
 
 @Injectable()
 export class CategorySeeder implements OnModuleInit {

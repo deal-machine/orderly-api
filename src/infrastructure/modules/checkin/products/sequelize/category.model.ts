@@ -1,7 +1,7 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { ProductModel } from './product.model';
-import { ICategory } from 'src/domain/checkin/product/entities/category.entity';
-import { categoryNamesDto } from 'src/domain/checkin/product/dto/category-name.dto';
+import { ICategory } from 'src/domain/checkin/products/entities/category.entity';
+import { categoryNamesDto } from 'src/domain/checkin/products/dto/category-name.dto';
 
 export interface ICategoryModel extends ICategory {}
 

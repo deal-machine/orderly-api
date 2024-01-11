@@ -9,10 +9,10 @@ import {
   Inject,
 } from '@nestjs/common';
 import { ProductsService } from './product.service';
-import { CreateProductDto } from 'src/domain/checkin/product/dto/create-product.dto';
+import { CreateProductDto } from 'src/domain/checkin/products/dto/create-product.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
-import { UpdateProductDto } from 'src/domain/checkin/product/dto/update-product.dto';
-import { ICreateProductUseCase } from 'src/domain/checkin/product/usecases/create-product.usecase';
+import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product.dto';
+import { ICreateProductUseCase } from 'src/domain/checkin/products/usecases/create-product.usecase';
 
 @Controller('products')
 export class ProductController {

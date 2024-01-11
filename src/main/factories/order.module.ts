@@ -10,15 +10,15 @@ import { ChangeOrderStatusListener } from '../../infrastructure/modules/checkout
 import { OrderSequelizeRepository } from '../../infrastructure/modules/checkout/sequelize/order-sequelize.repository';
 import { OrderItemModel } from '../../infrastructure/modules/checkout/sequelize/order-item-model';
 import { OrderModel } from '../../infrastructure/modules/checkout/sequelize/order-model';
-import { ProductsService } from '../../infrastructure/modules/checkin/product/api/product.service';
-import { ProductSequelizeRepository } from '../../infrastructure/modules/checkin/product/sequelize/product-sequelize.repository';
-import { ProductModel } from '../../infrastructure/modules/checkin/product/sequelize/product.model';
+import { ProductsService } from '../../infrastructure/modules/checkin/products/api/product.service';
+import { ProductSequelizeRepository } from '../../infrastructure/modules/checkin/products/sequelize/product-sequelize.repository';
+import { ProductModel } from '../../infrastructure/modules/checkin/products/sequelize/product.model';
 import { OrderConsumePayment } from '../../infrastructure/modules/checkout/bullmq/payment.consumer';
 import QueueModule from 'src/infrastructure/adapters/queue';
-import { CustomersService } from '../../infrastructure/modules/checkin/customer/api/customer.service';
-import { CustomerSequelizeRepository } from '../../infrastructure/modules/checkin/customer/sequelize/customer-sequelize.repository';
-import { CustomerModel } from '../../infrastructure/modules/checkin/customer/sequelize/customer.model';
-import { CategoryModel } from '../../infrastructure/modules/checkin/product/sequelize/category.model';
+import { CustomersService } from '../../infrastructure/modules/checkin/customers/api/customer.service';
+import { CustomerSequelizeRepository } from '../../infrastructure/modules/checkin/customers/sequelize/customer-sequelize.repository';
+import { CustomerModel } from '../../infrastructure/modules/checkin/customers/sequelize/customer.model';
+import { CategoryModel } from '../../infrastructure/modules/checkin/products/sequelize/category.model';
 import { MomentDateAdapter } from 'src/infrastructure/adapters/date/moment';
 
 @Module({

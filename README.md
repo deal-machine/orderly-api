@@ -60,10 +60,10 @@ $ kubectl apply -f k8s/api
 
 ## Use cases
 
-### - Legend
+#### - Labels
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/legend.jpg" width="1000" alt="Legend" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/legend.jpg" width="700" alt="Legend" style="border-radius:10px;" /></a>
 </p>
 
 ### - Create order

@@ -1,10 +1,11 @@
 {
-  "name": "hexagonal-architecture",
+  "name": "orderly",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "deal-machine",
   "private": true,
   "license": "UNLICENSED",
+  "main": "src/main/index.ts",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

@@ -63,29 +63,41 @@ $ kubectl apply -f k8s/api
 #### - Labels
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/legend.jpg" width="700" alt="Legend" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/labels.png" width="800" alt="Legend" style="border-radius:10px;" /></a>
+</p>
+
+### - Check-in
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/checkin-usecase.png" height="400" alt="Create order Usecase" style="border-radius:10px;" /></a>
 </p>
 
 ### - Create order
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/create-order-usecase.jpg" width="1000" alt="Create order Usecase" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/create-order-usecase.png" width="1000" alt="Create order Usecase" style="border-radius:10px;" /></a>
 </p>
 
 ### - Pay order
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/pay-order- usecase.jpg" width="1000" alt="Pay order Usecase" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/approve-payment-usecase.png" width="1000" alt="Pay order Usecase" style="border-radius:10px;" /></a>
 </p>
 
 ### - Prepare order
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/prepare-order-usecase.jpg" width="1000" alt="Prepare order Usecase" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/prepare-order-usecase.png" width="1000" alt="Prepare order Usecase" style="border-radius:10px;" /></a>
 </p>
 
 ### - Withdrawn order
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/withdrawn-order-usecase.jpg" width="1000" alt="Withdrawn order Usecase" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/withdrawn-order-usecase.png" width="1000" alt="Withdrawn order Usecase" style="border-radius:10px;" /></a>
+</p>
+
+## Clean Architecture
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/clean-arch.png" width="1200" alt="Legend" style="border-radius:10px;" /></a>
 </p>

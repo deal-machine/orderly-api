@@ -1,4 +1,4 @@
-import { IRepository } from 'src/application/ports/repositories/repository';
+import { IRepository } from 'src/domain/@shared/protocols/repository';
 import { Order } from '../entities/order.entity';
 
 export interface ITotalReport {

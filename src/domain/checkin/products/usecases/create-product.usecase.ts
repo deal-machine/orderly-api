@@ -1,4 +1,4 @@
-import { IUseCase } from 'src/application/ports/usecases/usecase';
+import { IUseCase } from 'src/domain/@shared/protocols/usecase';
 import { IProduct } from '../entities/product.entity';
 import { CreateProductDto } from '../dto/create-product.dto';
 

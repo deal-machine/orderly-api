@@ -1,6 +1,6 @@
-import { IRepository } from 'src/application/ports/repositories/repository';
 import { Product } from '../entities/product.entity';
 import { Category } from '../entities/category.entity';
+import { IRepository } from 'src/domain/@shared/protocols/repository';
 
 export type categoriesToCreate = {
   id: string;

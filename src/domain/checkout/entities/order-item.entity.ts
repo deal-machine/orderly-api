@@ -1,4 +1,4 @@
-import { AttributeException, DomainException } from 'src/application/errors';
+import { AttributeException, DomainException } from 'src/domain/@shared/errors';
 
 export interface IOrderItem {
   id: string;

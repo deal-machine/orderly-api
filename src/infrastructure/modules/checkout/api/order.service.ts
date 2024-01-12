@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import EventEmitter from 'events';
-import { DomainException } from 'src/application/errors';
+import { DomainException } from 'src/domain/@shared/errors';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { OrderItem } from 'src/domain/checkout/entities/order-item.entity';

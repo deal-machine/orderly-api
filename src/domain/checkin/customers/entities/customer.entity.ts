@@ -1,4 +1,4 @@
-import { AttributeException } from 'src/application/errors';
+import { AttributeException } from 'src/domain/@shared/errors';
 
 export interface ICustomer {
   id: string;

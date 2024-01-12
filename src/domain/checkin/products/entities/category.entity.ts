@@ -1,4 +1,4 @@
-import { AttributeException } from 'src/application/errors';
+import { AttributeException } from 'src/domain/@shared/errors';
 import { categoryNamesDto } from '../dto/category-name.dto';
 
 export interface ICategory {

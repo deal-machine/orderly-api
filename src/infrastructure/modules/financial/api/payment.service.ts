@@ -1,7 +1,6 @@
 import EventEmitter from 'events';
 import { Inject, Injectable } from '@nestjs/common';
 import { IPaymentIntegration } from 'src/application/ports/integrations/payment';
-import { DomainException, NotFoundException } from 'src/application/errors';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { IPaymentRepository } from 'src/domain/financial/repositories/payment.repository';
 import { IOrder } from 'src/domain/checkout/entities/order.entity';
@@ -9,6 +8,8 @@ import { Payment } from 'src/domain/financial/entities/payment.entity';
 import { CreatedPaymentEvent } from 'src/domain/financial/events/payment-created.event';
 import { ChangedPaymentStatusEvent } from 'src/domain/financial/events/payment-status-changed.event';
 import { ChangedOrderStatusEvent } from 'src/domain/checkout/events/order-status-changed.event';
+import { DomainException } from 'src/domain/@shared/errors';
+import { NotFoundException } from 'src/application/errors';
 
 @Injectable()
 export class PaymentService {

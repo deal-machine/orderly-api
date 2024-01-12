@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
-import { DomainException } from 'src/application/errors';
+import { DomainException } from 'src/domain/@shared/errors';
 import EventEmitter from 'events';
 import { IProductRepository } from 'src/domain/checkin/products/repositories/product.repository';
 import { CreateProductDto } from 'src/domain/checkin/products/dto/create-product.dto';

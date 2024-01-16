@@ -8,6 +8,7 @@ import { Product } from 'src/domain/checkin/products/entities/product.entity';
 import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product.dto';
 import { VerifyProductDto } from 'src/domain/checkin/products/dto/verify-product.dto';
 import { ProductDecreasedEvent } from 'src/domain/checkin/products/events/product-decreased.event';
+import { NotFoundException } from 'src/application/errors';
 
 @Injectable()
 export class ProductsService {
@@ -44,6 +45,7 @@ export class ProductsService {
     const productVerified = [];
     for (const p of products) {
       const product = await this.productRepository.findOne(p.id);
+      if (!product) throw new NotFoundException('product not exists');
       const quantity = product.quantity - p.quantity;
       const isEnough = quantity >= 0;
       if (!isEnough)

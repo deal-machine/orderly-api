@@ -10,6 +10,7 @@ import { DecrementProductListener } from '../../infrastructure/modules/checkin/p
 import { CategoryModel } from '../../infrastructure/modules/checkin/products/sequelize/category.model';
 import { CategorySeeder } from '../../infrastructure/modules/checkin/products/sequelize/seeders/category-seeder';
 import { CreateProductUseCase } from 'src/application/usecases/checkin/products/create-product.usecase';
+import { UpdateProductUseCase } from 'src/application/usecases/checkin/products/update-product.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([ProductModel, CategoryModel])],
@@ -25,6 +26,8 @@ import { CreateProductUseCase } from 'src/application/usecases/checkin/products/
     CategorySeeder,
     CreateProductUseCase,
     { provide: 'CreateProductUseCase', useExisting: CreateProductUseCase },
+    UpdateProductUseCase,
+    { provide: 'UpdateProductUseCase', useExisting: UpdateProductUseCase },
   ],
 })
 export class ProductModule {}

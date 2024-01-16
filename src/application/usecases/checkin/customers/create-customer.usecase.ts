@@ -1,12 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
-import { NotFoundException } from 'src/application/errors';
-import { ICustomerRepository } from 'src/domain/checkin/customers/repositories/customer.repository';
 import { CreateCustomerDto } from 'src/domain/checkin/customers/dto/create-customer.dto';
-import { Customer } from 'src/domain/checkin/customers/entities/customer.entity';
+import {
+  Customer,
+  ICustomer,
+} from 'src/domain/checkin/customers/entities/customer.entity';
+import { ICustomerRepository } from 'src/domain/checkin/customers/repositories/customer.repository';
+import { ICreateCustomerUseCase } from 'src/domain/checkin/customers/usecases/create-customer.usecase';
 
 @Injectable()
-export class CustomersService {
+export class CreateCustomerUseCase implements ICreateCustomerUseCase {
   constructor(
     @Inject('CustomerRepository')
     private customerRepository: ICustomerRepository,
@@ -15,7 +18,7 @@ export class CustomersService {
     private idGenerator: IIdentifierGenerator,
   ) {}
 
-  async create(createCustomerDto: CreateCustomerDto) {
+  async execute(createCustomerDto: CreateCustomerDto): Promise<ICustomer> {
     const customerExists = await this.customerRepository.findOneByCpfOrEmail(
       createCustomerDto.cpf,
       createCustomerDto.email,
@@ -48,11 +51,5 @@ export class CustomersService {
     await this.customerRepository.update(customerExists.id, customerUpdated);
 
     return customerUpdated;
-  }
-
-  async findById(customerId: string) {
-    const customer = await this.customerRepository.findOne(customerId);
-    if (!customer) throw new NotFoundException('customer not found');
-    return customer;
   }
 }

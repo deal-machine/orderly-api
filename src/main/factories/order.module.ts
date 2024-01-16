@@ -15,11 +15,11 @@ import { ProductSequelizeRepository } from '../../infrastructure/modules/checkin
 import { ProductModel } from '../../infrastructure/modules/checkin/products/sequelize/product.model';
 import { OrderConsumePayment } from '../../infrastructure/modules/checkout/bullmq/payment.consumer';
 import QueueModule from 'src/infrastructure/adapters/queue';
-import { CustomersService } from '../../infrastructure/modules/checkin/customers/api/customer.service';
 import { CustomerSequelizeRepository } from '../../infrastructure/modules/checkin/customers/sequelize/customer-sequelize.repository';
 import { CustomerModel } from '../../infrastructure/modules/checkin/customers/sequelize/customer.model';
 import { CategoryModel } from '../../infrastructure/modules/checkin/products/sequelize/category.model';
 import { MomentDateAdapter } from 'src/infrastructure/adapters/date/moment';
+import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers/find-customer-byid.usecase';
 
 @Module({
   imports: [
@@ -36,7 +36,6 @@ import { MomentDateAdapter } from 'src/infrastructure/adapters/date/moment';
   providers: [
     OrdersService,
     ProductsService,
-    CustomersService,
     ProductSequelizeRepository,
     CustomerSequelizeRepository,
     OrderSequelizeRepository,
@@ -46,12 +45,17 @@ import { MomentDateAdapter } from 'src/infrastructure/adapters/date/moment';
     OrderConsumePayment,
     Uuid,
     MomentDateAdapter,
+    FindCustomerByIdUseCase,
     { provide: 'ProductRepository', useExisting: ProductSequelizeRepository },
     { provide: 'CustomerRepository', useExisting: CustomerSequelizeRepository },
     { provide: 'OrderRepository', useExisting: OrderSequelizeRepository },
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
     { provide: 'IdGenerator', useExisting: Uuid },
     { provide: 'DateAdapter', useExisting: MomentDateAdapter },
+    {
+      provide: 'FindCustomerByIdUseCase',
+      useExisting: FindCustomerByIdUseCase,
+    },
   ],
 })
 export class OrderModule {}

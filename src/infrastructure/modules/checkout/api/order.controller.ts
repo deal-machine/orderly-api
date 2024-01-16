@@ -1,17 +1,26 @@
-import { Controller, Post, Body, Get, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Query,
+  Inject,
+} from '@nestjs/common';
 import { OrdersService } from './order.service';
 
 import { ProductsService } from '../../checkin/products/api/product.service';
-import { CustomersService } from '../../checkin/customers/api/customer.service';
 import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
+import { IFindCustomerByIdUseCase } from 'src/domain/checkin/customers/usecases/find-customer-byid.usecase';
 
 @Controller('orders')
 export class OrderController {
   constructor(
     private readonly ordersService: OrdersService,
     private readonly productsService: ProductsService,
-    private readonly customerService: CustomersService,
+    @Inject('FindCustomerByIdUseCase')
+    private findCustomerByIdUseCase: IFindCustomerByIdUseCase,
   ) {}
 
   @Post()
@@ -66,7 +75,7 @@ export class OrderController {
   @Get('customer/:id')
   async getCustomerReport(@Param('id') id: string) {
     try {
-      await this.customerService.findById(id);
+      await this.findCustomerByIdUseCase.execute(id);
       return await this.ordersService.getCustomerReport(id);
     } catch (err: any) {
       responseError(err);

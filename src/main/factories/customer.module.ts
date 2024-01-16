@@ -7,10 +7,11 @@ import { CustomerModel } from '../../infrastructure/modules/checkin/customers/se
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { BullModule } from '@nestjs/bull';
 import { CustomerController } from '../../infrastructure/modules/checkin/customers/api/customer.controller';
-import { CustomersService } from '../../infrastructure/modules/checkin/customers/api/customer.service';
 import { CustomerConsumer } from '../../infrastructure/modules/checkin/customers/bullmq/customer.consumer';
 import { PublishCustomerListener } from '../../infrastructure/modules/checkin/customers/event-emitter/publish-customer.listener';
 import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
+import { CreateCustomerUseCase } from 'src/application/usecases/checkin/customers/create-customer.usecase';
+import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers/find-customer-byid.usecase';
 
 @Module({
   imports: [
@@ -25,16 +26,22 @@ import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
   ],
   controllers: [CustomerController],
   providers: [
-    CustomersService,
     CustomerSequelizeRepository,
     { provide: 'CustomerRepository', useExisting: CustomerSequelizeRepository },
     CustomerHttp,
     { provide: 'CustomerHttp', useExisting: CustomerHttp },
     CustomerConsumer,
     PublishCustomerListener,
-    { provide: 'EventEmitter', useExisting: EventEmitter2 },
     Uuid,
     { provide: 'IdGenerator', useExisting: Uuid },
+    CreateCustomerUseCase,
+    { provide: 'CreateCustomerUseCase', useExisting: CreateCustomerUseCase },
+    FindCustomerByIdUseCase,
+    {
+      provide: 'FindCustomerByIdUseCase',
+      useExisting: FindCustomerByIdUseCase,
+    },
+    { provide: 'EventEmitter', useExisting: EventEmitter2 },
   ],
 })
 export class CustomerModule {}

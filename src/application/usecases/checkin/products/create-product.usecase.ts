@@ -18,7 +18,6 @@ export class CreateProductUseCase implements ICreateProductUseCase {
   ) {}
 
   async execute(createProductDto: CreateProductDto): Promise<IProduct> {
-    console.log('here in use case');
     const product = new Product({
       id: this.idGenerator.generate(),
       name: createProductDto.name,

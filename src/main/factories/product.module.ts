@@ -11,6 +11,7 @@ import { CategoryModel } from '../../infrastructure/modules/checkin/products/seq
 import { CategorySeeder } from '../../infrastructure/modules/checkin/products/sequelize/seeders/category-seeder';
 import { CreateProductUseCase } from 'src/application/usecases/checkin/products/create-product.usecase';
 import { UpdateProductUseCase } from 'src/application/usecases/checkin/products/update-product.usecase';
+import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products/check-product-quantity.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([ProductModel, CategoryModel])],
@@ -28,6 +29,11 @@ import { UpdateProductUseCase } from 'src/application/usecases/checkin/products/
     { provide: 'CreateProductUseCase', useExisting: CreateProductUseCase },
     UpdateProductUseCase,
     { provide: 'UpdateProductUseCase', useExisting: UpdateProductUseCase },
+    CheckProductQuantityUseCase,
+    {
+      provide: 'CheckProductQuantityUseCase',
+      useExisting: CheckProductQuantityUseCase,
+    },
   ],
 })
 export class ProductModule {}

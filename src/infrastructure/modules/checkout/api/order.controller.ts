@@ -9,24 +9,25 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './order.service';
 
-import { ProductsService } from '../../checkin/products/api/product.service';
 import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
 import { IFindCustomerByIdUseCase } from 'src/domain/checkin/customers/usecases/find-customer-byid.usecase';
+import { ICheckProductQuantityUseCase } from 'src/domain/checkin/products/usecases/check-product-quantity.usecase';
 
 @Controller('orders')
 export class OrderController {
   constructor(
     private readonly ordersService: OrdersService,
-    private readonly productsService: ProductsService,
     @Inject('FindCustomerByIdUseCase')
     private findCustomerByIdUseCase: IFindCustomerByIdUseCase,
+    @Inject('CheckProductQuantityUseCase')
+    private checkProductQuantityUseCase: ICheckProductQuantityUseCase,
   ) {}
 
   @Post()
   async create(@Body() createOrderDto: CreateOrderDto) {
     try {
-      await this.productsService.verifyProductQuantity(createOrderDto.products);
+      await this.checkProductQuantityUseCase.execute(createOrderDto.products);
       return await this.ordersService.create(createOrderDto);
     } catch (err: any) {
       responseError(err);

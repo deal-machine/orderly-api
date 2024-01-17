@@ -10,7 +10,6 @@ import { ChangeOrderStatusListener } from '../../infrastructure/modules/checkout
 import { OrderSequelizeRepository } from '../../infrastructure/modules/checkout/sequelize/order-sequelize.repository';
 import { OrderItemModel } from '../../infrastructure/modules/checkout/sequelize/order-item-model';
 import { OrderModel } from '../../infrastructure/modules/checkout/sequelize/order-model';
-import { ProductsService } from '../../infrastructure/modules/checkin/products/api/product.service';
 import { ProductSequelizeRepository } from '../../infrastructure/modules/checkin/products/sequelize/product-sequelize.repository';
 import { ProductModel } from '../../infrastructure/modules/checkin/products/sequelize/product.model';
 import { OrderConsumePayment } from '../../infrastructure/modules/checkout/bullmq/payment.consumer';
@@ -20,6 +19,7 @@ import { CustomerModel } from '../../infrastructure/modules/checkin/customers/se
 import { CategoryModel } from '../../infrastructure/modules/checkin/products/sequelize/category.model';
 import { MomentDateAdapter } from 'src/infrastructure/adapters/date/moment';
 import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers/find-customer-byid.usecase';
+import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products/check-product-quantity.usecase';
 
 @Module({
   imports: [
@@ -35,7 +35,6 @@ import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/custom
   controllers: [OrderController],
   providers: [
     OrdersService,
-    ProductsService,
     ProductSequelizeRepository,
     CustomerSequelizeRepository,
     OrderSequelizeRepository,
@@ -55,6 +54,11 @@ import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/custom
     {
       provide: 'FindCustomerByIdUseCase',
       useExisting: FindCustomerByIdUseCase,
+    },
+    CheckProductQuantityUseCase,
+    {
+      provide: 'CheckProductQuantityUseCase',
+      useExisting: CheckProductQuantityUseCase,
     },
   ],
 })

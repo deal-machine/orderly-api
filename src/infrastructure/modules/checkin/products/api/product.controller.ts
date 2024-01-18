@@ -14,6 +14,7 @@ import { responseError } from 'src/infrastructure/adapters/api/presenters/output
 import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product.dto';
 import { ICreateProductUseCase } from 'src/domain/checkin/products/usecases/create-product.usecase';
 import { IUpdateProductUseCase } from 'src/domain/checkin/products/usecases/update-product.usecase';
+import { IDeleteProductUseCase } from 'src/domain/checkin/products/usecases/delete-product.usecase';
 
 @Controller('products')
 export class ProductController {
@@ -23,6 +24,8 @@ export class ProductController {
     private readonly createProductUseCase: ICreateProductUseCase,
     @Inject('UpdateProductUseCase')
     private readonly updateProductUseCase: IUpdateProductUseCase,
+    @Inject('DeleteProductUseCase')
+    private readonly deleteProductUseCase: IDeleteProductUseCase,
   ) {}
 
   @Post()
@@ -49,7 +52,7 @@ export class ProductController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     try {
-      return await this.productsService.delete(id);
+      return await this.deleteProductUseCase.execute(id);
     } catch (err: any) {
       responseError(err);
     }

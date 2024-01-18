@@ -15,6 +15,7 @@ import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product
 import { ICreateProductUseCase } from 'src/domain/checkin/products/usecases/create-product.usecase';
 import { IUpdateProductUseCase } from 'src/domain/checkin/products/usecases/update-product.usecase';
 import { IDeleteProductUseCase } from 'src/domain/checkin/products/usecases/delete-product.usecase';
+import { IFindProductByCategoryIdUseCase } from 'src/domain/checkin/products/usecases/find-product-bycategoryid.usecase';
 
 @Controller('products')
 export class ProductController {
@@ -26,6 +27,8 @@ export class ProductController {
     private readonly updateProductUseCase: IUpdateProductUseCase,
     @Inject('DeleteProductUseCase')
     private readonly deleteProductUseCase: IDeleteProductUseCase,
+    @Inject('FindProductByCategoryIdUseCase')
+    private readonly findProductByCategoryIdUseCase: IFindProductByCategoryIdUseCase,
   ) {}
 
   @Post()
@@ -61,7 +64,7 @@ export class ProductController {
   @Get('category/:id')
   async findByCategory(@Param('id') id: number) {
     try {
-      return await this.productsService.findByCategory(id);
+      return await this.findProductByCategoryIdUseCase.execute(id);
     } catch (err: any) {
       responseError(err);
     }

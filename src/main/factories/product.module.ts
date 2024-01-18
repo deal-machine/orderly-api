@@ -13,6 +13,7 @@ import { CreateProductUseCase } from 'src/application/usecases/checkin/products/
 import { UpdateProductUseCase } from 'src/application/usecases/checkin/products/update-product.usecase';
 import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products/check-product-quantity.usecase';
 import { DeleteProductUseCase } from 'src/application/usecases/checkin/products/delete-product.usecase';
+import { FindProductByCategoryIdUseCase } from 'src/application/usecases/checkin/products/find-product-bycategoryid.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([ProductModel, CategoryModel])],
@@ -37,6 +38,11 @@ import { DeleteProductUseCase } from 'src/application/usecases/checkin/products/
     },
     DeleteProductUseCase,
     { provide: 'DeleteProductUseCase', useExisting: DeleteProductUseCase },
+    FindProductByCategoryIdUseCase,
+    {
+      provide: 'FindProductByCategoryIdUseCase',
+      useExisting: FindProductByCategoryIdUseCase,
+    },
   ],
 })
 export class ProductModule {}

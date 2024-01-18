@@ -8,7 +8,6 @@ import {
   Get,
   Inject,
 } from '@nestjs/common';
-import { ProductsService } from './product.service';
 import { CreateProductDto } from 'src/domain/checkin/products/dto/create-product.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
 import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product.dto';
@@ -16,11 +15,11 @@ import { ICreateProductUseCase } from 'src/domain/checkin/products/usecases/crea
 import { IUpdateProductUseCase } from 'src/domain/checkin/products/usecases/update-product.usecase';
 import { IDeleteProductUseCase } from 'src/domain/checkin/products/usecases/delete-product.usecase';
 import { IFindProductByCategoryIdUseCase } from 'src/domain/checkin/products/usecases/find-product-bycategoryid.usecase';
+import { IGetCategoriesUseCase } from 'src/domain/checkin/products/usecases/get-categories.usecase';
 
 @Controller('products')
 export class ProductController {
   constructor(
-    private readonly productsService: ProductsService,
     @Inject('CreateProductUseCase')
     private readonly createProductUseCase: ICreateProductUseCase,
     @Inject('UpdateProductUseCase')
@@ -29,6 +28,8 @@ export class ProductController {
     private readonly deleteProductUseCase: IDeleteProductUseCase,
     @Inject('FindProductByCategoryIdUseCase')
     private readonly findProductByCategoryIdUseCase: IFindProductByCategoryIdUseCase,
+    @Inject('GetCategoriesUseCase')
+    private readonly getCategoriesUseCase: IGetCategoriesUseCase,
   ) {}
 
   @Post()
@@ -73,7 +74,7 @@ export class ProductController {
   @Get('category/')
   async getCategories() {
     try {
-      return await this.productsService.getCategories();
+      return await this.getCategoriesUseCase.execute();
     } catch (err: any) {
       responseError(err);
     }

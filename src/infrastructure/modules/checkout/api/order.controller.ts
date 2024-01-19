@@ -13,10 +13,13 @@ import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
 import { IFindCustomerByIdUseCase } from 'src/domain/checkin/customers/usecases/find-customer-byid.usecase';
 import { ICheckProductQuantityUseCase } from 'src/domain/checkin/products/usecases/check-product-quantity.usecase';
+import { ICreateOrderUseCase } from 'src/domain/checkout/usecases/create-order.usecase';
 
 @Controller('orders')
 export class OrderController {
   constructor(
+    @Inject('CreateOrderUseCase')
+    private readonly createOrderUseCase: ICreateOrderUseCase,
     private readonly ordersService: OrdersService,
     @Inject('FindCustomerByIdUseCase')
     private findCustomerByIdUseCase: IFindCustomerByIdUseCase,
@@ -28,7 +31,7 @@ export class OrderController {
   async create(@Body() createOrderDto: CreateOrderDto) {
     try {
       await this.checkProductQuantityUseCase.execute(createOrderDto.products);
-      return await this.ordersService.create(createOrderDto);
+      return await this.createOrderUseCase.execute(createOrderDto);
     } catch (err: any) {
       responseError(err);
     }

@@ -20,6 +20,7 @@ import { CategoryModel } from '../../infrastructure/modules/checkin/products/seq
 import { MomentDateAdapter } from 'src/infrastructure/adapters/date/moment';
 import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers/find-customer-byid.usecase';
 import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products/check-product-quantity.usecase';
+import { CreateOrderUseCase } from 'src/application/usecases/checkout/create-order.usecase';
 
 @Module({
   imports: [
@@ -60,6 +61,8 @@ import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/pr
       provide: 'CheckProductQuantityUseCase',
       useExisting: CheckProductQuantityUseCase,
     },
+    CreateOrderUseCase,
+    { provide: 'CreateOrderUseCase', useExisting: CreateOrderUseCase },
   ],
 })
 export class OrderModule {}

@@ -12,6 +12,7 @@ import { PaymentConsumeOrder } from '../../infrastructure/modules/financial/bull
 import { AxiosHttp } from 'src/infrastructure/adapters/http/axios';
 import QueueModule from 'src/infrastructure/adapters/queue';
 import { ChangePaymentStatusListener } from '../../infrastructure/modules/financial/event-emitter/change-payment-status.listener';
+import { CreatePaymentUseCase } from 'src/application/usecases/financial/create-payment.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([PaymentModel]), QueueModule],
@@ -30,6 +31,8 @@ import { ChangePaymentStatusListener } from '../../infrastructure/modules/financ
     PublishPaymentIntegrationListener,
     ChangePaymentStatusListener,
     PaymentConsumeOrder,
+    CreatePaymentUseCase,
+    { provide: 'CreatePaymentUseCase', useExisting: CreatePaymentUseCase },
   ],
 })
 export class PaymentModule {}

@@ -1,20 +1,27 @@
-import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
-import { PaymentService } from '../api/payment.service';
+import { Inject } from '@nestjs/common';
+import { Process, Processor } from '@nestjs/bull';
 import { CreatedOrderEvent } from 'src/domain/checkout/events/order-created.event';
+import { ICreatePaymentUseCase } from 'src/domain/financial/usecases/create-payment.usecase';
 
 @Processor('payments')
 export class PaymentConsumeOrder {
-  constructor(private readonly paymentService: PaymentService) {}
+  constructor(
+    @Inject('CreatePaymentUseCase')
+    private readonly createPaymentUseCase: ICreatePaymentUseCase,
+  ) {}
 
   @Process('payment.requested')
   async handle(job: Job<CreatedOrderEvent>) {
     try {
       const { order } = job.data;
 
-      await this.paymentService.create(order);
+      await this.createPaymentUseCase.execute({
+        customerId: order.customerId,
+        orderId: order.id,
+        total: order.total,
+      });
     } catch (err: any) {
-      console.log(err);
       console.error('\n PaymentConsumeOrder: ', err.message);
     }
   }

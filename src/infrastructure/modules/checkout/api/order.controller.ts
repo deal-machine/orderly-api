@@ -7,17 +7,18 @@ import {
   Query,
   Inject,
 } from '@nestjs/common';
-
 import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
 import { IFindCustomerByIdUseCase } from 'src/domain/checkin/customers/usecases/find-customer-byid.usecase';
 import { ICheckProductQuantityUseCase } from 'src/domain/checkin/products/usecases/check-product-quantity.usecase';
-import { ICreateOrderUseCase } from 'src/domain/checkout/usecases/create-order.usecase';
-import { IPrepareOrderUseCase } from 'src/domain/checkout/usecases/prepare-order.usecase';
-import { IWithdrawnOrderUseCase } from 'src/domain/checkout/usecases/withdrawn-order.usecase';
-import { IFindOrdersUseCase } from 'src/domain/checkout/usecases/find-orders.usecase';
-import { IGetOrderStatusUseCase } from 'src/domain/checkout/usecases/get-orderstatus.usecase';
-import { IGetOrderReportByCustomerIdUseCase } from 'src/domain/checkout/usecases/get-orderreport-bycustomerid.usecase';
+import {
+  ICreateOrderUseCase,
+  IFindOrdersUseCase,
+  IGetOrderReportByCustomerIdUseCase,
+  IGetOrderStatusUseCase,
+  IPrepareOrderUseCase,
+  IWithdrawnOrderUseCase,
+} from 'src/domain/checkout/usecases';
 
 @Controller('orders')
 export class OrderController {

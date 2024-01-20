@@ -16,7 +16,7 @@ export class CategorySeeder implements OnModuleInit {
   }
 
   private async initializeApp() {
-    console.log('Seeding categories...');
+    console.time('Category seed');
     try {
       const categoriesToCreate = [
         {
@@ -43,8 +43,7 @@ export class CategorySeeder implements OnModuleInit {
       await this.productRepository.createCategories(categoriesToCreate);
     } catch (error: any) {
       console.error(error.message);
-    } finally {
-      console.log('Seed has been complete.');
     }
+    console.timeEnd('Category seed');
   }
 }

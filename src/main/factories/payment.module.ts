@@ -14,6 +14,7 @@ import QueueModule from 'src/infrastructure/adapters/queue';
 import { ChangePaymentStatusListener } from '../../infrastructure/modules/financial/event-emitter/change-payment-status.listener';
 import { CreatePaymentUseCase } from 'src/application/usecases/financial/create-payment.usecase';
 import { ApprovePaymentByOrderIdUseCase } from 'src/application/usecases/financial/approve-payment-byorderid.usecase';
+import { CancelPaymentByOrderIdUseCase } from 'src/application/usecases/financial/cancel-payment-byorderid.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([PaymentModel]), QueueModule],
@@ -38,6 +39,11 @@ import { ApprovePaymentByOrderIdUseCase } from 'src/application/usecases/financi
     {
       provide: 'ApprovePaymentByOrderIdUseCase',
       useExisting: ApprovePaymentByOrderIdUseCase,
+    },
+    CancelPaymentByOrderIdUseCase,
+    {
+      provide: 'CancelPaymentByOrderIdUseCase',
+      useExisting: CancelPaymentByOrderIdUseCase,
     },
   ],
 })

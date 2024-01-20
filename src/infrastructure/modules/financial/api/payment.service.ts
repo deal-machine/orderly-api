@@ -16,10 +16,10 @@ export class PaymentService {
   constructor(
     @Inject('PaymentRepository')
     private paymentRepository: IPaymentRepository,
-    @Inject('PaymentIntegration')
-    private paymentIntegration: IPaymentIntegration,
     @Inject('EventEmitter')
     private eventEmitter: EventEmitter,
+    @Inject('PaymentIntegration')
+    private paymentIntegration: IPaymentIntegration,
     @Inject('IdGenerator')
     private idGenerator: IIdentifierGenerator,
   ) {}

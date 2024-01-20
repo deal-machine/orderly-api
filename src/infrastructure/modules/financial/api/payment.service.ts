@@ -55,7 +55,6 @@ export class PaymentService {
     if (!payment) throw new NotFoundException('payment not found');
 
     console.log('Paying...');
-    // await this.paymentIntegration.updatePayment(payment, 'approved');
 
     setTimeout(() => {
       this.eventEmitter.emit(
@@ -85,7 +84,6 @@ export class PaymentService {
 
     if (payment.status === 'Aprovado')
       throw new DomainException('payment was approved');
-    // await this.paymentIntegration.updatePayment(payment, 'cancelled');
 
     setTimeout(() => {
       this.eventEmitter.emit(

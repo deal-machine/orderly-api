@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { OrderController } from '../../infrastructure/modules/checkout/api/order.controller';
-import { OrdersService } from '../../infrastructure/modules/checkout/api/order.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
 import { PublishOrderRequestListener } from '../../infrastructure/modules/checkout/event-emitter/publish-order-request.listener';
-import { OrderConsumer } from '../../infrastructure/modules/checkout/bullmq/order.consumer';
 import { ChangeOrderStatusListener } from '../../infrastructure/modules/checkout/event-emitter/change-order-status.listener';
 import { OrderSequelizeRepository } from '../../infrastructure/modules/checkout/sequelize/order-sequelize.repository';
 import { OrderItemModel } from '../../infrastructure/modules/checkout/sequelize/order-item-model';
@@ -21,6 +19,12 @@ import { MomentDateAdapter } from 'src/infrastructure/adapters/date/moment';
 import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers/find-customer-byid.usecase';
 import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products/check-product-quantity.usecase';
 import { CreateOrderUseCase } from 'src/application/usecases/checkout/create-order.usecase';
+import { PrepareOrderUseCase } from 'src/application/usecases/checkout/prepare-order.usecase';
+import { WithdrawnOrderUseCase } from 'src/application/usecases/checkout/withdrawn-order.usecase';
+import { FindOrdersUseCase } from 'src/application/usecases/checkout/find-orders.usecase';
+import { GetOrderStatusUseCase } from 'src/application/usecases/checkout/get-orderstatus.usecase';
+import { GetOrderReportByCustomerIdUseCase } from 'src/application/usecases/checkout/get-orderreport-bycustomerid.usecase';
+import { PayOrderUseCase } from 'src/application/usecases/checkout/pay-order.usecase';
 
 @Module({
   imports: [
@@ -35,13 +39,11 @@ import { CreateOrderUseCase } from 'src/application/usecases/checkout/create-ord
   ],
   controllers: [OrderController],
   providers: [
-    OrdersService,
     ProductSequelizeRepository,
     CustomerSequelizeRepository,
     OrderSequelizeRepository,
     PublishOrderRequestListener,
     ChangeOrderStatusListener,
-    OrderConsumer,
     OrderConsumePayment,
     Uuid,
     MomentDateAdapter,
@@ -63,6 +65,21 @@ import { CreateOrderUseCase } from 'src/application/usecases/checkout/create-ord
     },
     CreateOrderUseCase,
     { provide: 'CreateOrderUseCase', useExisting: CreateOrderUseCase },
+    PrepareOrderUseCase,
+    { provide: 'PrepareOrderUseCase', useExisting: PrepareOrderUseCase },
+    WithdrawnOrderUseCase,
+    { provide: 'WithdrawnOrderUseCase', useExisting: WithdrawnOrderUseCase },
+    FindOrdersUseCase,
+    { provide: 'FindOrdersUseCase', useExisting: FindOrdersUseCase },
+    GetOrderStatusUseCase,
+    { provide: 'GetOrderStatusUseCase', useExisting: GetOrderStatusUseCase },
+    GetOrderReportByCustomerIdUseCase,
+    {
+      provide: 'GetOrderReportByCustomerIdUseCase',
+      useExisting: GetOrderReportByCustomerIdUseCase,
+    },
+    PayOrderUseCase,
+    { provide: 'PayOrderUseCase', useExisting: PayOrderUseCase },
   ],
 })
 export class OrderModule {}

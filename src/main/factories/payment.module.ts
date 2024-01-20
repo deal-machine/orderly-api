@@ -13,6 +13,7 @@ import { AxiosHttp } from 'src/infrastructure/adapters/http/axios';
 import QueueModule from 'src/infrastructure/adapters/queue';
 import { ChangePaymentStatusListener } from '../../infrastructure/modules/financial/event-emitter/change-payment-status.listener';
 import { CreatePaymentUseCase } from 'src/application/usecases/financial/create-payment.usecase';
+import { ApprovePaymentByOrderIdUseCase } from 'src/application/usecases/financial/approve-payment-byorderid.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([PaymentModel]), QueueModule],
@@ -33,6 +34,11 @@ import { CreatePaymentUseCase } from 'src/application/usecases/financial/create-
     PaymentConsumeOrder,
     CreatePaymentUseCase,
     { provide: 'CreatePaymentUseCase', useExisting: CreatePaymentUseCase },
+    ApprovePaymentByOrderIdUseCase,
+    {
+      provide: 'ApprovePaymentByOrderIdUseCase',
+      useExisting: ApprovePaymentByOrderIdUseCase,
+    },
   ],
 })
 export class PaymentModule {}

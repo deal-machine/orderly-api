@@ -7,15 +7,12 @@ import { CreatedOrderEvent } from 'src/domain/checkout/events/order-created.even
 @Injectable()
 export class PublishOrderRequestListener {
   constructor(
-    @InjectQueue('orders')
-    private queue: Queue,
     @InjectQueue('payments')
     private paymentQueue: Queue,
   ) {}
 
   @OnEvent('order.created')
   async handle(event: CreatedOrderEvent) {
-    await this.queue.add('order.requested', event);
     await this.paymentQueue.add('payment.requested', event);
   }
 }

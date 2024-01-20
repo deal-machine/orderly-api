@@ -5,11 +5,15 @@ import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { OrderItem } from 'src/domain/checkout/entities/order-item.entity';
 import { Order } from 'src/domain/checkout/entities/order.entity';
 import { CreatedOrderEvent } from 'src/domain/checkout/events/order-created.event';
+import { IOrderRepository } from 'src/domain/checkout/repositories/order.repository';
 import { ICreateOrderUseCase } from 'src/domain/checkout/usecases/create-order.usecase';
 
 @Injectable()
 export class CreateOrderUseCase implements ICreateOrderUseCase {
   constructor(
+    @Inject('OrderRepository')
+    private orderRepository: IOrderRepository,
+
     @Inject('EventEmitter')
     private eventEmitter: IEventEmitter,
 
@@ -33,6 +37,8 @@ export class CreateOrderUseCase implements ICreateOrderUseCase {
       id: this.idGenerator.generate(),
       orderItems,
     });
+
+    await this.orderRepository.create(order);
 
     this.eventEmitter.emit('order.created', new CreatedOrderEvent(order));
 

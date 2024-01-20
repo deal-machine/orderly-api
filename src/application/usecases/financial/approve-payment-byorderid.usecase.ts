@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { NotFoundException } from 'src/application/errors';
 import { IEventEmitter } from 'src/application/ports/events/event-emitter';
+import { DomainException } from 'src/domain/@shared/errors';
 import { ChangedOrderStatusEvent } from 'src/domain/checkout/events/order-status-changed.event';
 import { ChangedPaymentStatusEvent } from 'src/domain/financial/events/payment-status-changed.event';
 import { IPaymentRepository } from 'src/domain/financial/repositories/payment.repository';
@@ -21,6 +22,12 @@ export class ApprovePaymentByOrderIdUseCase
     const payment = await this.paymentRepository.findOneByOrderId(orderId);
     if (!payment) throw new NotFoundException('payment not found');
 
+    if (payment.status !== 'Pendente de pagamento') {
+      // podera verificar o status com o integrador de meio de pagamentos
+      throw new DomainException(
+        `payment cannot be approved, current status: ${payment.status}`,
+      );
+    }
     console.log('Paying...');
 
     setTimeout(() => {

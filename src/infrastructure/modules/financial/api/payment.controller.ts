@@ -9,7 +9,9 @@ export class PaymentController {
   constructor(
     @Inject('ApprovePaymentByOrderIdUseCase')
     private readonly approvePaymentByOrderIdUseCase: IApprovePaymentByOrderIdUseCase,
+    @Inject('CancelPaymentByOrderIdUseCase')
     private readonly cancelPaymentByOrderIdUseCase: ICancelPaymentByOrderIdUseCase,
+    @Inject('FindPaymentByOrderId')
     private readonly findPaymentByOrderId: IFindPaymentByOrderId,
   ) {}
 

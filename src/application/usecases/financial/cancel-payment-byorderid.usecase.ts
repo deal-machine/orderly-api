@@ -22,11 +22,10 @@ export class CancelPaymentByOrderIdUseCase
     const payment = await this.paymentRepository.findOneByOrderId(orderId);
     if (!payment) throw new NotFoundException('payment not found');
 
-    console.log('Canceling...');
-
     if (payment.status === 'Aprovado')
       throw new DomainException('payment was approved');
 
+    console.log('Canceling...');
     setTimeout(() => {
       this.eventEmitter.emit(
         'payment-status.changed',

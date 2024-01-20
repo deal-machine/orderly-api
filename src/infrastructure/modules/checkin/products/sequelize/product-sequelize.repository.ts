@@ -1,7 +1,6 @@
 import { InjectModel } from '@nestjs/sequelize';
 
 import { ProductModel } from './product.model';
-import { NotFoundException } from '@nestjs/common';
 import { CategoryModel } from './category.model';
 import {
   IProductRepository,
@@ -9,6 +8,7 @@ import {
 } from 'src/domain/checkin/products/repositories/product.repository';
 import { Category } from 'src/domain/checkin/products/entities/category.entity';
 import { Product } from 'src/domain/checkin/products/entities/product.entity';
+import { NotFoundException } from 'src/application/errors';
 
 export class ProductSequelizeRepository implements IProductRepository {
   constructor(

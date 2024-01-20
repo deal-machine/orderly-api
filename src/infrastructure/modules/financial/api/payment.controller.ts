@@ -1,16 +1,16 @@
 import { Controller, Delete, Get, Inject, Param, Post } from '@nestjs/common';
-import { PaymentService } from './payment.service';
 import { IApprovePaymentByOrderIdUseCase } from 'src/domain/financial/usecases/approve-payment-byorderid.usecase';
 import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
 import { ICancelPaymentByOrderIdUseCase } from 'src/domain/financial/usecases/cancel-payment-byorderid.usecase';
+import { IFindPaymentByOrderId } from 'src/domain/financial/usecases/find-payment-byorderid.usecase';
 
 @Controller('payments')
 export class PaymentController {
   constructor(
-    private readonly paymentService: PaymentService,
     @Inject('ApprovePaymentByOrderIdUseCase')
     private readonly approvePaymentByOrderIdUseCase: IApprovePaymentByOrderIdUseCase,
     private readonly cancelPaymentByOrderIdUseCase: ICancelPaymentByOrderIdUseCase,
+    private readonly findPaymentByOrderId: IFindPaymentByOrderId,
   ) {}
 
   @Post('order/:id/approve')
@@ -32,7 +32,11 @@ export class PaymentController {
   }
 
   @Get('order/:id')
-  findOne(@Param('id') id: string) {
-    return this.paymentService.findOneByOrderId(id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.findPaymentByOrderId.execute(id);
+    } catch (err) {
+      responseError(err);
+    }
   }
 }

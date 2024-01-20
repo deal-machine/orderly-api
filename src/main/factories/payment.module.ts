@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { PaymentService } from '../../infrastructure/modules/financial/api/payment.service';
 import { PaymentController } from '../../infrastructure/modules/financial/api/payment.controller';
 import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
 import { PaymentSequelizeRepository } from '../../infrastructure/modules/financial/sequelize/payment-sequelize.repository';
@@ -15,12 +14,12 @@ import { ChangePaymentStatusListener } from '../../infrastructure/modules/financ
 import { CreatePaymentUseCase } from 'src/application/usecases/financial/create-payment.usecase';
 import { ApprovePaymentByOrderIdUseCase } from 'src/application/usecases/financial/approve-payment-byorderid.usecase';
 import { CancelPaymentByOrderIdUseCase } from 'src/application/usecases/financial/cancel-payment-byorderid.usecase';
+import { FindPaymentByOrderId } from 'src/application/usecases/financial/find-payment-byorderid.usecase';
 
 @Module({
   imports: [SequelizeModule.forFeature([PaymentModel]), QueueModule],
   controllers: [PaymentController],
   providers: [
-    PaymentService,
     Uuid,
     { provide: 'IdGenerator', useExisting: Uuid },
     PaymentSequelizeRepository,
@@ -33,18 +32,22 @@ import { CancelPaymentByOrderIdUseCase } from 'src/application/usecases/financia
     PublishPaymentIntegrationListener,
     ChangePaymentStatusListener,
     PaymentConsumeOrder,
+
+    // use cases
     CreatePaymentUseCase,
-    { provide: 'CreatePaymentUseCase', useExisting: CreatePaymentUseCase },
     ApprovePaymentByOrderIdUseCase,
+    CancelPaymentByOrderIdUseCase,
+    FindPaymentByOrderId,
+    { provide: 'CreatePaymentUseCase', useExisting: CreatePaymentUseCase },
     {
       provide: 'ApprovePaymentByOrderIdUseCase',
       useExisting: ApprovePaymentByOrderIdUseCase,
     },
-    CancelPaymentByOrderIdUseCase,
     {
       provide: 'CancelPaymentByOrderIdUseCase',
       useExisting: CancelPaymentByOrderIdUseCase,
     },
+    { provide: 'FindPaymentByOrderId', useExisting: FindPaymentByOrderId },
   ],
 })
 export class PaymentModule {}

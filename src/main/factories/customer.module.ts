@@ -12,6 +12,7 @@ import { PublishCustomerListener } from '../../infrastructure/modules/checkin/cu
 import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
 import { CreateCustomerUseCase } from 'src/application/usecases/checkin/customers/create-customer.usecase';
 import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers/find-customer-byid.usecase';
+import { FindCustomerByCpf } from 'src/application/usecases/checkin/customers/find-customer-bycpf.usecase';
 
 @Module({
   imports: [
@@ -42,6 +43,8 @@ import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/custom
       useExisting: FindCustomerByIdUseCase,
     },
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
+    FindCustomerByCpf,
+    { provide: 'FindCustomerByCpf', useExisting: FindCustomerByCpf },
   ],
 })
 export class CustomerModule {}

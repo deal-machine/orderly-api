@@ -39,6 +39,9 @@ $ kubectl apply -f k8s/db
 
 # api
 $ kubectl apply -f k8s/api
+
+# to watch all pods running
+$ watch -n1 sudo kubectl get pods
 ```
 
 <p align="center">

@@ -1,5 +1,5 @@
 import { CreateProductUseCase } from 'src/application/usecases/checkin/products/create-product.usecase';
-import { Uuid } from 'src/infrastructure/adapters/tokens/uuid/uuid';
+import { Uuid } from 'src/infrastructure/drivers/tokens/uuid/uuid';
 import { CategoryModel } from 'src/infrastructure/modules/checkin/products/sequelize/category.model';
 import { ProductSequelizeRepository } from 'src/infrastructure/modules/checkin/products/sequelize/product-sequelize.repository';
 import { ProductModel } from 'src/infrastructure/modules/checkin/products/sequelize/product.model';

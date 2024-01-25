@@ -9,7 +9,7 @@ import {
   Inject,
 } from '@nestjs/common';
 import { CreateProductDto } from 'src/domain/checkin/products/dto/create-product.dto';
-import { responseError } from 'src/infrastructure/adapters/api/presenters/output/reponse.error';
+import { responseError } from 'src/infrastructure/drivers/api/presenters/output/reponse.error';
 import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product.dto';
 import {
   ICreateProductUseCase,

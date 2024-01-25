@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import tokenGenerator from '../../infrastructure/adapters/tokens';
-import { Jwt } from '../../infrastructure/adapters/tokens/jwt/jwt';
+import tokenGenerator from '../../infrastructure/drivers/tokens';
+import { Jwt } from '../../infrastructure/drivers/tokens/jwt/jwt';
 import { CustomerModule } from './customer.module';
 import { ProductModule } from './product.module';
 import { ConfigModule } from '@nestjs/config';
 import { OrderModule } from './order.module';
 import { PaymentModule } from './payment.module';
-import database from '../../infrastructure/adapters/database';
-import QueueModule from '../../infrastructure/adapters/queue';
+import database from '../../infrastructure/drivers/database';
+import QueueModule from '../../infrastructure/drivers/queue';
 
 @Module({
   imports: [

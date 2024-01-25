@@ -15,7 +15,7 @@ import {
   FindProductByCategoryIdUseCase,
   GetCategoriesUseCase,
   UpdateProductUseCase,
-} from 'src/application/usecases/checkin/products';
+} from 'src/application/data/usecases/checkin/products';
 
 @Module({
   imports: [SequelizeModule.forFeature([ProductModel, CategoryModel])],

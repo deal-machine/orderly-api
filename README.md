@@ -1,15 +1,15 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="70" alt="Nest Logo" /></a>
-</p>
+<div align="center">
+  <h2>Orderly</h2>
+</div>
 
-## Installation
+> Orderly is a cutting-edge web system designed to streamline operations for restaurant and food businesses (RMS).
+> It draws from the principles of Domain-Driven Design (DDD) and Architectures to ensure scalability, maintainability, and a robust integration capability.
 
-```bash
-$ npm install
-```
+<br>
 
+## How to run the application
 
-## Running docker
+## Running on docker
 
 ```bash
 # up with build
@@ -22,7 +22,7 @@ $ docker compose up -d
 $ docker compose down
 ```
 
-## Running kubernetes
+## Running on kubernetes
 
 ```bash
 # create namespace orderly
@@ -44,22 +44,17 @@ $ kubectl apply -f k8s/api
 $ watch -n1 sudo kubectl get pods
 ```
 
-<p align="center">
-  <a target="blank"><img src="./docs/images/k8s-cloud.png" width="700" alt="Kubernetes diagram on google cloud platform" style="border-radius:10px;" /></a>
-</p>
+<br>
 
+### Domain Driven Design
 
-## Entity Relationship Diagram - Database
-
-<p align="center">
-  <a target="blank"><img src="./docs/images/er-diagram.png" width="700" alt="Entity Relationship Diagram" style="border-radius:10px;" /></a>
-</p>
-
-## Domain Driven Design - Context Map
+## Context Map
 
 <p align="center">
   <a target="blank"><img src="./docs/images/context-map.png" width="1000" alt="DDD Context Map" style="border-radius:10px;" /></a>
 </p>
+
+<br>
 
 ## Use cases
 
@@ -98,6 +93,34 @@ $ watch -n1 sudo kubectl get pods
 <p align="center">
   <a target="blank"><img src="./docs/images/withdrawn-order-usecase.png" width="1000" alt="Withdrawn order Usecase" style="border-radius:10px;" /></a>
 </p>
+
+
+<br>
+
+## Kubernetes Diagram - Infrastructure
+
+### Cloud - Google Cloud Platform
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/k8s-cloud.png" width="700" alt="Kubernetes diagram on google cloud platform" style="border-radius:10px;" /></a>
+</p>
+
+### Local - Docker Hub
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/k8s-local.png" width="700" alt="Kubernetes local diagram" style="border-radius:10px;" /></a>
+</p>
+
+<br>
+
+## Entity Relationship Diagram - Database
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/er-diagram.png" width="700" alt="Entity Relationship Diagram" style="border-radius:10px;" /></a>
+</p>
+
+<br>
+
 
 ## Clean Architecture
 

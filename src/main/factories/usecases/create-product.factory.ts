@@ -15,4 +15,8 @@ const createProductUseCase = new CreateProductUseCase(
   productRepository,
   idGenerator,
 );
+
+// criar camada para controller interna - camada application
+// verificar a possibilidade de implementar express.js
+
 export { createProductUseCase };

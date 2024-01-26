@@ -11,10 +11,12 @@ import { PaymentConsumeOrder } from '../../infrastructure/modules/financial/bull
 import { AxiosHttp } from 'src/infrastructure/drivers/http/axios';
 import QueueModule from 'src/infrastructure/drivers/queue';
 import { ChangePaymentStatusListener } from '../../infrastructure/modules/financial/event-emitter/change-payment-status.listener';
-import { CreatePaymentUseCase } from 'src/application/data/usecases/financial/create-payment.usecase';
-import { ApprovePaymentByOrderIdUseCase } from 'src/application/data/usecases/financial/approve-payment-byorderid.usecase';
-import { CancelPaymentByOrderIdUseCase } from 'src/application/data/usecases/financial/cancel-payment-byorderid.usecase';
-import { FindPaymentByOrderId } from 'src/application/data/usecases/financial/find-payment-byorderid.usecase';
+import {
+  CreatePaymentUseCase,
+  ApprovePaymentByOrderIdUseCase,
+  CancelPaymentByOrderIdUseCase,
+  FindPaymentByOrderId,
+} from 'src/application/data/financial/usecases';
 
 @Module({
   imports: [SequelizeModule.forFeature([PaymentModel]), QueueModule],

@@ -1,7 +1,4 @@
-import {
-  serverError,
-  success,
-} from 'src/application/data/presenters/presenter';
+import { HttpPresenter } from 'src/application/presenters/http.presenter';
 import {
   IController,
   IRequest,
@@ -20,9 +17,9 @@ export class CreateCustomerController implements IController {
         email,
         name,
       });
-      return success(customer);
+      return HttpPresenter.success(customer);
     } catch (error) {
-      return serverError();
+      return HttpPresenter.serverError();
     }
   }
 }

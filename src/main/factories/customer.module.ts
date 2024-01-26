@@ -10,9 +10,11 @@ import { CustomerController } from '../../infrastructure/modules/checkin/custome
 import { CustomerConsumer } from '../../infrastructure/modules/checkin/customers/bullmq/customer.consumer';
 import { PublishCustomerListener } from '../../infrastructure/modules/checkin/customers/event-emitter/publish-customer.listener';
 import { Uuid } from 'src/infrastructure/drivers/tokens/uuid/uuid';
-import { CreateCustomerUseCase } from 'src/application/data/usecases/checkin/customers/create-customer.usecase';
-import { FindCustomerByIdUseCase } from 'src/application/data/usecases/checkin/customers/find-customer-byid.usecase';
-import { FindCustomerByCpf } from 'src/application/data/usecases/checkin/customers/find-customer-bycpf.usecase';
+import {
+  CreateCustomerUseCase,
+  FindCustomerByCpf,
+  FindCustomerByIdUseCase,
+} from 'src/application/data/checkin/customers/usecases';
 
 @Module({
   imports: [

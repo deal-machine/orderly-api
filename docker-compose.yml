@@ -9,6 +9,20 @@ services:
     networks:
       - orderly-net
 
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq-server
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_DEFAULT_USER=${AMQP_USERNAME}
+      - RABBITMQ_DEFAULT_PASS=${AMQP_PASSWORD}
+    env_file:
+      - .env.production
+    networks:
+      - orderly-net
+
   postgres:
     image: postgres:latest
     container_name: postgres-database
@@ -36,6 +50,7 @@ services:
       - orderly-net
     depends_on:
       - redis
+      - rabbitmq
       - postgres
     restart: always
     links:

@@ -6,10 +6,9 @@ import {
   Param,
   Query,
   Inject,
+  Req,
 } from '@nestjs/common';
 import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
-import { responseError } from 'src/infrastructure/drivers/api/presenters/output/reponse.error';
-import { IFindCustomerByIdUseCase } from 'src/domain/checkin/customers/usecases/find-customer-byid.usecase';
 import { ICheckProductQuantityUseCase } from 'src/domain/checkin/products/usecases/check-product-quantity.usecase';
 import {
   ICreateOrderUseCase,
@@ -19,9 +18,12 @@ import {
   IPrepareOrderUseCase,
   IWithdrawnOrderUseCase,
 } from 'src/domain/checkout/usecases';
+import { responseError } from 'src/infrastructure/drivers/api/presenters/reponse.error';
+import { FindCustomerByIdFactory } from 'src/main/checkin/customers/find-customer-byid';
+import { Request } from 'express';
 
 @Controller('orders')
-export class OrderController {
+export class OrderRouter {
   constructor(
     @Inject('CreateOrderUseCase')
     private readonly createOrderUseCase: ICreateOrderUseCase,
@@ -35,8 +37,6 @@ export class OrderController {
     private readonly getOrderStatusUseCase: IGetOrderStatusUseCase,
     @Inject('GetOrderReportByCustomerIdUseCase')
     private readonly getOrderReportByCustomerIdUseCase: IGetOrderReportByCustomerIdUseCase,
-    @Inject('FindCustomerByIdUseCase')
-    private findCustomerByIdUseCase: IFindCustomerByIdUseCase,
     @Inject('CheckProductQuantityUseCase')
     private checkProductQuantityUseCase: ICheckProductQuantityUseCase,
   ) {}
@@ -91,10 +91,12 @@ export class OrderController {
   }
 
   @Get('customer/:id')
-  async getCustomerReport(@Param('id') id: string) {
+  async getCustomerReport(@Req() req: Request) {
     try {
-      await this.findCustomerByIdUseCase.execute(id);
-      return await this.getOrderReportByCustomerIdUseCase.execute(id);
+      const findCustomerByIdController = FindCustomerByIdFactory.register();
+      const findCustomer = await findCustomerByIdController.handle(req['data']);
+      const { customer } = findCustomer.body;
+      return await this.getOrderReportByCustomerIdUseCase.execute(customer.id);
     } catch (err: any) {
       responseError(err);
     }

@@ -1,8 +1,8 @@
 import { Controller, Delete, Get, Inject, Param, Post } from '@nestjs/common';
 import { IApprovePaymentByOrderIdUseCase } from 'src/domain/financial/usecases/approve-payment-byorderid.usecase';
-import { responseError } from 'src/infrastructure/drivers/api/presenters/output/reponse.error';
 import { ICancelPaymentByOrderIdUseCase } from 'src/domain/financial/usecases/cancel-payment-byorderid.usecase';
 import { IFindPaymentByOrderId } from 'src/domain/financial/usecases/find-payment-byorderid.usecase';
+import { responseError } from 'src/infrastructure/drivers/api/presenters/reponse.error';
 
 @Controller('payments')
 export class PaymentController {

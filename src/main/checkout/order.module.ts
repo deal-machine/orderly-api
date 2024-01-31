@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { OrderController } from '../../infrastructure/modules/checkout/api/order.controller';
+import { OrderRouter } from '../../infrastructure/modules/checkout/api/order.router';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Uuid } from 'src/infrastructure/drivers/tokens/uuid/uuid';
 import { PublishOrderRequestListener } from '../../infrastructure/modules/checkout/event-emitter/publish-order-request.listener';
@@ -25,7 +25,6 @@ import {
   PrepareOrderUseCase,
   WithdrawnOrderUseCase,
 } from 'src/application/usecases/checkout';
-import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers';
 import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products';
 
 @Module({
@@ -39,7 +38,7 @@ import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/pr
     ]),
     QueueModule,
   ],
-  controllers: [OrderController],
+  controllers: [OrderRouter],
   providers: [
     ProductSequelizeRepository,
     CustomerSequelizeRepository,
@@ -57,7 +56,6 @@ import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/pr
     { provide: 'DateAdapter', useExisting: MomentDateAdapter },
 
     // use cases
-    FindCustomerByIdUseCase,
     CheckProductQuantityUseCase,
     CreateOrderUseCase,
     PrepareOrderUseCase,
@@ -66,10 +64,7 @@ import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/pr
     GetOrderStatusUseCase,
     GetOrderReportByCustomerIdUseCase,
     PayOrderUseCase,
-    {
-      provide: 'FindCustomerByIdUseCase',
-      useExisting: FindCustomerByIdUseCase,
-    },
+
     {
       provide: 'CheckProductQuantityUseCase',
       useExisting: CheckProductQuantityUseCase,

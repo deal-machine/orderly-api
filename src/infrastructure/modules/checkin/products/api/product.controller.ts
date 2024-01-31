@@ -9,7 +9,6 @@ import {
   Inject,
 } from '@nestjs/common';
 import { CreateProductDto } from 'src/domain/checkin/products/dto/create-product.dto';
-import { responseError } from 'src/infrastructure/drivers/api/presenters/output/reponse.error';
 import { UpdateProductDto } from 'src/domain/checkin/products/dto/update-product.dto';
 import {
   ICreateProductUseCase,
@@ -18,6 +17,7 @@ import {
   IGetCategoriesUseCase,
   IUpdateProductUseCase,
 } from 'src/domain/checkin/products/usecases';
+import { responseError } from 'src/infrastructure/drivers/api/presenters/reponse.error';
 
 @Controller('products')
 export class ProductController {

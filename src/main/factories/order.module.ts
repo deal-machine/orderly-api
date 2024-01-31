@@ -16,8 +16,6 @@ import { CustomerSequelizeRepository } from '../../infrastructure/modules/checki
 import { CustomerModel } from '../../infrastructure/modules/checkin/customers/sequelize/customer.model';
 import { CategoryModel } from '../../infrastructure/modules/checkin/products/sequelize/category.model';
 import { MomentDateAdapter } from 'src/infrastructure/drivers/date/moment';
-import { FindCustomerByIdUseCase } from 'src/application/data/checkin/customers/usecases/find-customer-byid.usecase';
-import { CheckProductQuantityUseCase } from 'src/application/data/checkin/products/usecases';
 import {
   CreateOrderUseCase,
   FindOrdersUseCase,
@@ -26,7 +24,9 @@ import {
   PayOrderUseCase,
   PrepareOrderUseCase,
   WithdrawnOrderUseCase,
-} from 'src/application/data/checkout/usecases';
+} from 'src/application/usecases/checkout';
+import { FindCustomerByIdUseCase } from 'src/application/usecases/checkin/customers';
+import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products';
 
 @Module({
   imports: [

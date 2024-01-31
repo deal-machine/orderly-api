@@ -1,5 +1,5 @@
-import { ServerError } from 'src/application/errors/server.error';
-import { IResponse } from 'src/domain/@shared/protocols/controller';
+import { ServerError } from '../errors/server.error';
+import { IResponse } from '../protocols/controller';
 
 export class HttpPresenter {
   static badRequest = (error: Error): IResponse => ({

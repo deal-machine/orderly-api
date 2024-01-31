@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { CreateCustomerDto } from 'src/domain/checkin/customers/dto/create-customer.dto';
 import {
@@ -8,13 +7,9 @@ import {
 import { ICustomerRepository } from 'src/domain/checkin/customers/repositories/customer.repository';
 import { ICreateCustomerUseCase } from 'src/domain/checkin/customers/usecases/create-customer.usecase';
 
-@Injectable()
 export class CreateCustomerUseCase implements ICreateCustomerUseCase {
   constructor(
-    @Inject('CustomerRepository')
     private customerRepository: ICustomerRepository,
-
-    @Inject('IdGenerator')
     private idGenerator: IIdentifierGenerator,
   ) {}
 

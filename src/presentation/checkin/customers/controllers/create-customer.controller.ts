@@ -1,10 +1,10 @@
-import { HttpPresenter } from 'src/application/presenters/http.presenter';
+import { ICreateCustomerUseCase } from 'src/domain/checkin/customers/usecases/create-customer.usecase';
 import {
   IController,
   IRequest,
   IResponse,
-} from 'src/domain/@shared/protocols/controller';
-import { ICreateCustomerUseCase } from 'src/domain/checkin/customers/usecases/create-customer.usecase';
+} from 'src/presentation/@shared/protocols/controller';
+import { HttpPresenter } from '../presenters/http.presenter';
 
 export class CreateCustomerController implements IController {
   constructor(private readonly createCustomerUseCase: ICreateCustomerUseCase) {}
@@ -17,8 +17,9 @@ export class CreateCustomerController implements IController {
         email,
         name,
       });
-      return HttpPresenter.success(customer);
+      return HttpPresenter.success({ customer });
     } catch (error) {
+      console.log(error);
       return HttpPresenter.serverError();
     }
   }

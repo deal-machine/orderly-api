@@ -6,7 +6,7 @@ import { CustomerHttp } from '../../infrastructure/modules/checkin/customers/htt
 import { CustomerModel } from '../../infrastructure/modules/checkin/customers/sequelize/customer.model';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { BullModule } from '@nestjs/bull';
-import { CustomerController } from '../../infrastructure/modules/checkin/customers/api/customer.controller';
+import { CustomerRouter } from '../../infrastructure/modules/checkin/customers/api/customer.controller';
 import { CustomerConsumer } from '../../infrastructure/modules/checkin/customers/bullmq/customer.consumer';
 import { PublishCustomerListener } from '../../infrastructure/modules/checkin/customers/event-emitter/publish-customer.listener';
 import { Uuid } from 'src/infrastructure/drivers/tokens/uuid/uuid';
@@ -14,7 +14,7 @@ import {
   CreateCustomerUseCase,
   FindCustomerByCpf,
   FindCustomerByIdUseCase,
-} from 'src/application/data/checkin/customers/usecases';
+} from 'src/application/usecases/checkin/customers';
 
 @Module({
   imports: [
@@ -27,7 +27,7 @@ import {
       defaultJobOptions: { attempts: 2 },
     }),
   ],
-  controllers: [CustomerController],
+  controllers: [CustomerRouter],
   providers: [
     CustomerSequelizeRepository,
     { provide: 'CustomerRepository', useExisting: CustomerSequelizeRepository },

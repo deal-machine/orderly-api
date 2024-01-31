@@ -16,7 +16,7 @@ import {
   ApprovePaymentByOrderIdUseCase,
   CancelPaymentByOrderIdUseCase,
   FindPaymentByOrderId,
-} from 'src/application/data/financial/usecases';
+} from 'src/application/usecases/financial';
 
 @Module({
   imports: [SequelizeModule.forFeature([PaymentModel]), QueueModule],

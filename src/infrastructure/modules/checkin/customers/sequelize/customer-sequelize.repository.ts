@@ -1,19 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
 import { CustomerModel } from './customer.model';
 import { Op } from 'sequelize';
 import { ICustomerRepository } from 'src/domain/checkin/customers/repositories/customer.repository';
 import { Customer } from 'src/domain/checkin/customers/entities/customer.entity';
 
-@Injectable()
 export class CustomerSequelizeRepository implements ICustomerRepository {
-  constructor(
-    @InjectModel(CustomerModel)
-    private model: typeof CustomerModel,
-  ) {}
-
   async findOne(id: string): Promise<Customer | null> {
-    const customerModel = await this.model.findOne({ where: { id } });
+    const customerModel = await CustomerModel.findOne({ where: { id } });
     if (!customerModel) return null;
 
     return new Customer({
@@ -28,7 +20,7 @@ export class CustomerSequelizeRepository implements ICustomerRepository {
     cpf = null,
     email = null,
   ): Promise<Customer | null> {
-    const customerModel = await this.model.findOne({
+    const customerModel = await CustomerModel.findOne({
       where: { [Op.or]: [{ cpf }, { email }] },
     });
     if (!customerModel) return null;
@@ -42,7 +34,7 @@ export class CustomerSequelizeRepository implements ICustomerRepository {
   }
 
   async findByCpf(cpf: string): Promise<Customer | null> {
-    const customerModel = await this.model.findOne({ where: { cpf } });
+    const customerModel = await CustomerModel.findOne({ where: { cpf } });
     if (!customerModel) return null;
     return new Customer({
       id: customerModel.id,
@@ -53,7 +45,7 @@ export class CustomerSequelizeRepository implements ICustomerRepository {
   }
 
   async findAll(): Promise<Customer[]> {
-    const customersModel = await this.model.findAll();
+    const customersModel = await CustomerModel.findAll();
     if (customersModel.length < 1) throw Error('not found customers in db');
     return customersModel.map(
       (c) =>
@@ -67,7 +59,7 @@ export class CustomerSequelizeRepository implements ICustomerRepository {
   }
 
   async create(params: Partial<Customer>): Promise<Customer> {
-    const customerModel = await this.model.create(params);
+    const customerModel = await CustomerModel.create(params);
     return new Customer({
       cpf: customerModel.cpf,
       email: customerModel.email,
@@ -77,13 +69,13 @@ export class CustomerSequelizeRepository implements ICustomerRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await this.model.destroy({ where: { id } });
+    await CustomerModel.destroy({ where: { id } });
   }
 
   async update(
     id: string,
     customerToUpdate: Omit<Customer, 'id'>,
   ): Promise<void> {
-    await this.model.update(customerToUpdate, { where: { id } });
+    await CustomerModel.update(customerToUpdate, { where: { id } });
   }
 }

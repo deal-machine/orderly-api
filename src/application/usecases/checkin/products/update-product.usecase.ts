@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { NotFoundException } from 'src/application/errors';
 import { IProductRepository } from 'src/domain/checkin/products/repositories/product.repository';
 import {
@@ -6,11 +5,8 @@ import {
   IUpdateProductUseCase,
 } from 'src/domain/checkin/products/usecases/update-product.usecase';
 
-@Injectable()
 export class UpdateProductUseCase implements IUpdateProductUseCase {
-  constructor(
-    @Inject('ProductRepository') private productRepository: IProductRepository,
-  ) {}
+  constructor(private productRepository: IProductRepository) {}
 
   async execute({ id, updateProductDto }: IUpdateProductInput): Promise<void> {
     const product = await this.productRepository.findOne(id);

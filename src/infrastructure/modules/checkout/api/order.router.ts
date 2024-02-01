@@ -19,8 +19,8 @@ import {
   IWithdrawnOrderUseCase,
 } from 'src/domain/checkout/usecases';
 import { responseError } from 'src/infrastructure/drivers/api/presenters/reponse.error';
-import { FindCustomerByIdFactory } from 'src/main/checkin/customers/find-customer-byid';
 import { Request } from 'express';
+import { FindCustomerByIdFactory } from 'src/main/checkin/customers/find-customer-byid.factory';
 
 @Controller('orders')
 export class OrderRouter {

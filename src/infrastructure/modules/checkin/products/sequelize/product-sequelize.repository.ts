@@ -1,5 +1,3 @@
-import { InjectModel } from '@nestjs/sequelize';
-
 import { ProductModel } from './product.model';
 import { CategoryModel } from './category.model';
 import {
@@ -11,25 +9,18 @@ import { Product } from 'src/domain/checkin/products/entities/product.entity';
 import { NotFoundException } from 'src/application/errors';
 
 export class ProductSequelizeRepository implements IProductRepository {
-  constructor(
-    @InjectModel(ProductModel)
-    private model: typeof ProductModel,
-    @InjectModel(CategoryModel)
-    private categoryModel: typeof CategoryModel,
-  ) {}
-
   async createCategories(
     categoriesToCreate: categoriesToCreate,
   ): Promise<void> {
     Promise.all([
       categoriesToCreate.map(async (category) =>
-        this.categoryModel.create(category),
+        CategoryModel.create(category),
       ),
     ]);
   }
 
   async getCategories(): Promise<Category[]> {
-    const categories = await this.categoryModel.findAll();
+    const categories = await CategoryModel.findAll();
     if (categories.length < 1)
       throw new NotFoundException('categories not exists.');
     return categories.map(
@@ -43,12 +34,12 @@ export class ProductSequelizeRepository implements IProductRepository {
   }
 
   async updateQuantity(id: string, quantity: number): Promise<number> {
-    await this.model.update({ quantity }, { where: { id } });
+    await ProductModel.update({ quantity }, { where: { id } });
     return quantity;
   }
 
-  async findByCategory(categoryId: number): Promise<Product[]> {
-    const productModel = await this.model.findAll({
+  async findByCategory(categoryId: string): Promise<Product[]> {
+    const productModel = await ProductModel.findAll({
       where: { categoryId },
     });
     if (!productModel)
@@ -67,7 +58,7 @@ export class ProductSequelizeRepository implements IProductRepository {
   }
 
   async findOne(id: string): Promise<Product> {
-    const productModel = await this.model.findOne({ where: { id } });
+    const productModel = await ProductModel.findOne({ where: { id } });
     if (!productModel) return null;
 
     return new Product({
@@ -81,7 +72,7 @@ export class ProductSequelizeRepository implements IProductRepository {
   }
 
   async findAll(): Promise<Product[]> {
-    const productsModel = await this.model.findAll();
+    const productsModel = await ProductModel.findAll();
 
     return productsModel.map((p) => {
       return new Product({
@@ -96,7 +87,7 @@ export class ProductSequelizeRepository implements IProductRepository {
   }
 
   async create(params: Partial<Product>): Promise<Product> {
-    const productModel = await this.model.create(params);
+    const productModel = await ProductModel.create(params);
 
     return new Product({
       id: productModel.id,
@@ -109,14 +100,14 @@ export class ProductSequelizeRepository implements IProductRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await this.model.destroy({ where: { id } });
+    await ProductModel.destroy({ where: { id } });
   }
 
   async update(
     id: string,
     { name, price, description, categoryId }: Partial<Product>,
   ): Promise<void> {
-    await this.model.update(
+    await ProductModel.update(
       { name, price, description, categoryId },
       { where: { id } },
     );

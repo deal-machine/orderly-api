@@ -1,6 +1,6 @@
 import { IUseCase } from 'src/domain/@shared/protocols/usecase';
-import { Category } from '../entities/category.entity';
+import { ICategory } from '../entities/category.entity';
 
-export interface IGetCategoriesUseCase extends IUseCase<null, Category[]> {
-  execute(): Promise<Category[]>;
+export interface IGetCategoriesUseCase extends IUseCase<null, ICategory[]> {
+  execute(): Promise<ICategory[]>;
 }

@@ -12,6 +12,7 @@ import QueueModule from '../infrastructure/drivers/queue';
 import { CustomerRouter } from 'src/infrastructure/modules/checkin/customers/api/customer.router';
 import { adaptRoutes } from 'src/infrastructure/drivers/api/middlewares/adapt-routes.middleware';
 import { OrderRouter } from 'src/infrastructure/modules/checkout/api/order.router';
+import { ProductRouter } from 'src/infrastructure/modules/checkin/products/api/product.router';
 
 @Module({
   imports: [
@@ -33,7 +34,9 @@ import { OrderRouter } from 'src/infrastructure/modules/checkout/api/order.route
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(adaptRoutes).forRoutes(CustomerRouter, OrderRouter);
+    consumer
+      .apply(adaptRoutes)
+      .forRoutes(CustomerRouter, OrderRouter, ProductRouter);
   }
 }
 

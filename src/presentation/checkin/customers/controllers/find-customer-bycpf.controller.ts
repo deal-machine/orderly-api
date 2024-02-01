@@ -1,3 +1,4 @@
+import { ICustomer } from 'src/domain/checkin/customers/entities/customer.entity';
 import { IFindCustomerByCpfUseCase } from 'src/domain/checkin/customers/usecases/find-customer-bycpf.usecase';
 import { HttpPresenter } from 'src/presentation/@shared/presenters/http.presenter';
 import {
@@ -6,12 +7,30 @@ import {
   IResponse,
 } from 'src/presentation/@shared/protocols/controller';
 
-export class FindCustomerByCpfController implements IController {
+export interface IFindCustomerByCpfRequest extends IRequest {
+  params: {
+    cpf: string;
+  };
+}
+export interface IFindCustomerByCpfResponse extends IResponse {
+  body: ICustomer;
+}
+export interface IFindCustomerByCpfController extends IController {
+  handle(
+    request: IFindCustomerByCpfRequest,
+  ): Promise<IFindCustomerByCpfResponse>;
+}
+
+export class FindCustomerByCpfController
+  implements IFindCustomerByCpfController
+{
   constructor(
     private readonly findCustomerByCpfUseCase: IFindCustomerByCpfUseCase,
   ) {}
 
-  async handle({ params }: IRequest): Promise<IResponse> {
+  async handle({
+    params,
+  }: IFindCustomerByCpfRequest): Promise<IFindCustomerByCpfResponse> {
     try {
       const { cpf } = params;
       const customer = await this.findCustomerByCpfUseCase.execute(cpf);

@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { NotFoundException } from 'src/application/errors';
 import { IEventEmitter } from 'src/application/ports/events/event-emitter';
 import { DomainException } from 'src/domain/@shared/errors';
@@ -7,14 +6,11 @@ import { ProductDecreasedEvent } from 'src/domain/checkin/products/events/produc
 import { IProductRepository } from 'src/domain/checkin/products/repositories/product.repository';
 import { ICheckProductQuantityUseCase } from 'src/domain/checkin/products/usecases/check-product-quantity.usecase';
 
-@Injectable()
 export class CheckProductQuantityUseCase
   implements ICheckProductQuantityUseCase
 {
   constructor(
-    @Inject('ProductRepository')
     private productRepository: IProductRepository,
-    @Inject('EventEmitter')
     private eventEmitter: IEventEmitter,
   ) {}
 

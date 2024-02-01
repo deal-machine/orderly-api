@@ -1,7 +1,9 @@
 import { Controller, Post, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { CreateCustomerFactory } from 'src/main/checkin/customers/create-customer.factory';
-import { FindCustomerByCpfFactory } from 'src/main/checkin/customers/find-customer-bycpf';
+import {
+  CreateCustomerFactory,
+  FindCustomerByCpfFactory,
+} from 'src/main/checkin/customers';
 
 @Controller('customers')
 export class CustomerRouter {

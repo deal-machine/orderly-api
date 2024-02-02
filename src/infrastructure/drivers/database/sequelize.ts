@@ -1,10 +1,10 @@
 import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { OrderItemModel } from 'src/infrastructure/drivers/database/models/order-item-model';
 import { OrderModel } from 'src/infrastructure/drivers/database/models/order-model';
-import { CustomerModel } from 'src/infrastructure/modules/checkin/customers/sequelize/customer.model';
 import { ProductModel } from 'src/infrastructure/drivers/database/models/product.model';
-import { CategoryModel } from 'src/infrastructure/modules/checkin/products/sequelize/category.model';
 import { connection } from './connections';
+import { CustomerModel } from './models/customer.model';
+import { CategoryModel } from './models/category.model';
 
 export const sequelizeModels = [
   CustomerModel,

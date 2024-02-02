@@ -1,5 +1,5 @@
 import { FindCustomerByCpfUseCase } from 'src/application/usecases/checkin/customers';
-import { CustomerSequelizeRepository } from 'src/infrastructure/modules/checkin/customers/sequelize/customer-sequelize.repository';
+import { CustomerSequelizeRepository } from 'src/infrastructure/drivers/database/repositories/customer-sequelize.repository';
 import {
   FindCustomerByCpfController,
   IFindCustomerByCpfController,

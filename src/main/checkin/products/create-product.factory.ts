@@ -1,6 +1,6 @@
 import { CreateProductUseCase } from 'src/application/usecases/checkin/products';
 import { Uuid } from 'src/infrastructure/drivers/tokens/uuid/uuid';
-import { ProductSequelizeRepository } from 'src/infrastructure/modules/checkin/products/sequelize/product-sequelize.repository';
+import { ProductSequelizeRepository } from 'src/infrastructure/drivers/database/repositories/product-sequelize.repository';
 import {
   CreateProductController,
   ICreateProductController,

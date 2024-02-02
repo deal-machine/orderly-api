@@ -1,5 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IEventEmitter } from 'src/application/ports/events/event-emitter';
+import { IEventDispatcher } from 'src/application/ports/events';
 import { IPaymentIntegration } from 'src/application/ports/integrations/payment';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { DomainException } from 'src/domain/@shared/errors';
@@ -11,16 +10,11 @@ import {
   ICreatePaymentInput,
 } from 'src/domain/financial/usecases/create-payment.usecase';
 
-@Injectable()
 export class CreatePaymentUseCase implements ICreatePaymentUseCase {
   constructor(
-    @Inject('PaymentRepository')
     private paymentRepository: IPaymentRepository,
-    @Inject('PaymentIntegration')
     private paymentIntegration: IPaymentIntegration,
-    @Inject('EventEmitter')
-    private eventEmitter: IEventEmitter,
-    @Inject('IdGenerator')
+    private eventDispatcher: IEventDispatcher,
     private idGenerator: IIdentifierGenerator,
   ) {}
 
@@ -51,6 +45,6 @@ export class CreatePaymentUseCase implements ICreatePaymentUseCase {
 
     await this.paymentRepository.create(payment);
 
-    this.eventEmitter.emit('payment.created', new CreatedPaymentEvent(payment));
+    this.eventDispatcher.dispatch(new CreatedPaymentEvent(payment));
   }
 }

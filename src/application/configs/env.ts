@@ -1,4 +1,5 @@
 export const env = {
+  port: Number(process.env.PORT || 3000),
   isTest: process.env.NODE_ENV == 'test',
 
   dbHost: String(process.env.DB_HOST),

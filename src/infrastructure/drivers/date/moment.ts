@@ -9,9 +9,7 @@ export class MomentDateAdapter implements IDateAdapter {
   }
 
   subtractDate(date: string): Date {
-    console.log('here on moment date', date);
     const dateInMili = moment(date).get('milliseconds');
-    console.log('here on moment milliseconds', dateInMili);
     return moment().subtract(dateInMili, 'milliseconds').toDate();
   }
 }

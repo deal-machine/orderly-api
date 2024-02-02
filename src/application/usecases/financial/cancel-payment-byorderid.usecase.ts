@@ -1,21 +1,17 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { NotFoundException } from 'src/application/errors';
-import { IEventEmitter } from 'src/application/ports/events/event-emitter';
+import { IEventDispatcher } from 'src/application/ports/events';
 import { DomainException } from 'src/domain/@shared/errors';
 import { ChangedOrderStatusEvent } from 'src/domain/checkout/events/order-status-changed.event';
 import { ChangedPaymentStatusEvent } from 'src/domain/financial/events/payment-status-changed.event';
 import { IPaymentRepository } from 'src/domain/financial/repositories/payment.repository';
 import { ICancelPaymentByOrderIdUseCase } from 'src/domain/financial/usecases/cancel-payment-byorderid.usecase';
 
-@Injectable()
 export class CancelPaymentByOrderIdUseCase
   implements ICancelPaymentByOrderIdUseCase
 {
   constructor(
-    @Inject('PaymentRepository')
     private paymentRepository: IPaymentRepository,
-    @Inject('EventEmitter')
-    private eventEmitter: IEventEmitter,
+    private eventDispatcher: IEventDispatcher,
   ) {}
 
   async execute(orderId: string): Promise<void> {
@@ -27,15 +23,13 @@ export class CancelPaymentByOrderIdUseCase
 
     console.log('Canceling...');
     setTimeout(() => {
-      this.eventEmitter.emit(
-        'payment-status.changed',
+      this.eventDispatcher.dispatch(
         new ChangedPaymentStatusEvent({
           paymentId: payment.id,
           status: 'Cancelado',
         }),
       );
-      this.eventEmitter.emit(
-        'order-status.changed',
+      this.eventDispatcher.dispatch(
         new ChangedOrderStatusEvent({
           orderId,
           status: 'Cancelado',

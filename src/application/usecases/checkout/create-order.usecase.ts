@@ -1,5 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IEventEmitter } from 'src/application/ports/events/event-emitter';
+import { IEventDispatcher } from 'src/application/ports/events';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { CreateOrderDto } from 'src/domain/checkout/dto/create-order.dto';
 import { OrderItem } from 'src/domain/checkout/entities/order-item.entity';
@@ -8,16 +7,10 @@ import { CreatedOrderEvent } from 'src/domain/checkout/events/order-created.even
 import { IOrderRepository } from 'src/domain/checkout/repositories/order.repository';
 import { ICreateOrderUseCase } from 'src/domain/checkout/usecases/create-order.usecase';
 
-@Injectable()
 export class CreateOrderUseCase implements ICreateOrderUseCase {
   constructor(
-    @Inject('OrderRepository')
     private orderRepository: IOrderRepository,
-
-    @Inject('EventEmitter')
-    private eventEmitter: IEventEmitter,
-
-    @Inject('IdGenerator')
+    private eventDispatcher: IEventDispatcher,
     private idGenerator: IIdentifierGenerator,
   ) {}
 
@@ -40,7 +33,7 @@ export class CreateOrderUseCase implements ICreateOrderUseCase {
 
     await this.orderRepository.create(order);
 
-    this.eventEmitter.emit('order.created', new CreatedOrderEvent(order));
+    this.eventDispatcher.dispatch(new CreatedOrderEvent(order));
 
     return order;
   }

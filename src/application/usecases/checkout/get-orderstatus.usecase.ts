@@ -1,16 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IOrderRepository } from 'src/domain/checkout/repositories/order.repository';
 import {
   IGetOrderStatusOutput,
   IGetOrderStatusUseCase,
 } from 'src/domain/checkout/usecases/get-orderstatus.usecase';
 
-@Injectable()
 export class GetOrderStatusUseCase implements IGetOrderStatusUseCase {
-  constructor(
-    @Inject('OrderRepository')
-    private readonly orderRepository: IOrderRepository,
-  ) {}
+  constructor(private readonly orderRepository: IOrderRepository) {}
 
   async execute(id: string): Promise<IGetOrderStatusOutput> {
     const { status } = await this.orderRepository.getStatus(id);

@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import {
   IHttp,
@@ -6,7 +5,6 @@ import {
   IHttpResponse,
 } from 'src/application/ports/http/http';
 
-@Injectable()
 export class AxiosHttp implements IHttp {
   async post(request: IHttpRequest): Promise<IHttpResponse> {
     const response = await axios({

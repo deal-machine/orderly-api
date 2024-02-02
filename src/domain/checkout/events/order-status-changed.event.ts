@@ -1,3 +1,4 @@
+import { IEvent } from 'src/application/ports/events';
 import { orderStatusDto } from '../dto/order-status.dto';
 
 type IConstructorDto = {
@@ -5,6 +6,11 @@ type IConstructorDto = {
   status: orderStatusDto;
 };
 
-export class ChangedOrderStatusEvent {
-  constructor(public data: IConstructorDto) {}
+export class ChangedOrderStatusEvent implements IEvent {
+  dateTime: Date;
+  name: string;
+  constructor(public data: IConstructorDto) {
+    this.dateTime = new Date();
+    this.name = 'ChangedOrderStatusEvent';
+  }
 }

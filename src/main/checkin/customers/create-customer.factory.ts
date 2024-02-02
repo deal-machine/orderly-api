@@ -1,6 +1,6 @@
 import { CreateCustomerUseCase } from 'src/application/usecases/checkin/customers/create-customer.usecase';
 import { Uuid } from 'src/infrastructure/drivers/tokens/uuid/uuid';
-import { CustomerSequelizeRepository } from 'src/infrastructure/modules/checkin/customers/sequelize/customer-sequelize.repository';
+import { CustomerSequelizeRepository } from 'src/infrastructure/drivers/database/repositories/customer-sequelize.repository';
 import {
   CreateCustomerController,
   ICreateCustomerController,

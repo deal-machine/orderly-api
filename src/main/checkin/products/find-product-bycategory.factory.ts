@@ -1,5 +1,5 @@
 import { FindProductByCategoryIdUseCase } from 'src/application/usecases/checkin/products';
-import { ProductSequelizeRepository } from 'src/infrastructure/modules/checkin/products/sequelize/product-sequelize.repository';
+import { ProductSequelizeRepository } from 'src/infrastructure/drivers/database/repositories/product-sequelize.repository';
 import {
   FindProductByCategoryIdController,
   IFindProductByCategoryIdController,

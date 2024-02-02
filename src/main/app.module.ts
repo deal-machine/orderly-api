@@ -1,18 +1,21 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
-import { EventEmitterModule } from '@nestjs/event-emitter';
-import tokenGenerator from '../infrastructure/drivers/tokens';
-import { Jwt } from '../infrastructure/drivers/tokens/jwt/jwt';
-import { CustomerModule } from './checkin/customers/customer.module';
-import { ProductModule } from './checkin/products/product.module';
 import { ConfigModule } from '@nestjs/config';
-import { OrderModule } from './checkout/order.module';
-import { PaymentModule } from './financial/payment.module';
-import database from '../infrastructure/drivers/database';
+import {
+  CustomerModule,
+  OrderModule,
+  PaymentModule,
+  ProductModule,
+} from '../infrastructure/drivers/api';
+import TokenGenerator from '../infrastructure/drivers/tokens';
+import Database from '../infrastructure/drivers/database';
 import QueueModule from '../infrastructure/drivers/queue';
-import { CustomerRouter } from 'src/infrastructure/modules/checkin/customers/api/customer.router';
 import { adaptRoutes } from 'src/infrastructure/drivers/api/middlewares/adapt-routes.middleware';
-import { OrderRouter } from 'src/infrastructure/modules/checkout/api/order.router';
-import { ProductRouter } from 'src/infrastructure/modules/checkin/products/api/product.router';
+import {
+  CustomerRouter,
+  OrderRouter,
+  PaymentRouter,
+  ProductRouter,
+} from 'src/infrastructure/drivers/api/routes';
 
 @Module({
   imports: [
@@ -21,22 +24,19 @@ import { ProductRouter } from 'src/infrastructure/modules/checkin/products/api/p
     ProductModule,
     PaymentModule,
     QueueModule,
-    database,
-    tokenGenerator,
-    EventEmitterModule.forRoot(),
+    Database,
+    TokenGenerator,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.production', '.env'],
     }),
   ],
-  controllers: [],
-  providers: [Jwt, { provide: 'TokenGenerator', useExisting: Jwt }],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(adaptRoutes)
-      .forRoutes(CustomerRouter, OrderRouter, ProductRouter);
+      .forRoutes(CustomerRouter, OrderRouter, ProductRouter, PaymentRouter);
   }
 }
 
@@ -47,3 +47,19 @@ export class AppModule {
   postman 
   https://documenter.getpostman.com/view/13574011/2s9YsM8WDL
 */
+
+/**
+ * queues
+ *
+ * serverless - alura
+ * api gateway - alura
+ * ci/cd - full cycle
+ * jenkins - youtube
+ * terraform - full cycle
+ *
+ * autenticação
+ * 4 repos
+ * github actions
+ * database
+ * cloud(function, sql, identity)
+ */

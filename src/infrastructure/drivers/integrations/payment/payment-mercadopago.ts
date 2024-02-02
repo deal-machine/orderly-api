@@ -1,10 +1,8 @@
+import { env } from 'src/application/configs/env';
 import {
   IPaymentIntegration,
   IPaymentResult,
 } from 'src/application/ports/integrations/payment';
-
-import { Inject, Injectable } from '@nestjs/common';
-import { env } from 'src/application/configs/env';
 import { IIdentifierGenerator } from 'src/application/ports/tokens/id-generator';
 import { IHttp } from 'src/application/ports/http/http';
 import { IPayment } from 'src/domain/financial/entities/payment.entity';
@@ -19,7 +17,6 @@ interface IRefreshToken {
   publicKey: string;
 }
 
-@Injectable()
 export class PaymentMercadoPago implements IPaymentIntegration {
   private baseUrl: string;
   private clientSecret: string;
@@ -27,8 +24,8 @@ export class PaymentMercadoPago implements IPaymentIntegration {
   private refreshTokenDefault: string;
 
   constructor(
-    @Inject('Http') private httpClient: IHttp,
-    @Inject('IdGenerator') private idGenerator: IIdentifierGenerator,
+    private readonly httpClient: IHttp,
+    private readonly idGenerator: IIdentifierGenerator,
   ) {
     this.baseUrl = env.paymentIntegrationUrl;
     this.clientSecret = env.paymentIntegrationClientSecret;

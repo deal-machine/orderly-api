@@ -11,6 +11,6 @@ export type categoriesToCreate = {
 export interface IProductRepository extends IRepository<Product> {
   findByCategory(id: string): Promise<Product[]>;
   updateQuantity(id: string, quantity: number): Promise<number>;
-  createCategories(categories: categoriesToCreate): Promise<void>;
+  findOrCreateCategories(categories: categoriesToCreate): Promise<void>;
   getCategories(): Promise<Category[]>;
 }

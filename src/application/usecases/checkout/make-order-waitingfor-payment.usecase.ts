@@ -3,9 +3,11 @@ import { IEventDispatcher } from 'src/application/ports/events';
 import { DomainException } from 'src/domain/@shared/errors';
 import { ChangedOrderStatusEvent } from 'src/domain/checkout/events/order-status-changed.event';
 import { IOrderRepository } from 'src/domain/checkout/repositories/order.repository';
-import { IPayOrderUseCase } from 'src/domain/checkout/usecases/pay-order.usecase';
+import { IMakeOrderWaitingForPaymentUseCase } from 'src/domain/checkout/usecases';
 
-export class PayOrderUseCase implements IPayOrderUseCase {
+export class MakeOrderWaitingForPaymentUseCase
+  implements IMakeOrderWaitingForPaymentUseCase
+{
   constructor(
     private orderRepository: IOrderRepository,
     private eventDispatcher: IEventDispatcher,

@@ -8,7 +8,6 @@ export class DecrementProductHandler implements IEventHandler {
   // @OnEvent('product.verified')
   async handle(event: ProductDecreasedEvent) {
     const products = event.product;
-    console.log('into DecrementProductHandler', products.length);
 
     await Promise.all(
       products.map(async (p) => {

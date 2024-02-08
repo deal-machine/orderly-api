@@ -8,7 +8,8 @@ export class QueueProvider {
   static async init(): Promise<IQueueAdapter> {
     console.time('Start broker');
 
-    const url = `amqp://${env.amqpUserName}:${env.amqpPass}@rabbitmq:${env.amqpPort}`;
+    const url = `amqp://${env.amqpUserName}:${env.amqpPass}@${env.amqpHost}:${env.amqpPort}`;
+    console.log('\n', { url }, '\n');
     const server = new RabbitMQ(url);
     await server.start();
 

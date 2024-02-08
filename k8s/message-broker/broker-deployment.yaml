@@ -1,45 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cache-deployment
+  name: broker-deployment
   namespace: orderly
 spec:
   selector:
     matchLabels:
-      app: cache
+      app: broker
   replicas: 1
   template:
     metadata:
       labels:
-        app: cache
+        app: broker
     spec:
       containers:
-      - name: cache-container
-        image: redis:7.0.8-alpine
+      - name: broker-container
+        image: rabbitmq:3.12-management
         resources:
           requests:
-            memory: '100Mi'
+            memory: '256Mi'
             cpu: '100m'
           limits:
-            memory: "200Mi"
+            memory: "512Mi"
             cpu: "200m"
         envFrom:
         - configMapRef:
-            name: cache-configmap
+            name: broker-configmap
         ports:
-        - containerPort: 6379
+        - containerPort: 5672
+        - containerPort: 15672
         startupProbe:
           tcpSocket:
-            port: 6379
+            port: 5672
           periodSeconds: 5
           failureThreshold: 30
         readinessProbe:
           tcpSocket:
-            port: 6379
+            port: 5672
           periodSeconds: 3
           failureThreshold: 3
         livenessProbe:
           tcpSocket:
-            port: 6379
+            port: 5672
           periodSeconds: 1
           failureThreshold: 3

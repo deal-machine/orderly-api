@@ -13,6 +13,7 @@ export const env = {
   amqpPass: String(process.env.AMQP_PASSWORD),
   ampqCookie: String(process.env.AMQP_COOKIE),
   amqpPort: Number(process.env.AMQP_PORT || 5672),
+  amqpHost: String(process.env.AMQP_HOST),
 
   paymentIntegrationUrl: String(process.env.MP_URL),
   paymentIntegrationClientSecret: String(process.env.MP_CLIENT_SECRET),

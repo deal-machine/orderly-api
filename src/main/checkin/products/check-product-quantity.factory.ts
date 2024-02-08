@@ -1,5 +1,4 @@
 import { CheckProductQuantityUseCase } from 'src/application/usecases/checkin/products';
-import { EventDispatcher } from 'src/application/ports/events/dispatcher/event.dispatcher';
 import { ProductSequelizeRepository } from 'src/infrastructure/drivers/database/repositories/product-sequelize.repository';
 import {
   CheckProductQuantityController,
@@ -12,7 +11,6 @@ export class CheckProductQuantityFactory {
 
     const checkProductQuantityUseCase = new CheckProductQuantityUseCase(
       productRepository,
-      EventDispatcher.getInstance(),
     );
 
     return new CheckProductQuantityController(checkProductQuantityUseCase);

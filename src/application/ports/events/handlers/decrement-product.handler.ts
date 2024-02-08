@@ -5,7 +5,6 @@ import { IProductRepository } from 'src/domain/checkin/products/repositories/pro
 export class DecrementProductHandler implements IEventHandler {
   constructor(private productRepository: IProductRepository) {}
 
-  // @OnEvent('product.verified')
   async handle(event: ProductDecreasedEvent) {
     const products = event.product;
 

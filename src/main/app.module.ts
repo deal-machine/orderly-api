@@ -31,7 +31,7 @@ export class AppModule {
 }
 
 /**
- * rodar k8s
+ *
  * serverless - alura
  * - api gateway - alura
  * - function - alura

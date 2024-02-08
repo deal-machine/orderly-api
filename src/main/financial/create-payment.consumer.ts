@@ -10,8 +10,6 @@ import { CreatePaymentConsumer } from 'src/presentation/financial/consumers/crea
 
 export class CreatePaymentConsumerFactory {
   static register(): IConsumer {
-    // consume
-    // fila create.payment - quando ordem de pedido foi criado  dispara essa fila para criação de pagamento
     const httpClient = new AxiosHttp();
     const idGenerator = new Uuid();
     const paymentIntegration = new PaymentMercadoPago(httpClient, idGenerator);

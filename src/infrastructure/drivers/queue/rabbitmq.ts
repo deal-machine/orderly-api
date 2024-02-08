@@ -1,8 +1,8 @@
 import { Channel, Connection, Message, connect } from 'amqplib';
 import { env } from 'src/application/configs/env';
-import { IQueueAdapter } from 'src/application/ports/queues/queue';
+import { IMessageBroker } from 'src/application/ports/queues/publisher';
 
-export class RabbitMQ implements IQueueAdapter {
+export class RabbitMQ implements IMessageBroker {
   private conn: Connection;
   private channel: Channel;
 

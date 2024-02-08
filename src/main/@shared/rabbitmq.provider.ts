@@ -1,11 +1,11 @@
 import { RabbitMQ } from 'src/infrastructure/drivers/queue/rabbitmq';
 import { MakeOrderWaitingPaymentConsumerFactory } from '../checkout/make-order-waitingpayment.consumer';
 import { CreatePaymentConsumerFactory } from '../financial/create-payment.consumer';
-import { IQueueAdapter } from 'src/application/ports/queues/queue';
+import { IMessageBroker } from 'src/application/ports/queues/publisher';
 
 export class QueueProvider {
-  static async init(): Promise<IQueueAdapter> {
-    console.time('Start broker');
+  static async init(): Promise<IMessageBroker> {
+    console.time('Start message broker');
 
     const server = new RabbitMQ();
     await server.start();
@@ -34,16 +34,16 @@ export class QueueProvider {
 
     const makeOrderWaitingPaymentConsumer =
       MakeOrderWaitingPaymentConsumerFactory.register();
-    await server.consume(paymentsQueueName, (message) =>
+    await server.consume(ordersQueueName, (message) =>
       makeOrderWaitingPaymentConsumer.handle(message),
     );
 
     const createPaymentConsumer = CreatePaymentConsumerFactory.register();
-    await server.consume(ordersQueueName, (message) =>
+    await server.consume(paymentsQueueName, (message) =>
       createPaymentConsumer.handle(message),
     );
 
-    console.timeEnd('Start broker');
+    console.timeEnd('Start message broker');
     return server;
   }
 }

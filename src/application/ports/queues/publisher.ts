@@ -1,6 +1,6 @@
 import { IEvent } from '../events';
 
-export interface IQueueAdapter {
+export interface IMessageBroker {
   start(): Promise<void>;
   createQueue(queueName: string): Promise<void>;
   createExchange(exchangeName: string): Promise<void>;
@@ -28,14 +28,15 @@ export interface IQueueAdapter {
   ): Promise<void>;
 }
 
-export interface IQueue {
+export interface IPublisher {
   sendMessage(message: IEvent): Promise<void>;
 }
 
-export class PaymentQueue implements IQueue {
-  constructor(private queue: IQueueAdapter) {}
+export class PaymentPublisher implements IPublisher {
+  constructor(private messageBroker: IMessageBroker) {}
+
   async sendMessage(message: IEvent): Promise<void> {
-    await this.queue.publishInExchange({
+    await this.messageBroker.publishInExchange({
       exchange: 'orderly',
       message: JSON.stringify(message.data),
       routingKey: 'payments.create',
@@ -43,10 +44,11 @@ export class PaymentQueue implements IQueue {
   }
 }
 
-export class OrderQueue implements IQueue {
-  constructor(private queue: IQueueAdapter) {}
+export class OrderPublisher implements IPublisher {
+  constructor(private messageBroker: IMessageBroker) {}
+
   async sendMessage(message: IEvent): Promise<void> {
-    await this.queue.publishInExchange({
+    await this.messageBroker.publishInExchange({
       exchange: 'orderly',
       message: JSON.stringify(message.data),
       routingKey: 'orders.make-waiting-payment',

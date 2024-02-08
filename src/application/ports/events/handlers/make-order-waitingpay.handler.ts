@@ -1,11 +1,11 @@
 import { CreatedOrderEvent } from 'src/domain/checkout/events/order-created.event';
 import { IEventHandler } from 'src/application/ports/events';
-import { IQueue } from '../../queues/queue';
+import { IPublisher } from '../../queues/publisher';
 
 export class MakeOrderWaitingPaymentHandler implements IEventHandler {
-  constructor(private queue: IQueue) {}
+  constructor(private publisher: IPublisher) {}
 
   async handle(event: CreatedOrderEvent) {
-    await this.queue.sendMessage(event);
+    await this.publisher.sendMessage(event);
   }
 }

@@ -1,10 +1,10 @@
 import { CreatedPaymentEvent } from 'src/domain/financial/events/payment-created.event';
 import { IEventHandler } from 'src/application/ports/events';
-import { IQueue } from '../../queues/queue';
+import { IPublisher } from '../../queues/publisher';
 
 export class CreatePaymentHandler implements IEventHandler {
-  constructor(private queue: IQueue) {}
+  constructor(private publisher: IPublisher) {}
   async handle(event: CreatedPaymentEvent) {
-    await this.queue.sendMessage(event);
+    await this.publisher.sendMessage(event);
   }
 }

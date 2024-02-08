@@ -1,5 +1,7 @@
 import { env } from 'src/application/configs/env';
 import { RabbitMQ } from 'src/infrastructure/drivers/queue/rabbitmq';
+import { MakeOrderWaitingPaymentConsumerFactory } from '../checkout/make-order-waitingpayment.consumer';
+import { CreatePaymentConsumerFactory } from '../financial/create-payment.consumer';
 
 export class QueueProvider {
   static async init() {
@@ -29,6 +31,16 @@ export class QueueProvider {
       exchange: exchangeName,
       bindigKey: ordersBindingKey,
     });
+
+    const makeOrderWaitingPaymentConsumer =
+      MakeOrderWaitingPaymentConsumerFactory.register();
+    await server.consume(
+      paymentsQueueName,
+      makeOrderWaitingPaymentConsumer.handle,
+    );
+
+    const createPaymentConsumer = CreatePaymentConsumerFactory.register();
+    await server.consume(ordersQueueName, createPaymentConsumer.handle);
 
     console.timeEnd('Start broker');
   }

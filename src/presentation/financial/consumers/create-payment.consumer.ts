@@ -1,17 +1,19 @@
 import { ICreatePaymentUseCase } from 'src/domain/financial/usecases/create-payment.usecase';
-
-export class CreatePaymentConsumer {
+export interface IConsumer {
+  handle(message: any): Promise<void>;
+}
+export class CreatePaymentConsumer implements IConsumer {
   constructor(private readonly createPaymentUseCase: ICreatePaymentUseCase) {}
 
-  // fila create.payment - quando ordem de pedido foi criado  dispara essa fila para criação de pagamento
-  async handle(job: { customerId: string; id: string; total: number }) {
+  async handle(message: any) {
     try {
-      const { id, customerId, total } = job;
+      console.log('\n', { message }, '\n');
+      const data = message.content.toString();
 
       await this.createPaymentUseCase.execute({
-        customerId,
-        orderId: id,
-        total,
+        customerId: data.customerId,
+        orderId: data.id,
+        total: data.total,
       });
     } catch (err: any) {
       console.error('\n PaymentConsumeOrder: ', err.message);

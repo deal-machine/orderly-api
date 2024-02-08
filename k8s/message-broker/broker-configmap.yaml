@@ -4,8 +4,6 @@ metadata:
   name: broker-configmap
   namespace: orderly
 data:
-  AMQP_USERNAME: admin
-  AMQP_PASSWORD: admin
-  AMQP_COOKIE: DEALMACHINE
-  AMQP_PORT: '5672'
-  AMQP_HOST: rabbitmq
+  RABBITMQ_ERLANG_COOKIE: DEALMACHINE
+  RABBITMQ_DEFAULT_USER: admin
+  RABBITMQ_DEFAULT_PASS: admin

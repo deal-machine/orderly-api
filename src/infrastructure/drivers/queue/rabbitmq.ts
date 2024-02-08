@@ -1,14 +1,20 @@
 import { Channel, Connection, Message, connect } from 'amqplib';
+import { env } from 'src/application/configs/env';
 import { IQueueAdapter } from 'src/application/ports/queues/queue';
 
 export class RabbitMQ implements IQueueAdapter {
   private conn: Connection;
   private channel: Channel;
 
-  constructor(private url: string) {}
-
   async start(): Promise<void> {
-    this.conn = await connect(this.url);
+    const connection = {
+      hostname: env.amqpHost,
+      password: env.amqpPass,
+      port: env.amqpPort,
+      username: env.amqpUserName,
+      vhost: '/',
+    };
+    this.conn = await connect(connection);
     this.channel = await this.conn.createChannel();
   }
 

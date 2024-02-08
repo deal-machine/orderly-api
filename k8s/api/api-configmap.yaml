@@ -12,9 +12,9 @@ data:
   DB_PASSWORD: postgres
   DB_NAME: postgres
   DB_DIALECT: postgres
-  AMQP_USERNAME: 'admin'
-  AMQP_PASSWORD: 'admin'
-  AMQP_COOKIE: 'DEALMACHINE'
+  AMQP_USERNAME: admin
+  AMQP_PASSWORD: admin
+  AMQP_COOKIE: DEALMACHINE
   AMQP_PORT: '5672'
   AMQP_HOST: broker-service # defined from internal kubernetes DNS
   MP_URL: 'https://api.mercadopago.com'

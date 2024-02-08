@@ -2,15 +2,12 @@ import { RabbitMQ } from 'src/infrastructure/drivers/queue/rabbitmq';
 import { MakeOrderWaitingPaymentConsumerFactory } from '../checkout/make-order-waitingpayment.consumer';
 import { CreatePaymentConsumerFactory } from '../financial/create-payment.consumer';
 import { IQueueAdapter } from 'src/application/ports/queues/queue';
-import { env } from 'src/application/configs/env';
 
 export class QueueProvider {
   static async init(): Promise<IQueueAdapter> {
     console.time('Start broker');
 
-    const url = `amqp://${env.amqpUserName}:${env.amqpPass}@${env.amqpHost}:${env.amqpPort}`;
-    console.log('\n', { url }, '\n');
-    const server = new RabbitMQ(url);
+    const server = new RabbitMQ();
     await server.start();
 
     const exchangeName = 'orderly';

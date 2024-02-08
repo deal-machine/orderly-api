@@ -125,5 +125,7 @@ export class PaymentMercadoPago implements IPaymentIntegration {
 
     return this.formatPaymentResult(body);
   }
-  // https://auth.mercadopago.com/authorization?client_id=APP_ID&response_type=code&platform_id=mp&state=RANDOM_ID&redirect_uri=YOUR_REDIRECT_URI
+  /* https://auth.mercadopago.com/authorization?client_id=APP_ID&response_type=code&platform_id=mp&state=RANDOM_ID&redirect_uri=YOUR_REDIRECT_URI/** 
+    webhook  https://webhook.site/#!/17bc7308-87bc-47e6-9074-a75344af88d1/4611a0ca-67d6-4749-9696-4bdd31b14bbd/1
+  */
 }

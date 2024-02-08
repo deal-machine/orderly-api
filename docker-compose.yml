@@ -9,19 +9,21 @@ services:
     networks:
       - orderly-net
 
-  # rabbitmq:
-  #   image: rabbitmq:3.12-management
-  #   container_name: rabbitmq-server
-  #   ports:
-  #     - 15672:15672
-  #     - 5672:5672
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=${AMQP_USERNAME}
-  #     - RABBITMQ_DEFAULT_PASS=${AMQP_PASSWORD}
-  #   env_file:
-  #     - .env.production
-  #   networks:
-  #     - orderly-net
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq-server
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=${AMQP_COOKIE}
+      - RABBITMQ_DEFAULT_USER=${AMQP_USERNAME}
+      - RABBITMQ_DEFAULT_PASS=${AMQP_PASSWORD}
+      - RABBITMQ_DEFAULT_VHOST=${AMQP_VHOST}
+    env_file:
+      - .env.production
+    networks:
+      - orderly-net
 
   postgres:
     image: postgres:latest

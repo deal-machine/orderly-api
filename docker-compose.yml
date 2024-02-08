@@ -1,14 +1,7 @@
 version: '3'
 
 services:
-  redis:
-    image: redis:7.0.8-alpine
-    container_name: redis-server
-    ports:
-      - 6379:6379
-    networks:
-      - orderly-net
-
+ 
   rabbitmq:
     image: rabbitmq:3.12-management
     container_name: rabbitmq-server
@@ -50,13 +43,12 @@ services:
     networks:
       - orderly-net
     depends_on:
-      - redis
       - rabbitmq
       - postgres
     restart: always
     links:
       - postgres
-      - redis
+      - rabbitmq
     env_file:
       - .env.production
 

@@ -7,14 +7,10 @@ import {
   ProductRouter,
 } from '../infrastructure/drivers/api/routes';
 import DatabaseConnection from '../infrastructure/drivers/database';
-import QueueConnection from '../infrastructure/drivers/queue';
 import { adaptRoutes } from 'src/infrastructure/drivers/api/middlewares/adapt-routes.middleware';
-import { CreatePaymentConsumer } from 'src/presentation/financial/consumers/create-payment.consumer';
-import { MakeOrderWaitingPaymentConsumer } from 'src/presentation/checkout/consumers/make-order-waitingpayment.consumer';
 
 @Module({
   imports: [
-    QueueConnection,
     DatabaseConnection,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -22,18 +18,20 @@ import { MakeOrderWaitingPaymentConsumer } from 'src/presentation/checkout/consu
     }),
   ],
   controllers: [CustomerRouter, OrderRouter, PaymentRouter, ProductRouter],
-  providers: [CreatePaymentConsumer, MakeOrderWaitingPaymentConsumer],
 })
 export class AppModule {
-  configure(middleware: MiddlewareConsumer) {
-    middleware
-      .apply(adaptRoutes)
-      .forRoutes(CustomerRouter, OrderRouter, ProductRouter, PaymentRouter);
+  configure(m: MiddlewareConsumer) {
+    m.apply(adaptRoutes).forRoutes(
+      CustomerRouter,
+      OrderRouter,
+      ProductRouter,
+      PaymentRouter,
+    );
   }
 }
 
 /**
- *
+ * rodar k8s
  * serverless - alura
  * - api gateway - alura
  * - function - alura

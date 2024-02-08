@@ -28,7 +28,6 @@ export class DeleteProductController implements IDeleteProductController {
       await this.deleteProductUseCase.execute(id);
       return HttpPresenter.success({});
     } catch (error) {
-      console.log(error);
       return HttpPresenter.badRequest(error);
     }
   }

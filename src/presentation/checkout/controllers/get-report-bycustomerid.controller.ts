@@ -35,12 +35,9 @@ export class GetReportByCustomerIdController
   }: IGetReportByCustomerIdRequest): Promise<IGetReportByCustomerIdResponse> {
     try {
       const { id } = params;
-
       const reports = await this.getOrderReportByCustomerIdUseCase.execute(id);
-
       return HttpPresenter.success(reports);
     } catch (error) {
-      console.log('GetOrderReportByCustomerIdController', error);
       return HttpPresenter.badRequest(error);
     }
   }

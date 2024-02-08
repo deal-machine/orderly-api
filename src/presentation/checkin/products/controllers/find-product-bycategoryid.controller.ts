@@ -37,7 +37,6 @@ export class FindProductByCategoryIdController
       const products = await this.findProductByCategoryIdUseCase.execute(id);
       return HttpPresenter.success({ products });
     } catch (error) {
-      console.log(error);
       return HttpPresenter.badRequest(error);
     }
   }

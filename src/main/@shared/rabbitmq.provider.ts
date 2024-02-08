@@ -1,13 +1,15 @@
-import { env } from 'src/application/configs/env';
 import { RabbitMQ } from 'src/infrastructure/drivers/queue/rabbitmq';
 import { MakeOrderWaitingPaymentConsumerFactory } from '../checkout/make-order-waitingpayment.consumer';
 import { CreatePaymentConsumerFactory } from '../financial/create-payment.consumer';
+import { IQueueAdapter } from 'src/application/ports/queues/queue';
+import { env } from 'src/application/configs/env';
 
 export class QueueProvider {
-  static async init() {
+  static async init(): Promise<IQueueAdapter> {
     console.time('Start broker');
-    const uri = `amqp://${env.amqpUserName}:${env.amqpPass}@rabbitmq:${env.amqpPort}`;
-    const server = new RabbitMQ(uri);
+
+    const url = `amqp://${env.amqpUserName}:${env.amqpPass}@rabbitmq:${env.amqpPort}`;
+    const server = new RabbitMQ(url);
     await server.start();
 
     const exchangeName = 'orderly';
@@ -34,14 +36,16 @@ export class QueueProvider {
 
     const makeOrderWaitingPaymentConsumer =
       MakeOrderWaitingPaymentConsumerFactory.register();
-    await server.consume(
-      paymentsQueueName,
-      makeOrderWaitingPaymentConsumer.handle,
+    await server.consume(paymentsQueueName, (message) =>
+      makeOrderWaitingPaymentConsumer.handle(message),
     );
 
     const createPaymentConsumer = CreatePaymentConsumerFactory.register();
-    await server.consume(ordersQueueName, createPaymentConsumer.handle);
+    await server.consume(ordersQueueName, (message) =>
+      createPaymentConsumer.handle(message),
+    );
 
     console.timeEnd('Start broker');
+    return server;
   }
 }

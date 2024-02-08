@@ -32,12 +32,9 @@ export class FindPaymentByOrderIdController
   }: IFindPaymentByOrderIdRequest): Promise<IFindPaymentByOrderIdResponse> {
     try {
       const { id } = params;
-
       const payment = await this.usecase.execute(id);
-
       return HttpPresenter.success({ payment });
     } catch (error) {
-      console.log('FindPaymentByOrderIdController', error);
       return HttpPresenter.badRequest(error);
     }
   }

@@ -27,15 +27,12 @@ export class FindOrdersController implements IFindOrdersController {
   async handle({ query }: IFindOrdersRequest): Promise<IFindOrdersResponse> {
     try {
       const { customerId, status } = query;
-
       const orders = await this.findOrdersUseCase.execute({
         customerId,
         status,
       });
-
       return HttpPresenter.success({ orders });
     } catch (error) {
-      console.log('FindOrdersController', error);
       return HttpPresenter.badRequest(error);
     }
   }

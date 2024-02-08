@@ -32,12 +32,9 @@ export class ApprovePaymentByOrderIdController
   }: IApprovePaymentByOrderIdRequest): Promise<IApprovePaymentByOrderIdResponse> {
     try {
       const { id } = params;
-
       await this.usecase.execute(id);
-
       return HttpPresenter.success({});
     } catch (error) {
-      console.log('ApprovePaymentByOrderIdController', error);
       return HttpPresenter.badRequest(error);
     }
   }

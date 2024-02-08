@@ -36,7 +36,6 @@ export class FindCustomerByCpfController
       const customer = await this.findCustomerByCpfUseCase.execute(cpf);
       return HttpPresenter.success({ customer });
     } catch (error) {
-      console.log(error);
       return HttpPresenter.badRequest(error);
     }
   }

@@ -15,7 +15,6 @@ export class CheckProductQuantityUseCase
   ) {}
 
   async execute(products: VerifyProductDto[]): Promise<void> {
-    console.log('into CheckProductQuantityUseCase execute');
     const productVerified = [];
 
     for (const p of products) {
@@ -25,7 +24,6 @@ export class CheckProductQuantityUseCase
       }
       const quantity = product.quantity - p.quantity;
       const isEnough = quantity >= 0;
-      console.log('isEnough::', isEnough);
       if (!isEnough) {
         throw new DomainException('product quantity is not enough.');
       }

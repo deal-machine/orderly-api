@@ -24,15 +24,12 @@ export class CreateOrderController implements ICreateOrderController {
   async handle({ body }: ICreateOrderRequest): Promise<ICreateOrderResponse> {
     try {
       const { customerId, products } = body;
-
       const order = await this.createOrderUseCase.execute({
         customerId,
         products,
       });
-
       return HttpPresenter.success({ order });
     } catch (error) {
-      console.log('CreateOrderController', error);
       return HttpPresenter.badRequest(error);
     }
   }

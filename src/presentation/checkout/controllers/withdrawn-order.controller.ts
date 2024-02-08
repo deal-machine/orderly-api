@@ -25,12 +25,9 @@ export class WithdrawnOrderController implements IWithdrawnOrderController {
   }: IWithdrawnOrderRequest): Promise<IWithdrawnOrderResponse> {
     try {
       const { id } = params;
-
       await this.withdrawnOrderUseCase.execute(id);
-
       return HttpPresenter.success({});
     } catch (error) {
-      console.log('WithdrawnOrderController', error);
       return HttpPresenter.badRequest(error);
     }
   }

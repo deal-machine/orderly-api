@@ -7,9 +7,14 @@ import { CreatePaymentHandler } from 'src/application/ports/events/handlers/crea
 import { OrderSequelizeRepository } from 'src/infrastructure/drivers/database/repositories/order-sequelize.repository';
 import { PaymentSequelizeRepository } from 'src/infrastructure/drivers/database/repositories/payment-sequelize.repository';
 import { MakeOrderWaitingPaymentHandler } from 'src/application/ports/events/handlers/make-order-waitingpay.handler';
+import {
+  IQueueAdapter,
+  OrderQueue,
+  PaymentQueue,
+} from 'src/application/ports/queues/queue';
 
 export class EventProvider {
-  static init() {
+  static init(queueAdapter: IQueueAdapter) {
     console.time('Register events');
 
     const productRepository = new ProductSequelizeRepository();
@@ -19,7 +24,12 @@ export class EventProvider {
     const decrementProductHandler = new DecrementProductHandler(
       productRepository,
     );
-    const makeOrderWaitingPaymentHandler = new MakeOrderWaitingPaymentHandler();
+
+    const orderQueue = new OrderQueue(queueAdapter);
+    const paymentQueue = new PaymentQueue(queueAdapter);
+    const makeOrderWaitingPaymentHandler = new MakeOrderWaitingPaymentHandler(
+      orderQueue,
+    );
 
     const changeOrderStatusHandler = new ChangeOrderStatusHandler(
       orderRepository,
@@ -27,7 +37,7 @@ export class EventProvider {
     const changePaymentStatusHandler = new ChangePaymentStatusHandler(
       paymentRepository,
     );
-    const createPaymentHandler = new CreatePaymentHandler();
+    const createPaymentHandler = new CreatePaymentHandler(paymentQueue);
 
     const eventDispatcher = EventDispatcher.getInstance();
 

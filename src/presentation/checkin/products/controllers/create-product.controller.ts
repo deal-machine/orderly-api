@@ -28,7 +28,6 @@ export class CreateProductController implements ICreateProductController {
       const product = await this.createProductUseCase.execute(body);
       return HttpPresenter.success({ product });
     } catch (error) {
-      console.log(error);
       return HttpPresenter.badRequest(error);
     }
   }

@@ -1,11 +1,10 @@
 import { CreatedPaymentEvent } from 'src/domain/financial/events/payment-created.event';
 import { IEventHandler } from 'src/application/ports/events';
+import { IQueue } from '../../queues/queue';
 
-// publica dados para criação do pagamento em conjunto com a integração de pagamento
 export class CreatePaymentHandler implements IEventHandler {
+  constructor(private queue: IQueue) {}
   async handle(event: CreatedPaymentEvent) {
-    console.log('on event: ', event.name);
-    // chama fila create.payment
-    // consumer CreatePaymentConsumer
+    await this.queue.sendMessage(event);
   }
 }

@@ -9,9 +9,6 @@ export const env = {
   dbPassword: String(process.env.DB_PASSWORD),
   dbDialect: String(process.env.DB_DIALECT),
 
-  cacheHost: String(process.env.CACHE_HOST),
-  cachePort: Number(process.env.CACHE_PORT),
-
   amqpUserName: String(process.env.AMQP_USERNAME),
   amqpPass: String(process.env.AMQP_PASSWORD),
   ampqCookie: String(process.env.AMQP_COOKIE),

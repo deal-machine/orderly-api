@@ -25,12 +25,9 @@ export class PrepareOrderController implements IPrepareOrderController {
   }: IPrepareOrderRequest): Promise<IPrepareOrderResponse> {
     try {
       const { id } = params;
-
       await this.prepareOrderUseCase.execute(id);
-
       return HttpPresenter.success({});
     } catch (error) {
-      console.log('PrepareOrderController', error);
       return HttpPresenter.badRequest(error);
     }
   }

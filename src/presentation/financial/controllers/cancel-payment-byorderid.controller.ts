@@ -32,12 +32,9 @@ export class CancelPaymentByOrderIdController
   }: ICancelPaymentByOrderIdRequest): Promise<ICancelPaymentByOrderIdResponse> {
     try {
       const { id } = params;
-
       await this.usecase.execute(id);
-
       return HttpPresenter.success({});
     } catch (error) {
-      console.log('CancelPaymentByOrderIdController', error);
       return HttpPresenter.badRequest(error);
     }
   }

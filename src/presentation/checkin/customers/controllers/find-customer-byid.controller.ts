@@ -34,7 +34,6 @@ export class FindCustomerByIdController implements IFindCustomerByIdController {
       const customer = await this.findCustomerByIdUseCase.execute(id);
       return HttpPresenter.success({ customer });
     } catch (error) {
-      console.log(error);
       return HttpPresenter.badRequest(error);
     }
   }

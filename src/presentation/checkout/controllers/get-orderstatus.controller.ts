@@ -30,12 +30,9 @@ export class GetOrderStatusController implements IGetOrderStatusController {
   }: IGetOrderStatusRequest): Promise<IGetOrderStatusResponse> {
     try {
       const { id } = params;
-
       const status = await this.GetOrderStatusUseCase.execute(id);
-
       return HttpPresenter.success({ status });
     } catch (error) {
-      console.log('GetOrderStatusController', error);
       return HttpPresenter.badRequest(error);
     }
   }

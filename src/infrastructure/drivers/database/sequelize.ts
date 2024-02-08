@@ -5,6 +5,7 @@ import { ProductModel } from 'src/infrastructure/drivers/database/models/product
 import { connection } from './connections';
 import { CustomerModel } from './models/customer.model';
 import { CategoryModel } from './models/category.model';
+import { PaymentModel } from './models/payment-model';
 
 export const sequelizeModels = [
   CustomerModel,
@@ -12,6 +13,7 @@ export const sequelizeModels = [
   OrderModel,
   OrderItemModel,
   CategoryModel,
+  PaymentModel,
 ];
 
 export const sequelizeModule = SequelizeModule.forRoot({

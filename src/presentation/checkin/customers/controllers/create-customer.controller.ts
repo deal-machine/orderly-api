@@ -33,7 +33,6 @@ export class CreateCustomerController implements ICreateCustomerController {
       });
       return HttpPresenter.success({ customer });
     } catch (error) {
-      console.log(error);
       return HttpPresenter.serverError();
     }
   }

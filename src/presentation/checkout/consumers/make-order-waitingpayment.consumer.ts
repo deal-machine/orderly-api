@@ -1,19 +1,15 @@
 import { IMakeOrderWaitingForPaymentUseCase } from 'src/domain/checkout/usecases';
+import { IConsumer } from 'src/presentation/@shared/protocols/consumer';
 
-export interface IConsumer {
-  handle(message: any): Promise<void>;
-}
 export class MakeOrderWaitingPaymentConsumer implements IConsumer {
   constructor(private readonly usecase: IMakeOrderWaitingForPaymentUseCase) {}
 
-  async handle(message: any) {
+  async handle(data: any) {
     try {
-      console.log('\n', { message }, '\n');
-      const data = message.content.toString();
-
       await this.usecase.execute(data.orderId);
     } catch (err: any) {
-      console.error(`\n PayOrderConsumer: ${err.message}`);
+      console.error(`\n MakeOrderWaitingPaymentConsumer: ${err.message}`);
+      throw err;
     }
   }
 }

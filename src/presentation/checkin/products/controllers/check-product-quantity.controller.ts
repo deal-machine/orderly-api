@@ -37,7 +37,6 @@ export class CheckProductQuantityController
 
       return HttpPresenter.success({});
     } catch (error) {
-      console.log('CheckProductQuantityController', error);
       return HttpPresenter.badRequest(error);
     }
   }

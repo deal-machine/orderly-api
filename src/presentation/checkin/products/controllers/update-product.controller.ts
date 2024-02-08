@@ -33,7 +33,6 @@ export class UpdateProductController implements IUpdateProductController {
       });
       return HttpPresenter.success({});
     } catch (error) {
-      console.log(error);
       return HttpPresenter.serverError();
     }
   }

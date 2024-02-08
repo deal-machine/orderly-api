@@ -1,18 +1,19 @@
 import { Channel, Connection, Message, connect } from 'amqplib';
+import { IQueueAdapter } from 'src/application/ports/queues/queue';
 
-export class RabbitMQ {
+export class RabbitMQ implements IQueueAdapter {
   private conn: Connection;
   private channel: Channel;
 
-  constructor(private uri: string) {}
+  constructor(private url: string) {}
 
   async start(): Promise<void> {
-    this.conn = await connect(this.uri);
+    this.conn = await connect(this.url);
     this.channel = await this.conn.createChannel();
   }
 
-  async createQueue(queue: string): Promise<void> {
-    await this.channel.assertQueue(queue, {
+  async createQueue(queueName: string): Promise<void> {
+    await this.channel.assertQueue(queueName, {
       durable: true,
     });
   }
@@ -46,9 +47,16 @@ export class RabbitMQ {
   }
 
   async consume(queue: string, callback: (message: Message) => Promise<void>) {
-    return this.channel.consume(queue, async (message) => {
-      await callback(message);
-      this.channel.ack(message);
+    await this.channel.consume(queue, async (message) => {
+      const data = JSON.parse(message.content.toString());
+      callback(data)
+        .then(() => {
+          this.channel.ack(message);
+        })
+        .catch((err) => {
+          console.error(err);
+          this.channel.nack(message);
+        });
     });
   }
 }

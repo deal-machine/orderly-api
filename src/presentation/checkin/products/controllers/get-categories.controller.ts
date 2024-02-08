@@ -21,7 +21,6 @@ export class GetCategoriesController implements IGetCategoriesController {
       const categories = await this.getCategoriesUseCase.execute();
       return HttpPresenter.success({ categories });
     } catch (error) {
-      console.log(error);
       return HttpPresenter.badRequest(error);
     }
   }

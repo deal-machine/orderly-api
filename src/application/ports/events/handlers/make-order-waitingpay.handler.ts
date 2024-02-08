@@ -1,11 +1,11 @@
 import { CreatedOrderEvent } from 'src/domain/checkout/events/order-created.event';
 import { IEventHandler } from 'src/application/ports/events';
+import { IQueue } from '../../queues/queue';
 
-// publica na fila em que atualiza a ordem de pedido para pendende de pagamento (MakeOrderWaitingForPaymentUseCase)
 export class MakeOrderWaitingPaymentHandler implements IEventHandler {
+  constructor(private queue: IQueue) {}
+
   async handle(event: CreatedOrderEvent) {
-    console.log('\n\nevent: ', event.name, '\n\n');
-    // chama fila payment.created
-    // consumer MakeOrderWaitingPaymentConsumer
+    await this.queue.sendMessage(event);
   }
 }

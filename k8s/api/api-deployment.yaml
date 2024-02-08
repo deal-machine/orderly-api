@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: api-container
-        image: dealmachine/orderly-api:6
+        image: dealmachine/orderly-api:7
         workingDir: /api
         resources:
           requests: # requisita recursos

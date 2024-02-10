@@ -51,7 +51,7 @@ $ watch -n1 kubectl get pods
 ## Context Map
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/context-map.png" width="1000" alt="DDD Context Map" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/context-map.png" width="1200" alt="DDD Context Map" style="border-radius:10px;" /></a>
 </p>
 
 <br>

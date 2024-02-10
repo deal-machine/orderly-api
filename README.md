@@ -31,8 +31,8 @@ $ kubectl create ns orderly
 # set orderly namespace to default
 $ kubectl config set-context --current --namespace=orderly
 
-# cache
-$ kubectl apply -f k8s/cache
+# message-broker
+$ kubectl apply -f k8s/message-broker
 
 # database
 $ kubectl apply -f k8s/db
@@ -41,7 +41,7 @@ $ kubectl apply -f k8s/db
 $ kubectl apply -f k8s/api
 
 # to watch all pods running
-$ watch -n1 sudo kubectl get pods
+$ watch -n1 kubectl get pods
 ```
 
 <br>
@@ -58,40 +58,29 @@ $ watch -n1 sudo kubectl get pods
 
 ## Use cases
 
-#### - Labels
 
-<p align="center">
-  <a target="blank"><img src="./docs/images/labels.png" width="800" alt="Legend" style="border-radius:10px;" /></a>
-</p>
-
-### - Check-in
+### - Check-in flow
 
 <p align="center">
   <a target="blank"><img src="./docs/images/checkin-usecase.png" height="400" alt="Create order Usecase" style="border-radius:10px;" /></a>
 </p>
 
-### - Create order
+### - Create order-payment flow
 
 <p align="center">
   <a target="blank"><img src="./docs/images/create-order-usecase.png" width="1000" alt="Create order Usecase" style="border-radius:10px;" /></a>
 </p>
 
-### - Pay order
+### - approve/cancel payment and prepare/withdrawn orders
 
 <p align="center">
   <a target="blank"><img src="./docs/images/approve-payment-usecase.png" width="1000" alt="Pay order Usecase" style="border-radius:10px;" /></a>
 </p>
 
-### - Prepare order
+### - Complete flow
 
 <p align="center">
-  <a target="blank"><img src="./docs/images/prepare-order-usecase.png" width="1000" alt="Prepare order Usecase" style="border-radius:10px;" /></a>
-</p>
-
-### - Withdrawn order
-
-<p align="center">
-  <a target="blank"><img src="./docs/images/withdrawn-order-usecase.png" width="1000" alt="Withdrawn order Usecase" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/all-flow.png" width="1000" alt="Prepare order Usecase" style="border-radius:10px;" /></a>
 </p>
 
 
@@ -99,24 +88,8 @@ $ watch -n1 sudo kubectl get pods
 
 ## Kubernetes Diagram - Infrastructure
 
-### Cloud - Google Cloud Platform
-
 <p align="center">
-  <a target="blank"><img src="./docs/images/k8s-cloud.png" width="700" alt="Kubernetes diagram on google cloud platform" style="border-radius:10px;" /></a>
-</p>
-
-### Local - Docker Hub
-
-<p align="center">
-  <a target="blank"><img src="./docs/images/k8s-local.png" width="700" alt="Kubernetes local diagram" style="border-radius:10px;" /></a>
-</p>
-
-<br>
-
-## Entity Relationship Diagram - Database
-
-<p align="center">
-  <a target="blank"><img src="./docs/images/er-diagram.png" width="700" alt="Entity Relationship Diagram" style="border-radius:10px;" /></a>
+  <a target="blank"><img src="./docs/images/k8s-cloud.png" width="1000" alt="Kubernetes diagram" style="border-radius:10px;" /></a>
 </p>
 
 <br>
@@ -127,3 +100,26 @@ $ watch -n1 sudo kubectl get pods
 <p align="center">
   <a target="blank"><img src="./docs/images/clean-arch.png" width="1200" alt="Legend" style="border-radius:10px;" /></a>
 </p>
+
+<br>
+
+## Resources
+
+#### - Message Broker
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/broker.png" width="850" alt="Legend" style="border-radius:10px;" /></a>
+</p>
+
+#### - Events
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/events.png" width="850" alt="Legend" style="border-radius:10px;" /></a>
+</p>
+
+#### - Entity Relationship Diagram - Database
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/er-diagram.png" width="850" alt="Entity Relationship Diagram" style="border-radius:10px;" /></a>
+</p>
+

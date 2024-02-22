@@ -4,7 +4,7 @@ metadata:
   name: api-service
   namespace: orderly
 spec:
-  type: NodePort # LoadBalancer if you running on cloud
+  type: LoadBalancer # NodePort if you running locally
   selector:
     app: api
   ports:

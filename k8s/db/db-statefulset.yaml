@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: db-container
-        image: postgres:latest
+        image: postgres:16.2-alpine3.18
         ports:
         - containerPort: 5432
         envFrom:

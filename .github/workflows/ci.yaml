@@ -4,17 +4,17 @@ on:
         branches:
             - develop
 jobs:
-    check-app:
+    build:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-              node: [ 18, 20 ]
-        name: Node ${{ matrix.node }} ci
+              node-version: [ 18, 20 ]
+        name: Node ${{ matrix.node-version }} ci
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v4
               with:
-                node-version: ${{ matrix.node }}
+                node-version: ${{ matrix.node-version }}
             - run: npm install
             - run: npm run lint
             - run: npm run test

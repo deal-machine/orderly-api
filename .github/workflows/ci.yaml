@@ -9,7 +9,7 @@ jobs:
         strategy:
             matrix:
               node-version: [ 18, 20 ]
-        name: Node ${{ matrix.node-version }} ci
+        name: Setup Node ${{ matrix.node-version }} Version
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v4

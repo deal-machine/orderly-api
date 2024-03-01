@@ -29,19 +29,3 @@ export class AppModule {
     );
   }
 }
-
-/**
- *
- * serverless - alura
- * - api gateway - alura
- * - function - alura
- * - autenticação
- * - database - alura
- * - cloud(function, sql, identity)
- * ci/cd - full cycle
- * - github actions
- * - jenkins - youtube
- * - 4 repos
- * terraform - full cycle
- *
- */

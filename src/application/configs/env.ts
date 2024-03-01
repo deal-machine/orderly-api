@@ -19,4 +19,6 @@ export const env = {
   paymentIntegrationClientSecret: String(process.env.MP_CLIENT_SECRET),
   paymentIntegrationGrantType: String(process.env.MP_GRANT_TYPE),
   paymentIntegrationRefreshToken: String(process.env.MP_REFRESH_TOKEN),
+
+  socketPath: String(process.env.SOCKET_PATH),
 };

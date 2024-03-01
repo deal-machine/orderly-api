@@ -10,6 +10,9 @@ const conn = {
   logging: false,
   sync: { force: true },
   autoLoadModels: true,
+  dialectOptions: {
+    socketPath: env.socketPath,
+  },
   // models: [`${__dirname}/models`],
 };
 

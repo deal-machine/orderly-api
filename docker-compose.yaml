@@ -1,6 +1,7 @@
 # docker for kong setup
 version: '3'
 services:
+
   postgres:
     image: postgres:14
     # container_name: postgres-kong
@@ -69,3 +70,40 @@ services:
     depends_on:
       - kong-setup
 
+  konga-setup:
+    image: pantsel/konga:latest
+    command: "-c prepare -a postgres -u postgresql://userkong:passwordkong@postgres:5432/dbkonga"
+    networks:
+      - netkong
+    restart: on_failure
+    depends_on:
+      - postgres
+
+  konga: 
+    image: pantsel/konga:latest
+    # container_name: konga
+    ports:
+      - 8008:1337
+    environment: {
+      "NODE_ENV": "production",
+      "DB_ADAPTER": "postgres",
+      "DB_HOST": "postgres",
+      "DB_PORT": "5432",
+      "DB_USER": "userkong",
+      "DB_PASSWORD": "passwordkong",
+      "DB_DATABASE": "dbkonga",
+    }
+    networks:
+      - netkong
+    depends_on:
+      - konga-setup
+
+volumes:
+  postgres_data:
+
+networks:
+  netkong:
+    external: false
+      
+
+    

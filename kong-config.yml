@@ -1,0 +1,133 @@
+_format_version: "2.1"
+
+services:
+- name: orderly-payments
+  url: http://api:3000/payments/order
+  routes:
+  - name: payments-routes
+    methods: [GET, POST, DELETE]
+    paths:
+    - /payments/order/{id}
+    - /payments/order/{id}/approve
+    - /payments/order/{id}/cancel
+    plugins:
+    - name: rate-limiting
+      config:
+        second: 3
+        minute: 5
+        hour: 10
+        policy: local
+    - name: request-transformer
+      config:
+        add:
+          headers:
+          - "Content-Type: application/json"
+    - name: http-log
+      config:
+        http_endpoint: https://webhook.site/2372f3a5-5ffc-4291-8e6a-ace1b16621e4
+        method: POST
+
+- name: orderly-categories
+  url: http://api:3000/products/category
+  routes:
+  - name: get-categories
+    methods: [GET]
+    paths: [/categories]
+    plugins:
+    - name: rate-limiting
+      config:
+        second: 3
+        minute: 5
+        hour: 10
+        policy: local
+
+- name: orderly-products
+  url: http://api:3000/products
+  routes:
+  - name: edit_delete-products
+    methods: [PUT, DELETE]
+    paths:
+    - /products/{id}
+    plugins:
+    - name: rate-limiting
+      config:
+        second: 3
+        minute: 5
+        hour: 10
+        policy: local
+    - name: request-transformer
+      config:
+        add:
+          headers:
+          - "Content-Type: application/json"
+  - name: create-product
+    methods: [POST]
+    paths: [/products]
+    plugins:
+    - name: rate-limiting
+      config:
+        second: 3
+        minute: 5
+        hour: 10
+        policy: local
+    - name: request-transformer
+      config:
+        add:
+          headers:
+          - "Content-Type: application/json"
+  - name: get-product
+    methods: [GET]
+    paths:
+    - /products/category/{id}
+    plugins:
+    - name: rate-limiting
+      config:
+        second: 3
+        minute: 5
+        hour: 10
+        policy: local
+
+- name: orderly-customers
+  url: http://api:3000/customers
+  routes:
+  - name: customers
+    methods: [GET, POST]
+    paths:
+    - /customers
+    - /customers/{cpf}
+    plugins:
+    - name: rate-limiting
+      config:
+        second: 3
+        minute: 5
+        hour: 10
+        policy: local
+    - name: request-transformer
+      config:
+        add:
+          headers:
+          - "Content-Type: application/json"
+
+- name: orderly-orders
+  url: http://api:3000/orders
+  routes:
+  - name: orders
+    methods: [GET, POST]
+    paths:
+    - /orders
+    - /orders/{id}/prepare
+    - /orders/{id}/withdrawn
+    - /orders/customer/{id}
+    - /orders/{id}/status
+    plugins:
+    - name: rate-limiting
+      config:
+        second: 3
+        minute: 5
+        hour: 10
+        policy: local
+    - name: request-transformer
+      config:
+        add:
+          headers:
+          - "Content-Type: application/json"

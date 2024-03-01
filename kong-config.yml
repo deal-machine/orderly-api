@@ -77,3 +77,19 @@ services:
           headers:
           - "Content-Type: application/json"
     strip_path: false
+
+# plugins: keycloak-oidc
+plugins:
+- name: jwt
+  route: get-categories
+  enabled: true
+  config:
+    key_claim_name: kid
+    claims_to_verify:
+    - exp
+consumers:
+- username: deal
+  jwt_secrets:
+  - algorithm: HS256
+    secret: this_is_a_super_secret_value
+

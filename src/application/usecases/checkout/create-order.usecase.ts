@@ -15,6 +15,7 @@ export class CreateOrderUseCase implements ICreateOrderUseCase {
   ) {}
 
   async execute(createOrderDto: CreateOrderDto): Promise<Order> {
+    // verificar se o customer existe
     const products = createOrderDto.products;
 
     const orderItems = products.map((product) => {

@@ -53,7 +53,7 @@ services:
       - .env.production
 
   kong:
-    image: "kong:2.8.1-alpine"
+    image: "kong:3.3.1-alpine"
     container_name: kong-stateless
     volumes:
      - ./kong-config.yml:/tmp/kong-config.yml
@@ -68,6 +68,11 @@ services:
       KONG_LOG_LEVEL: debug
       KONG_PLUGINS: bundled
     restart: on-failure
+    healthcheck:
+      test: [ "CMD", "kong", "health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
     networks:
       - kong-net
       - orderly-net
@@ -84,6 +89,7 @@ networks:
     driver: bridge
   kong-net:
     external: false
+    driver: bridge
 
 volumes:
   postgres:

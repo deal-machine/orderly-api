@@ -84,6 +84,25 @@ services:
     depends_on:
       - api
 
+  nginx:
+    image: nginx
+    container_name: nginx-gateway
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - kong-net
+      - orderly-net
+    depends_on:
+      - api
+      - kong
+
 networks:
   orderly-net:
     driver: bridge

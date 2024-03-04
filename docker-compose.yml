@@ -6,7 +6,7 @@ services:
     image: rabbitmq:3.12-management
     container_name: rabbitmq-server
     ports:
-      - 15672:15672
+      # - 15672:15672
       - 5672:5672
     environment:
       - RABBITMQ_ERLANG_COOKIE=${AMQP_COOKIE}
@@ -49,6 +49,8 @@ services:
     links:
       - postgres
       - rabbitmq
+      - kong
+      - keycloak
     env_file:
       - .env.production
 
@@ -74,22 +76,50 @@ services:
       timeout: 10s
       retries: 10
     networks:
-      - kong-net
       - orderly-net
     ports:
-      - 8000:8000 # disponivel para uso
-      - 8001:8001 # api do
+      # - 8000:8000 # disponivel para uso
+      # - 8001:8001 # api do kong
       - 8444:8444
       - 8443:8443
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.7
+    container_name: keycloak
+    # ports:
+    #   -  8080:8080
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    restart: on-failure
+    command: ["start-dev"]
+    networks:
+      - orderly-net
+
+  nginx:
+    image: nginx
+    container_name: nginx-gateway
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - orderly-net
     depends_on:
       - api
+      - kong
+      - rabbitmq
+      - keycloak
 
 networks:
   orderly-net:
     driver: bridge
-  kong-net:
     external: false
-    driver: bridge
 
 volumes:
   postgres:

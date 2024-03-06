@@ -17,7 +17,7 @@ services:
         policy: local
     strip_path: true
 
-- name: orderly-api
+- name: api
   url: http://api:3000
   routes:
   - name: customers
@@ -60,6 +60,7 @@ services:
           - "Content-Type: application/json"
     methods: [POST, PUT, DELETE, GET]
     strip_path: false
+
   - name: payments
     methods: [GET, POST, DELETE]
     paths:

@@ -98,7 +98,7 @@ services:
 
   nginx:
     image: nginx
-    container_name: nginx-gateway
+    container_name: nginx-proxy
     ports:
       - 80:80
     volumes:

@@ -13,6 +13,7 @@ spec:
       labels:
         app: api
     spec:
+      automountServiceAccountToken: false
       containers:
       - name: api-container
         image: dealmachine/orderly-api:7

@@ -19,12 +19,11 @@ metadata:
   name: broker-service-cp
   namespace: orderly
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: broker
   ports:
   - protocol: TCP
     name: 'rabbitmq-controlpanel'
-    port: 15672 # Porta para o painel de controle do RabbitMQ
+    port: 15672
     targetPort: 15672
-    nodePort: 30672

@@ -30,19 +30,25 @@ $ docker compose down
 
 ```bash
 # create namespace orderly
-$ kubectl create ns orderly
+$ kubectl apply -f k8s/namespaces.yaml
 
 # set orderly namespace to default
 $ kubectl config set-context --current --namespace=orderly
 
 # message-broker
-$ kubectl apply -f k8s/message-broker
+$ kubectl apply -f k8s/message-broker/
 
 # database
-$ kubectl apply -f k8s/db
+$ kubectl apply -f k8s/db/
 
 # api
-$ kubectl apply -f k8s/api
+$ kubectl apply -f k8s/api/
+
+# api-gateway
+$ kubectl apply -f k8s/api-gateway/
+
+# proxy
+$ kubectl apply -f k8s/proxy/
 
 # to watch all pods running
 $ watch -n1 kubectl get pods
@@ -94,6 +100,28 @@ $ watch -n1 kubectl get pods
 
 <p align="center">
   <a target="blank"><img src="./docs/images/k8s-cloud.png" width="1000" alt="Kubernetes diagram" style="border-radius:10px;" /></a>
+</p>
+
+<br>
+
+<br>
+
+## Cloud Diagram - Infrastructure
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/k8s-cloud.png" width="1000" alt="Kubernetes diagram" style="border-radius:10px;" /></a>
+</p>
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/cloud-gcp.png" width="1000" alt="Kubernetes diagram" style="border-radius:10px;" /></a>
+</p>
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/k8s-cloud-infra.png" width="1000" alt="Kubernetes diagram" style="border-radius:10px;" /></a>
+</p>
+
+<p align="center">
+  <a target="blank"><img src="./docs/images/repositories.png" width="1000" alt="Kubernetes diagram" style="border-radius:10px;" /></a>
 </p>
 
 <br>

@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kong
+  name: kong-deployment
   namespace: orderly
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kong
+      app: kong-deployment
   template:
     metadata:
       labels:
-        app: kong
+        app: kong-deployment
     spec:
       automountServiceAccountToken: false
       containers:
@@ -22,13 +22,6 @@ spec:
         - containerPort: 8001
         - containerPort: 8443
         - containerPort: 8444
-        resources:
-          requests: # requisita recursos
-            memory: '500Mi'
-            cpu: '1'
-          limits: # limita a utilização dos recursos
-            memory: "500Mi"
-            cpu: "1"
         env:
         - name: KONG_DATABASE
           value: "off"
@@ -57,4 +50,4 @@ spec:
       volumes:
       - name: kong-config-volume
         configMap:
-          name: kong-config
+          name: kong-configmap

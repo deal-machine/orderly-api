@@ -4,7 +4,7 @@ metadata:
   name: api-deployment
   namespace: orderly
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: api
@@ -18,13 +18,6 @@ spec:
       - name: api-container
         image: dealmachine/orderly-api:7
         workingDir: /api
-        resources:
-          requests: # requisita recursos
-            memory: '500Mi'
-            cpu: '1'
-          limits: # limita a utilização dos recursos
-            memory: "500Mi"
-            cpu: "1"
         ports:
         - containerPort: 3000
         envFrom:

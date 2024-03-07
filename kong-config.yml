@@ -60,7 +60,6 @@ services:
           - "Content-Type: application/json"
     methods: [POST, PUT, DELETE, GET]
     strip_path: false
-
   - name: payments
     methods: [GET, POST, DELETE]
     paths:

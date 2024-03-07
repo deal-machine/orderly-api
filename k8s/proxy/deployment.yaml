@@ -19,13 +19,6 @@ spec:
         image: nginx:latest # Use a imagem do NGINX que você já está usando no Docker
         ports:
         - containerPort: 80 # Porta que o NGINX está ouvindo
-        resources:
-          requests: # requisita recursos
-            memory: '500Mi'
-            cpu: '1'
-          limits: # limita a utilização dos recursos
-            memory: "500Mi"
-            cpu: "1"
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx
